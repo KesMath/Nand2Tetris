@@ -9,10 +9,16 @@
  *          {0, in} if sel == 1
  */
 
+// Using Sums of Product Technique: https://www.allaboutcircuits.com/textbook/digital/chpt-7/converting-truth-tables-boolean-expressions/
+// A(~B) = {OutputA, 0} 
+// AB    = {0, OutputB}
+
 CHIP DMux {
     IN in, sel;
     OUT a, b;
 
     PARTS:
-    // Put your code here:
+    Not(in=sel, out=notsel);
+    And(a=in, b=notsel, out=a);
+    And(a=in, b=sel, out=b);
 }
