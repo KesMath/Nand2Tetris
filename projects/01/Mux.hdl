@@ -9,10 +9,32 @@
  *       b otherwise
  */
 
+// Using Sums of Product Technique: https://www.allaboutcircuits.com/textbook/digital/chpt-7/converting-truth-tables-boolean-expressions/
+// We have:
+// Output = A(~B)(~C) + AB(~C) + (~A)BC + ABC
+// (1) Factor out 'BC' out of 3rd and 4th terms
+// Output = A(~B)(~C) + AB(~C) + BC((~A) + A)
+// (2) Apply Complementary Law: (A + (~A) = 1)
+// Output = A(~B)(~C) + AB(~C) + BC(1)
+// (3) Factor b out of 2nd and 3rd terms
+// Output = A(~B)(~C) + B(A(~C) + C)
+// (4) Apply Law of Common Identities: A + ((~A)B) = A + B ... in this case, C + ((~C)A) = A + C
+// Output = A(~B)(~C) + B(A + C)
+// Output = A(~B)(~C) + AB + BC
+
 CHIP Mux {
     IN a, b, sel;
     OUT out;
 
     PARTS:
-    // Put your code here:
+    Not(in=b, out=notb);
+    Not(in=sel, out=notsel);
+    And(a=a, b=notb, out=term1);
+    And(a=term1, b=notsel, out=term2);
+
+    And(a=a, b=b, out=term3);
+    And(a=b, b=sel, out=term4);
+
+    Or(a=term2, b=term3, out=term6);
+    Or(a=term6, b=term4, out=out);
 }
