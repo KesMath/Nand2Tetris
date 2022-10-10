@@ -8,6 +8,9 @@
  * out = not (a == b)
  */
 
+// Using Product of Sum Technique: https://www.allaboutcircuits.com/textbook/digital/chpt-7/converting-truth-tables-boolean-expressions/
+// a OR b & (~a) OR (~b) is logically equivalent but implements the same number of pre-existing gates so no souce of optimization 
+
 CHIP Xor {
     IN a, b;
     OUT out;
