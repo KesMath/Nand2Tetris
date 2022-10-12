@@ -1,4 +1,5 @@
-// 4 WAY MUX
+// 4-WAY MUX 
+// REFERENCE: https://www.electronicshub.org/multiplexerandmultiplexing/
 //S0 	S1 	A 	B 	C 	D 	Out
 //0 	0 	0 	X 	X 	X 	0
 //0 	0 	1 	X 	X 	X 	1
@@ -8,6 +9,10 @@
 //1 	0 	X 	X 	1 	X 	1
 //1 	1 	X 	X 	X 	0 	0
 //1 	1 	X 	X 	X 	1 	1
+
+// Sums of Products
+// Out = A(~S0)(~S1) + B(~S0)(S1) + C(S0)(~S1) + D(S0)(S1)
+// How could you also express this using 3 Muxes??
 
 /**
  * 4-way multiplexor:
@@ -21,5 +26,8 @@ CHIP Mux4Way {
     IN a, b, c, d, sel[2];
     OUT out;
 
-
+    PARTS:
+    Mux(a=a, b=b, sel=sel[0], out=tmp1);
+    Mux(a=c, b=d, sel=sel[0], out=tmp2);
+    Mux(a=tmp1, b=tmp2, sel=sel[1], out=out);
 }
