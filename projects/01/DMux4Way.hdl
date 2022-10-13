@@ -11,10 +11,11 @@
  *                {0, 0, 0, in} if sel == 11
  */
 
+//Hint: This of this as Mux4Way Reflection Over Y-Axis
+
 CHIP DMux4Way {
     IN in, sel[2];
     OUT a, b, c, d;
 
     PARTS:
-    // Put your code here:
 }
