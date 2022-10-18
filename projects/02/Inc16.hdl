@@ -13,5 +13,12 @@ CHIP Inc16 {
     OUT out[16];
 
     PARTS:
-   // Put you code here:
+    // the trick here is to take A input and manipulate it with prior gates so that it produces a 16 bit bus of [0...1]
+    // STEPS:
+    // Recall Complementary Law: http://cs.sou.edu/~nordquip/cs314/notes/BooleanAlgebraLaws.GIF
+    // A + (~A) = 1
+    // 2's complement of 1111 is 0001
+    // then we take that resulting value and use that to increment input!
+
+    Add16(a=in[0..15], b=, out=out[0..15]);
 }
