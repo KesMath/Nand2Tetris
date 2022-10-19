@@ -8,17 +8,45 @@
  * out = in + 1 (arithmetic addition)
  */
 
+// ==============================================================================
+// TECHNIQUE #1
+// The trick here is to take A input and manipulate it with prior gates so that it produces a 16 bit bus of [0...1]
+// STEPS:
+// Recall Complementary Law: http://cs.sou.edu/~nordquip/cs314/notes/BooleanAlgebraLaws.GIF
+// A + (~A) = 1
+// Then we take 2's complement of 1111 is 0001 by converting the entire 16-bit bus using Not16 and modify the LSB (using not gate on a slice of the bus)
+// then we take that resulting value (which is indeed 1) and use that to increment input!
+// ==============================================================================
+// TECHNIQUE #2
+    //HalfAdder(a=in[0], b=true, sum=out[0], carry=tmpcarry0);
+    //HalfAdder(a=in[1], b=tmpcarry0, sum=out[1], carry=tmpcarry1);
+    //HalfAdder(a=in[2], b=tmpcarry1, sum=out[2], carry=tmpcarry2);
+    //HalfAdder(a=in[3], b=tmpcarry2, sum=out[3], carry=tmpcarry3);
+    //HalfAdder(a=in[4], b=tmpcarry3, sum=out[4], carry=tmpcarry4);
+    //HalfAdder(a=in[5], b=tmpcarry4, sum=out[5], carry=tmpcarry5);
+    //HalfAdder(a=in[6], b=tmpcarry5, sum=out[6], carry=tmpcarry6);
+    //HalfAdder(a=in[7], b=tmpcarry6, sum=out[7], carry=tmpcarry7);
+    //HalfAdder(a=in[8], b=tmpcarry7, sum=out[8], carry=tmpcarry8);
+    //HalfAdder(a=in[9], b=tmpcarry8, sum=out[9], carry=tmpcarry9);
+    //HalfAdder(a=in[10], b=tmpcarry9, sum=out[10], carry=tmpcarry10);
+    //HalfAdder(a=in[11], b=tmpcarry10, sum=out[11], carry=tmpcarry11);
+    //HalfAdder(a=in[12], b=tmpcarry11, sum=out[12], carry=tmpcarry12);
+    //HalfAdder(a=in[13], b=tmpcarry12, sum=out[13], carry=tmpcarry13);
+    //HalfAdder(a=in[14], b=tmpcarry13, sum=out[14], carry=tmpcarry14);
+    //HalfAdder(a=in[15], b=tmpcarry14, sum=out[15], carry=throwawaycarry);
+// ==============================================================================
 CHIP Inc16 {
     IN in[16];
     OUT out[16];
 
     PARTS:
-    // the trick here is to take A input and manipulate it with prior gates so that it produces a 16 bit bus of [0...1]
-    // STEPS:
-    // Recall Complementary Law: http://cs.sou.edu/~nordquip/cs314/notes/BooleanAlgebraLaws.GIF
-    // A + (~A) = 1
-    // 2's complement of 1111 is 0001
-    // then we take that resulting value and use that to increment input!
+    // Performing Complementary Law
+    Not16(in=in[0..15], out=notout);
+    Or16(a=in[0..15], b=notout, out=max16bitvalue); //max16bitvalue=65535
 
-    Add16(a=in[0..15], b=, out=out[0..15]);
+    // Performing 2's Complement
+    Not16(in=max16bitvalue, out=min16bitvalue); //min16bitvalue=0
+    ConvertLSB(in=min16bitvalue, out=1valuein16bit);
+
+    Add16(a=in[0..15], b=1valuein16bit, out=out[0..15]);
 }
