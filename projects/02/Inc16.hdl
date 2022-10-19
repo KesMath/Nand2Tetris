@@ -46,7 +46,7 @@ CHIP Inc16 {
 
     // Performing 2's Complement
     Not16(in=max16bitvalue, out=min16bitvalue); //min16bitvalue=0
-    ConvertLSB(in=min16bitvalue, out=1valuein16bit);
+    ConvertLSB(in=min16bitvalue, out=valueof1in16bit);
 
-    Add16(a=in[0..15], b=1valuein16bit, out=out[0..15]);
+    Add16(a=in[0..15], b=valueof1in16bit, out=out[0..15]);
 }
