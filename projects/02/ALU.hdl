@@ -42,5 +42,9 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+   // zero out x and y with Complementary Law: A * (~A) = 0
+   // use Not16 to negate x and y inputs
+   // use some variation of Mux in order to toggle between inputs
+   // we have 6 inbounding toggle switches and 2, 16-bit gates so which Mux resembles that sort of schema??
+   // 2 toggle switches for x, 2 toggle switches for y and 2 toggle switches for the result of X and Y
 }
