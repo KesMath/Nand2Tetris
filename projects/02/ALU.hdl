@@ -26,6 +26,23 @@
 // if (out == 0) set zr = 1
 // if (out < 0) set ng = 1
 
+// SELECTOR GATE TO USE: Mux4Way16 should suffice here as all permutations of zx & nx are covered here:
+// {i.e. x is zeroed and negated (zx = 1, nx = 1),
+//  x is only zeroed (zx = 1, nx = 0),
+//  x is only negated (zx = 0, nx = 1),
+//  x is neither zeroed nor negated (zx = 0, nx = 0)}
+
+// A 4-way mux is an if-then-elif-elif-else
+//     if S1=0 and S2=0
+//         M=A
+//     elif S1=0 and S2=1
+//         M=B
+//     elif S1=1 and S2=0
+//         M=C
+//     else -- S1=1 and S2=1
+//         M=D
+//     endif
+
 CHIP ALU {
     IN  
         x[16], y[16],  // 16-bit inputs        
@@ -42,9 +59,41 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // zero out x and y with Complementary Law: A * (~A) = 0
-   // use Not16 to negate x and y inputs
    // use some variation of Mux in order to toggle between inputs
    // we have 6 inbounding toggle switches and 2, 16-bit gates so which Mux resembles that sort of schema??
    // 2 toggle switches for x, 2 toggle switches for y and 2 toggle switches for the result of X and Y
+
+    //Zero out X bus
+    // -> Complementary Law: A * (~A) = 0
+    Not16(in=x[0..15], out=notx);
+    And16(a=x[0..15], b=notx, out=zeroedx);
+
+    // Negate X bus
+    // -> Not16 Gate
+    // this bus is generated from Complementary Law side effect
+
+    // Zero and Negate x
+    Not16(in=zeroedx, out=max16bitvalueX);
+
+    // Insert into Mux4Way16
+    Mux16(a=x[0..15], b=zeroedx, sel=zx, out=tmp1);
+    Mux16(a=notx, b=max16bitvalueX, sel=zx, out=tmp2);
+    Mux16(a=tmp1, b=tmp2, sel=nx, out=transformedx);
+
+    //Zero out Y bus
+    // -> Complementary Law: A * (~A) = 0
+    Not16(in=y[0..15], out=noty);
+    And16(a=y[0..15], b=noty, out=zeroedy);
+
+    // Negate Y bus
+    // -> Not16 Gate
+    // this bus is generated from Complementary Law side effect
+
+    // Zero and Negate x
+    Not16(in=zeroedy, out=max16bitvalueY);
+
+    // Insert into Mux4Way16
+    Mux16(a=y[0..15], b=zeroedy, sel=zy, out=tmp11);
+    Mux16(a=noty, b=max16bitvalueY, sel=zy, out=tmp21);
+    Mux16(a=tmp11, b=tmp21, sel=ny, out=transformedy);
 }
