@@ -96,4 +96,21 @@ CHIP ALU {
     Mux16(a=y[0..15], b=zeroedy, sel=zy, out=tmp11);
     Mux16(a=noty, b=max16bitvalueY, sel=zy, out=tmp21);
     Mux16(a=tmp11, b=tmp21, sel=ny, out=transformedy);
+
+    // X + Y
+    Add16(a=transformedx, b=transformedy, out=sumofXY);
+
+    // X & Y
+    And16(a=transformedx, b=transformedy, out=XbitwiseAndY);
+
+
+    // compute out = x + y (if 1) or x & y (if 0)
+    Mux16(a=XbitwiseAndY, b=sumofXY, sel=f, out=FontoXandY);
+
+
+    // if (no == 1) set out = !out
+    Not16(in=FontoXandY, out=NotFontoXandY);
+
+    Mux16(a=FontoXandY, b=NotFontoXandY, sel=no, out=out);
+
 }
