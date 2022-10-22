@@ -119,6 +119,27 @@ CHIP ALU {
     // else if 1-bit output == 0, indeed output is 0
     Or16Way(in=tmpout, out=selector);
     Mux(a=true, b=false, sel=selector, out=zr);
+
+
+    // ng; // 1 if (out < 0),  0 otherwise
+    // AHH HA MOMENT: Perform 2's Complement on assuming negative number and Check MSB (most-significant-bit)
+    // According to Chapter 2 of "The Elements of Computing Systems":
+    // "The codes of all positive nubers begin with a 0."
+    // "The codes of all negative numbers begin with a 1."
+    // With this fact, we can perform 2's Complement on Negative number
+    // to transform it to a positive number:
+    // if MSB(2'SComplement(output)) == 0, it's indeed a signed number and ng = 1! (Except when output = 0!!)
+    // else MSB(2'SComplement(output)) == 1, it was a positive number hence ng = 0!
+
+    // Performing 2's Complement
+    Not16(in=tmpout, out=flippedTmpout);
+    Or16(a=tmpout, b=flippedTmpout, out=max16bitvalue); //max16bitvalue=65535
+
+    Not16(in=max16bitvalue, out=min16bitvalue); //min16bitvalue=0
+    ConvertLSB(in=min16bitvalue, out=valueof1in16bit);
+    Add16(a=tmpout, b=valueof1in16bit, out=TwoComplementofTmpOut);
+    ExtractMSB(in=TwoComplementofTmpOut, out=toggleSwitch);
+    Mux(a=true, b=false, sel=toggleSwitch, out=ng);
     
     //Double Negative Law
     Not16(in=tmpout, out=nottmpout);
