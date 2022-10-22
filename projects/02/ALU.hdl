@@ -111,6 +111,16 @@ CHIP ALU {
     // if (no == 1) set out = !out
     Not16(in=FontoXandY, out=NotFontoXandY);
 
-    Mux16(a=FontoXandY, b=NotFontoXandY, sel=no, out=out);
+    Mux16(a=FontoXandY, b=NotFontoXandY, sel=no, out=tmpout);
 
+    // zr == 1 if (out == 0), 0 otherwise
+    // AHH HA MOMENT: OR all 16-bits in output into a 1-bit output
+    // if at least 1 bit is a one, then output != 0
+    // else if 1-bit output == 0, indeed output is 0
+    Or16Way(in=tmpout, out=selector);
+    Mux(a=true, b=false, sel=selector, out=zr);
+    
+    //Double Negative Law
+    Not16(in=tmpout, out=nottmpout);
+    Not16(in=nottmpout, out=out);
 }
