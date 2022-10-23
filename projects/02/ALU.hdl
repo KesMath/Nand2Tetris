@@ -118,7 +118,7 @@ CHIP ALU {
     // if at least 1 bit is a one, then output != 0
     // else if 1-bit output == 0, indeed output is 0
     Or16Way(in=tmpout, out=selector);
-    Mux(a=true, b=false, sel=selector, out=zr);
+    Mux(a=true, b=false, sel=selector, out=tmpzr);
 
 
     // ng; // 1 if (out < 0),  0 otherwise
@@ -141,11 +141,16 @@ CHIP ALU {
     ExtractMSB(in=TwoComplementofTmpOut, out=toggleSwitch);
 
     //FIXME: need some case logic to determine ng value only if zr == 0
-    // Specifically, if zr == 1 (implies output=0), ng must be set to 0.
-    // else, if zr == 0 (implies that out != 0), thus ng can be calculated with mux gate below!
-    Mux(a=true, b=false, sel=toggleSwitch, out=ng);
+    // Specifically, if zr == 1 (implies output = 0), ng must be set to 0.
+    // Otherwise, if zr == 0 (implies that out != 0), thus ng must be calculated with mux gate below!
+    Mux(a=toggleSwitch, b=false, sel=tmpzr, out=ng);
     
-    //Double Negative Law
+    //Double Negative Law to output 16-bit result
     Not16(in=tmpout, out=nottmpout);
     Not16(in=nottmpout, out=out);
+
+    //Double Negative Law to output zr result
+    Not(in=tmpzr, out=nottmpzr);
+    Not(in=nottmpzr, out=zr);
+
 }
