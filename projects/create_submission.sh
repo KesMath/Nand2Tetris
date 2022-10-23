@@ -9,10 +9,11 @@
 #./create_submission 3
 ##########################
 
-mkdir 0$1/project$1
-cp *.hdl project$1/
-zip project$1/project$1.zip *
+export PROJECT_DIR=0$1/project$1
+mkdir $PROJECT_DIR
+cp $PROJECT_DIR/*.hdl $PROJECT_DIR/
+zip $PROJECT_DIR/project$1.zip *
 #cleanup
-rm *.hdl
-mv project$1.zip ../
-rm -r project$1/
+rm $PROJECT_DIR/*.hdl
+mv $PROJECT_DIR.zip ../
+rm -r $PROJECT_DIR/
