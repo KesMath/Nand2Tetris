@@ -7,7 +7,7 @@
 ##### RUN CMD #############
 # cd ~/nand2tetris/projects
 #./create_submission 3
-##########################
+###########################
 
 export PROJECT_DIR=0$1/project$1
 mkdir $PROJECT_DIR
