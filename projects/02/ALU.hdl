@@ -137,10 +137,11 @@ CHIP ALU {
 
     Not16(in=max16bitvalue, out=min16bitvalue); //min16bitvalue=0
     ConvertLSB(in=min16bitvalue, out=valueof1in16bit);
-    Add16(a=tmpout, b=valueof1in16bit, out=TwoComplementofTmpOut);
+    Add16(a=flippedTmpout, b=valueof1in16bit, out=TwoComplementofTmpOut);
+    //FIXME: why is toggleSwitch returning 0 when output is 1??
     ExtractMSB(in=TwoComplementofTmpOut, out=toggleSwitch);
 
-    //FIXME: need some case logic to determine ng value only if zr == 0
+    //Need some case logic to determine ng value only if zr == 0
     // Specifically, if zr == 1 (implies output = 0), ng must be set to 0.
     // Otherwise, if zr == 0 (implies that out != 0), thus ng must be calculated with mux gate below!
     Mux(a=true, b=false, sel=toggleSwitch, out=tmpng);
