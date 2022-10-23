@@ -143,7 +143,8 @@ CHIP ALU {
     //FIXME: need some case logic to determine ng value only if zr == 0
     // Specifically, if zr == 1 (implies output = 0), ng must be set to 0.
     // Otherwise, if zr == 0 (implies that out != 0), thus ng must be calculated with mux gate below!
-    Mux(a=toggleSwitch, b=false, sel=tmpzr, out=ng);
+    Mux(a=true, b=false, sel=toggleSwitch, out=tmpng);
+    Mux(a=tmpng, b=false, sel=tmpzr, out=ng);
     
     //Double Negative Law to output 16-bit result
     Not16(in=tmpout, out=nottmpout);
