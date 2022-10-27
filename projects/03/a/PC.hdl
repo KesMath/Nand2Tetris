@@ -21,9 +21,9 @@ CHIP PC {
     And16(a=in, b=notin, out=zero);
 
     //Loading Value
-    //Register(in=in, load=load, out=reg);
+    Register(in=in, load=load, out=reg);
 
-    Mux16(a=in, b=zero, sel=reset, out=out);
+    Mux16(a=reg, b=zero, sel=reset, out=out);
 
     //Incremented Value
     //Inc16(in=in, out=incrementedinput);
