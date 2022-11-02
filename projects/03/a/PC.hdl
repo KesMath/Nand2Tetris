@@ -11,6 +11,10 @@
  * else                    out[t+1] = out[t]
  */
 
+// So, no matter the input combination, if reset is true, then you perform only reset;
+// if it is false, and load is true, then you perform only load;
+// only if reset and load are false you take inc into account
+
 CHIP PC {
     IN in[16],load,inc,reset;
     OUT out[16];
@@ -20,14 +24,23 @@ CHIP PC {
     Not16(in=in, out=notin);
     And16(a=in, b=notin, out=zero);
 
-    //Loading Value
-    Register(in=in, load=load, out=reg);
-
-    Mux16(a=reg, b=zero, sel=reset, out=out);
-
-    //Incremented Value
-    //Inc16(in=in, out=incrementedinput);
+    // Incremented Value
+    Inc16(in=in, out=incrementedinput);
 
 
+    // (1) What should the load signal 
+    // (load=1 is write value and load=0 is read value) to the register be
+    // (~A) + (~B) + (~C) = Output
+    Not(in=reset, out=notreset);
+    Not(in=load, out=notload);
+    Not(in=inc, out=notinc);
+    Or(a=notreset, b=notload, out=tmp);
+    Or(a=tmp, b=notinc, out=loadsignal);
+
+
+    // (2) Which 16-bit value (zero, original input or incremented) should be forwarded/saved by the register
+    Mux16(a= , b=zero, sel=reset, out=tmpout0);
+    Mux16(a=tmpout0, b=, sel=, out=tmpout1);
+    Register(in=tmpout1, load=loadsignal, out=out);
 
 }
