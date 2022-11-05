@@ -39,9 +39,9 @@ CHIP PC {
 
 
     // (2) Which 16-bit value (zero, original input or incremented) should be forwarded/saved by the register
-    Mux16(a=regout, b=zero, sel=reset, out=tmpout0);
-    Mux16(a=tmpout0, b=incrementedinput, sel=inc, out=tmpout1);
-    Mux16(a=tmpout1, b=in, sel=load, out=tmpout2);
+    Mux16(a=regout, b=incrementedinput, sel=inc, out=tmpout0);
+    Mux16(a=tmpout0, b=in, sel=load, out=tmpout1);
+    Mux16(a=tmpout1, b=zero, sel=reset, out=tmpout2);
     Register(in=tmpout2, load=loadsignal, out=regout, out=out);
 
 }
