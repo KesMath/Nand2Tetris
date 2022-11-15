@@ -10,19 +10,33 @@
 // R0 >= 0, R1 >= 0, and R0*R1 < 32768.
 
 
-@0
-D = M        // D = RAM[0]
+// initialize program
+
+(loop)
+    // read in R1 and break if it's equal to 0
+    @1
+    //@exiting_loop
+    M;JEQ
 
 
-// looping structure here
-@0
-D = D + M    // D = D + RAM[0]
+    // add R0 to D-Register
+    @0
+    D = D + M    // D = D + RAM[0]
 
-// looping structure here
+    //decrement R1 and set it to register R1
+    @R1
+    M = M - 1   // M[1] = M[1] - 1
+
+    @loop
+    0; JMP
 
 
+(exiting_loop)
 @2
 M = D        // RAM[2] = D
 
-@6
+
+// Program end
+(infinite_loop)
+@infinite_loop
 0; JMP       // infinite loop to prevent NOP SLED attack
