@@ -14,11 +14,10 @@
 
 @2
 M = 0
-
+D = 0
 (loop)
     // read in R1 and break if it's equal to 0
     @1
-    //@exiting_loop
     M;JEQ
 
 
