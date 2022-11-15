@@ -12,6 +12,9 @@
 
 // initialize program
 
+@2
+M = 0
+
 (loop)
     // read in R1 and break if it's equal to 0
     @1
