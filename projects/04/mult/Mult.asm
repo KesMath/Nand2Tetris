@@ -9,4 +9,15 @@
 // This program only needs to handle arguments that satisfy
 // R0 >= 0, R1 >= 0, and R0*R1 < 32768.
 
-// Put your code here.
+
+@0
+D = M        // D = RAM[0]
+
+@1
+D = D + M    // D = D + RAM[1]
+
+@2
+M = D        // RAM[2] = D
+
+@6
+0; JMP       // infinite loop to prevent NOP SLED attack
