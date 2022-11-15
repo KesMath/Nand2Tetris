@@ -26,17 +26,8 @@
     //decrement R1 and set it to register R1
     @R1
     M = M - 1   // M[1] = M[1] - 1
+    @2
+    M = D        // RAM[2] = D
 
     @loop
     0; JMP
-
-
-(exiting_loop)
-@2
-M = D        // RAM[2] = D
-
-
-// Program end
-(infinite_loop)
-@infinite_loop
-0; JMP       // infinite loop to prevent NOP SLED attack
