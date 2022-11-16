@@ -12,3 +12,23 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+
+
+
+// color screen black
+@SCREEN
+D = 8191
+(loop)
+
+    // break when D Register reaches 0 which implies end screen buffer has been reached
+    D;JEQ    
+
+    M = -1
+    A = A + 1
+    D = D - 1
+
+    @loop
+    0; JMP
+
+
+// color screen white
