@@ -16,8 +16,9 @@
 
 
 // color screen black
+@8191
+D = A
 @SCREEN
-D = 8191
 (loop)
 
     // break when D Register reaches 0 which implies end screen buffer has been reached
