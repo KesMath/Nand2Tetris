@@ -14,7 +14,7 @@
 // Put your code here.
 
 // ############ KEYBOARD LISTENER #################
-
+(KBD_LISTENER)
 (loop)
 
     @KBD
@@ -22,7 +22,7 @@
     @COLOR_SCREEN_BLACK
     D;JNE
 
-    @loop
+    @COLOR_SCREEN_WHITE
     0;JMP
 
 // ##################################################
@@ -44,7 +44,7 @@ M = D
 D = A   // D.Register = 16384
 
 
-(loop)
+(black_fill_loop)
 
     // ######### TEMPORARILY STORING D-REGISTER VALUE IN RAM[2] ############# 
     @R2
@@ -54,7 +54,7 @@ D = A   // D.Register = 16384
     // ######### BREAK CASE #############
     @R1
     D = M  // D = RAM[1]
-    @END   // Break occurs when R1 = 0
+    @KBD_LISTENER   // Break occurs when R1 = 0
     D;JEQ
 
     // ######## SETTING A-REGISTER BACK TO ORIGINAL VALUE STORED IN D-REGISTER  ###########
@@ -70,19 +70,52 @@ D = A   // D.Register = 16384
     @R1
     M = M - 1       // RAM[1] = RAM[1] - 1
 
-    @loop
+    @black_fill_loop
     0; JMP
     // ######### END OF LOOP BODY #########
-
-
-// ####### INFINITE LOOP TO HAULT CPU PROGRAM COUNTER #######
-(END)
-@R2
-M = 0   // RAM[2] = 0 ... cleanup register
-@END
-0;JMP
 
 
 
 
 (COLOR_SCREEN_WHITE)
+// ########### SETUP ###########
+@8192
+D = A
+
+@R1     // RAM[1] = 8192 which will serve as counter for break case 
+M = D
+
+// ####### END OF SETUP #######
+@SCREEN
+D = A   // D.Register = 16384
+
+
+(white_fill_loop)
+
+    // ######### TEMPORARILY STORING D-REGISTER VALUE IN RAM[2] ############# 
+    @R2
+    M = D   // RAM[2] = D
+
+
+    // ######### BREAK CASE #############
+    @R1
+    D = M  // D = RAM[1]
+    @KBD_LISTENER   // Break occurs when R1 = 0
+    D;JEQ
+
+    // ######## SETTING A-REGISTER BACK TO ORIGINAL VALUE STORED IN D-REGISTER  ###########
+    @R2
+    D = M
+    A = D
+
+    // ############ LOOP BODY ############
+    M = 0
+    A = A + 1
+    D = A
+
+    @R1
+    M = M - 1       // RAM[1] = RAM[1] - 1
+
+    @white_fill_loop
+    0; JMP
+    // ######### END OF LOOP BODY #########
