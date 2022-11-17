@@ -15,31 +15,60 @@
 
 
 
-// color screen black
+// COLOR SCREEN BLACK
+
+// ########### SETUP ###########
 @8192
 D = A
 
 @R1     // RAM[1] = 8192 which will serve as counter for break case 
 M = D
 
+// ####### END OF SETUP #######
 @SCREEN
 D = A   // D.Register = 16384
+
+
 (loop)
 
-    // Break occurs when R1 = 0
+    // ######### TEMPORARILY STORING D-REGISTER VALUE IN RAM[2] ############# 
+    @R2
+    M = D   // RAM[2] = D
+
+
+    // ######### BREAK CASE #############
     @R1
-    M;JEQ
+    D = M  // D = RAM[1]
+    @END   // Break occurs when R1 = 0
+    D;JEQ
+
+    // ######## SETTING A-REGISTER BACK TO ORIGINAL VALUE STORED IN D-REGISTER  ###########
+    @R2
+    D = M
     A = D
 
+    // ############ LOOP BODY ############
     M = -1
     A = A + 1
     D = A
 
-    // decrement R1 counter
     @R1
     M = M - 1       // RAM[1] = RAM[1] - 1
 
     @loop
     0; JMP
+    // ######### END OF LOOP BODY #########
 
-// color screen white
+
+// ####### INFINITE LOOP TO HAULT CPU PROGRAM COUNTER #######
+(END)
+@R2
+M = 0   // RAM[2] = 0 ... cleanup register
+@END
+0;JMP
+
+
+
+
+
+// COLOR SCREEN WHITE
