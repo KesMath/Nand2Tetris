@@ -13,9 +13,24 @@
 
 // Put your code here.
 
+// ############ KEYBOARD LISTENER #################
+
+(loop)
+
+    @KBD
+    D = M  //D = RAM[24576]
+    @COLOR_SCREEN_BLACK
+    D;JNE
+
+    @loop
+    0;JMP
+
+// ##################################################
 
 
-// COLOR SCREEN BLACK
+
+
+(COLOR_SCREEN_BLACK)
 
 // ########### SETUP ###########
 @8192
@@ -70,5 +85,4 @@ M = 0   // RAM[2] = 0 ... cleanup register
 
 
 
-
-// COLOR SCREEN WHITE
+(COLOR_SCREEN_WHITE)
