@@ -16,17 +16,17 @@
 
 
 // color screen black
-@8191
-D = A
+
 @SCREEN
+D = A
 (loop)
 
-    // break when D Register reaches 0 which implies end screen buffer has been reached
-    D;JEQ    
+    // TODO: add break condition
+    A = D
 
     M = -1
     A = A + 1
-    D = D - 1
+    D = A
 
     @loop
     0; JMP
