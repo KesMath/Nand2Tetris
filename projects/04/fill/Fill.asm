@@ -16,20 +16,30 @@
 
 
 // color screen black
+@8192
+D = A
+
+@R1     // RAM[1] = 8192 which will serve as counter for break case 
+M = D
 
 @SCREEN
-D = A
+D = A   // D.Register = 16384
 (loop)
 
-    // TODO: add break condition
+    // Break occurs when R1 = 0
+    @R1
+    M;JEQ
     A = D
 
     M = -1
     A = A + 1
     D = A
 
+    // decrement R1 counter
+    @R1
+    M = M - 1       // RAM[1] = RAM[1] - 1
+
     @loop
     0; JMP
-
 
 // color screen white
