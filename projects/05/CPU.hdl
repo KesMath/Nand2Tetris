@@ -47,6 +47,6 @@ CHIP CPU {
     Mux16(a=instruction, b=ALUOutput, sel=instruction[15], out=ARegisterInput);
     // TODO: choose different load value... if this bit is chosen, A instruction will not get loaded into register since write bit will be 0!
     // we can invert that load bit with "Not(in=instruction[15], out=negateIn)" ... how will this influence C instruction??
-    ARegister(in=ARegisterInput, load=instruction[15], out=ARegisterOutput);
+    ARegister(in=ARegisterInput, load=instruction[15], out=addressM);
 
 }
