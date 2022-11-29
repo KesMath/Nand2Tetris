@@ -53,7 +53,7 @@ CHIP CPU {
     // else when opt-code is 1 (i.e. C instruction is present), keep it as is!
 
     Not(in=instruction[15], out=invertIn);
-    Mux(a=invertIn, b=instruction[15], sel=instruction[15], out=muxOut);
-    ARegister(in=ARegisterInput, load=muxOut, out=addressM); 
+    Or(a=invertIn, b=instruction[15], out=orOut);
+    ARegister(in=ARegisterInput, load=orOut, out=addressM); 
 
 }
