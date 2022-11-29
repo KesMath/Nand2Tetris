@@ -39,5 +39,13 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    // Recall: Hack Platform consists of only 2 types of instructions:
+    // Address Instruction (MSB opt-code = 0) & Compute Instruction (MSB opt-code = 1)
+    // NOTE: when instruction opt-code is 0, we want instruction to be fed in from the ROM chip
+    // else when opt-code is 1, we want instruction to be fed in from ALU output 
+
+    Mux16(a=instruction, b=ALUOutput, sel=instruction[15], out=ARegisterInput);
+    //TODO: choose different load value... if this bit is chosen, A instruction will not get loaded into register since write bit will be 0!
+    Register(in=ARegisterInput, load=instruction[15], out=ARegisterOutput);
+
 }
