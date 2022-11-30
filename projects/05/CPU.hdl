@@ -65,6 +65,6 @@ CHIP CPU {
     Or(a=tmpout1, b=zr, out=tmpout2);
     Or(a=tmpout2, b=ng, out=load);
 
-    Mux(a=1, b=0, sel=load, out=inc);
+    Mux(a=true, b=false, sel=load, out=inc);
     PC(in=ARegisterOut, load=load, inc=inc, reset=reset, out=pc);
 }
