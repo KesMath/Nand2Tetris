@@ -45,15 +45,16 @@ CHIP CPU {
     // else when opt-code is 1, we want instruction to be fed in from ALU output 
 
     Mux16(a=instruction, b=ALUOutput, sel=instruction[15], out=ARegisterInput);
-    // FIXME: there is a load bit discrepancy... if opt-code is chosen, A instruction will not get loaded into register since write bit will be 0!
-    // but C instruction will get loaded since it's opt-code is 1 which is quite ironic here ... (A instruction doesn't even get to get loaded into it's own register!)
 
-    // Question 1: Sanity check that both A and C instruction needs to get stored in A register? True b/c it's implied by output of Mux16
-    // Question 2: Can we devise logic implementation in which when opt-code is 0 (i.e. A instruction is present), we flip it to 1 so it persists in register
-    // else when opt-code is 1 (i.e. C instruction is present), keep it as is!
+    ARegister(in=ARegisterInput, load=instruction[5], out=ARegisterOut);
 
-    Not(in=instruction[15], out=invertIn);
-    Or(a=invertIn, b=instruction[15], out=orOut);
-    ARegister(in=ARegisterInput, load=orOut, out=addressM); 
 
+    Mux16(a=inM, b=ARegisterOut, sel=, out=muxOut);
+    DRegister(in=ALUOutput, load=instruction[4], out=DRegisterOut);  
+    ALU(x=DRegisterOut, y=muxOut, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOutput, out=outM, zr=zeroOut, ng=negOut);
+
+
+    //Double Negative Law to output writeM result
+    Not(in=instruction[3], out=notdestbit);
+    Not(in=notdestbit, out=writeM);
 }
