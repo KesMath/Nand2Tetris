@@ -45,16 +45,26 @@ CHIP CPU {
     // else when opt-code is 1, we want instruction to be fed in from ALU output 
 
     Mux16(a=instruction, b=ALUOutput, sel=instruction[15], out=ARegisterInput);
-
+    //TODO: split output wire to addressM
     ARegister(in=ARegisterInput, load=instruction[5], out=ARegisterOut);
 
 
     Mux16(a=inM, b=ARegisterOut, sel=instruction[12], out=muxOut);
     DRegister(in=ALUOutput, load=instruction[4], out=DRegisterOut);  
-    ALU(x=DRegisterOut, y=muxOut, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOutput, out=outM, zr=zeroOut, ng=negOut);
+    ALU(x=DRegisterOut, y=muxOut, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOutput, out=outM, zr=zr, ng=ng);
 
 
     //Double Negative Law to output writeM result
     Not(in=instruction[3], out=notdestbit);
     Not(in=notdestbit, out=writeM);
+
+    //JUMP DECISION: J = TRUE if ... f(jump bits, ALU control outputs) = 1, else 0
+    // USING PRODUCT OF SUMS: given that truth table of {j1,j2,j3,zr,ng} has outputs mostly = 1 except for no jump case statements
+    Or(a=instruction[0], b=instruction[1], out=tmpout0);
+    Or(a=tmpout0, b=instruction[2], out=tmpout1);
+    Or(a=tmpout1, b=zr, out=tmpout2);
+    Or(a=tmpout2, b=ng, out=load);
+
+    Mux(a=1, b=0, sel=load, out=inc);
+    PC(in=ARegisterOut, load=load, inc=inc, reset=reset, out=pc);
 }
