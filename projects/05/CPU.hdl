@@ -44,20 +44,31 @@ CHIP CPU {
     // NOTE: when instruction opt-code is 0, we want instruction to be fed in from the ROM chip
     // else when opt-code is 1, we want instruction to be fed in from ALU output 
 
+    // ############## ALU output destination logic for ARegister ##############
     Mux16(a=instruction, b=ALUOutput, sel=instruction[15], out=ARegisterInput);
     ARegister(in=ARegisterInput, load=instruction[5], out=ARegisterOut, out[0..14]=addressM);
 
     Mux16(a=inM, b=ARegisterOut, sel=instruction[12], out=aluInput);
+    // #########################################################################
 
-    //confirm it's a C instruction with MSB
+
+    // ############## ALU output destination logic for DRegister ##############
+
     And(a=instruction[4], b=instruction[15], out=loadD);
-    DRegister(in=ALUOutput, load=loadD, out=DRegisterOut);  
+    DRegister(in=ALUOutput, load=loadD, out=DRegisterOut);
+
+    // #########################################################################  
+
 
     ALU(x=DRegisterOut, y=aluInput, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOutput, out=outM, zr=zr, ng=ng);
 
-    //only write to RAM[A] when it's an A instruction and d3 is ON
-    And(a=instruction[15], b=instruction[3], out=writeM);
 
+    // ############################# writeM Logic per Diagram #########################################
+    And(a=instruction[15], b=instruction[3], out=writeM);
+    // ################################################################################################
+
+
+    // ############################## Jump Logic ######################################################
     //JUMP DECISION: J = TRUE if ... f(jump bits, ALU control outputs) = 1, else 0
     // USING PRODUCT OF SUMS: given that truth table of {j1,j2,j3,zr,ng} has outputs mostly = 1 except for no jump case statements
     Or(a=instruction[0], b=instruction[1], out=tmpout0);
@@ -70,4 +81,5 @@ CHIP CPU {
 
     Mux(a=true, b=false, sel=loadPC, out=inc);
     PC(in=ARegisterOut, load=loadPC, inc=inc, reset=reset, out[0..14]=pc);
+    // ##############################################################################################
 }
