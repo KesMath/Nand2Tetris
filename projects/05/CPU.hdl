@@ -46,13 +46,11 @@ CHIP CPU {
 
     Mux16(a=instruction, b=ALUOutput, sel=instruction[15], out=ARegisterInput);
     //TODO: addressM is 15 bit output while ARegister specification requires 16 bit output??
-    ARegister(in=ARegisterInput, load=instruction[5], out=ARegisterOut, out=addressM);
-
+    ARegister(in=ARegisterInput, load=instruction[5], out=ARegisterOut, out[0..14]=addressM);
 
     Mux16(a=inM, b=ARegisterOut, sel=instruction[12], out=muxOut);
     DRegister(in=ALUOutput, load=instruction[4], out=DRegisterOut);  
     ALU(x=DRegisterOut, y=muxOut, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOutput, out=outM, zr=zr, ng=ng);
-
 
     //Double Negative Law to output writeM result
     Not(in=instruction[3], out=notdestbit);
@@ -67,5 +65,5 @@ CHIP CPU {
 
     Mux(a=true, b=false, sel=load, out=inc);
     //TODO: pc is 15 bit output while PC specification requires 16 bit output??
-    PC(in=ARegisterOut, load=load, inc=inc, reset=reset, out=pc);
+    PC(in=ARegisterOut, load=load, inc=inc, reset=reset, out[0..14]=pc);
 }
