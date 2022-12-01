@@ -59,7 +59,10 @@ CHIP CPU {
     Or(a=instruction[0], b=instruction[1], out=tmpout0);
     Or(a=tmpout0, b=instruction[2], out=tmpout1);
     Or(a=tmpout1, b=zr, out=tmpout2);
-    Or(a=tmpout2, b=ng, out=load);
+    Or(a=tmpout2, b=ng, out=tmpload);
+
+    //confirm it's a C instruction with MSB
+    And(a=instruction[15], b=tmpload, out=load);
 
     Mux(a=true, b=false, sel=load, out=inc);
     PC(in=ARegisterOut, load=load, inc=inc, reset=reset, out[0..14]=pc);
