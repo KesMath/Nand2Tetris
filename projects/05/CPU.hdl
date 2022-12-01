@@ -45,7 +45,6 @@ CHIP CPU {
     // else when opt-code is 1, we want instruction to be fed in from ALU output 
 
     Mux16(a=instruction, b=ALUOutput, sel=instruction[15], out=ARegisterInput);
-    //TODO: addressM is 15 bit output while ARegister specification requires 16 bit output??
     ARegister(in=ARegisterInput, load=instruction[5], out=ARegisterOut, out[0..14]=addressM);
 
     Mux16(a=inM, b=ARegisterOut, sel=instruction[12], out=muxOut);
@@ -64,6 +63,5 @@ CHIP CPU {
     Or(a=tmpout2, b=ng, out=load);
 
     Mux(a=true, b=false, sel=load, out=inc);
-    //TODO: pc is 15 bit output while PC specification requires 16 bit output??
     PC(in=ARegisterOut, load=load, inc=inc, reset=reset, out[0..14]=pc);
 }
