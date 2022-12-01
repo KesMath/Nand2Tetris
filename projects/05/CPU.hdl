@@ -47,13 +47,13 @@ CHIP CPU {
     Mux16(a=instruction, b=ALUOutput, sel=instruction[15], out=ARegisterInput);
     ARegister(in=ARegisterInput, load=instruction[5], out=ARegisterOut, out[0..14]=addressM);
 
-    Mux16(a=inM, b=ARegisterOut, sel=instruction[12], out=muxOut);
+    Mux16(a=inM, b=ARegisterOut, sel=instruction[12], out=aluInput);
 
     //confirm it's a C instruction with MSB
     And(a=instruction[4], b=instruction[15], out=loadD);
     DRegister(in=ALUOutput, load=loadD, out=DRegisterOut);  
 
-    ALU(x=DRegisterOut, y=muxOut, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOutput, out=outM, zr=zr, ng=ng);
+    ALU(x=DRegisterOut, y=aluInput, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOutput, out=outM, zr=zr, ng=ng);
 
     //only write to RAM[A] when it's an A instruction and d3 is ON
     And(a=instruction[15], b=instruction[3], out=writeM);
