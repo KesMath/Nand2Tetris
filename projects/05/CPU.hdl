@@ -51,10 +51,8 @@ CHIP CPU {
     DRegister(in=ALUOutput, load=instruction[4], out=DRegisterOut);  
     ALU(x=DRegisterOut, y=muxOut, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOutput, out=outM, zr=zr, ng=ng);
 
-    
-    //FIXME: use destination bits (indexed 3->5 to determine writeM value)
-    Not(in=instruction[3], out=notdestbit);
-    Not(in=notdestbit, out=writeM);
+    //only write to RAM[A] when it's an A instruction and d3 is ON
+    And(a=instruction[15], b=instruction[3], out=writeM);
 
     //JUMP DECISION: J = TRUE if ... f(jump bits, ALU control outputs) = 1, else 0
     // USING PRODUCT OF SUMS: given that truth table of {j1,j2,j3,zr,ng} has outputs mostly = 1 except for no jump case statements
