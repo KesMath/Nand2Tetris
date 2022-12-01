@@ -68,7 +68,7 @@ CHIP CPU {
 
 
     // ############################# writeM Logic per Diagram #########################################
-    And(a=instruction[15], b=instruction[3], out=writeM);
+    And(a=instruction[15], b=instruction[3], out=writeM); //write to RAM[A] when address is C-type Instruction
     // ################################################################################################
 
 
