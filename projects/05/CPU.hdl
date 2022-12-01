@@ -51,7 +51,8 @@ CHIP CPU {
     DRegister(in=ALUOutput, load=instruction[4], out=DRegisterOut);  
     ALU(x=DRegisterOut, y=muxOut, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=ALUOutput, out=outM, zr=zr, ng=ng);
 
-    //Double Negative Law to output writeM result
+    
+    //FIXME: use destination bits (indexed 3->5 to determine writeM value)
     Not(in=instruction[3], out=notdestbit);
     Not(in=notdestbit, out=writeM);
 
