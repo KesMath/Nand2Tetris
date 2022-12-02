@@ -48,9 +48,16 @@ CHIP CPU {
 
 
     // ############## ALU output destination logic for ARegister ##############
-    // FIXME!!
-    Mux16(a=instruction, b=ALUOutput, sel=instruction[15], out=ARegisterInput);
-    ARegister(in=ARegisterInput, load=instruction[5], out=ARegisterOut, out[0..14]=addressM);
+    // load bit for A-Register is determined from two conditions:
+    // if MSB has opt-code of 0 and instruction[5] {=d1} is true
+
+    // also, if d1 is set, we load ALUOutput into A-reg
+    // if MSB is set, we set instruction into A-reg
+
+    Not(in=instruction[15], out=NotAIns); // need to negate signal given that AND with 0 operand will always lead to load being off
+    And(a=instruction[5], b=NotAIns, out=loadA); 
+    Mux16(a=instruction, b=ALUOutput, sel=loadA, out=ARegisterInput);
+    ARegister(in=ARegisterInput, load=loadA, out=ARegisterOut, out[0..14]=addressM);
 
     Mux16(a=inM, b=ARegisterOut, sel=instruction[12], out=aluInput);
     // #########################################################################
