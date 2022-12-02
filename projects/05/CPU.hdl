@@ -75,6 +75,7 @@ CHIP CPU {
 
 
     // ############################# writeM Logic per Diagram #########################################
+    //FIXME: fix addressM and outM
     And(a=instruction[15], b=instruction[3], out=writeM); //write to RAM[A] when address is C-type Instruction
     // ################################################################################################
 
