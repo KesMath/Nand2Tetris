@@ -59,7 +59,7 @@ CHIP CPU {
     Mux16(a=instruction, b=ALUOutput, sel=loadA, out=ARegisterInput);
     ARegister(in=ARegisterInput, load=loadA, out=ARegisterOut, out[0..14]=addressM);
 
-    Mux16(a=inM, b=ARegisterOut, sel=instruction[12], out=aluInput);
+    Mux16(a=ARegisterOut, b=inM, sel=instruction[12], out=aluInput); //FIGURE 4.3 in nand2tetris ...  when comp bit is true, we load from RAM[A].. else we load from A reg
     // #########################################################################
 
 
