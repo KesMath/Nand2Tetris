@@ -89,6 +89,10 @@ CHIP CPU {
     Or(a=tmpout2, b=ng, out=tmpload);
 
     //confirm it's a C instruction with MSB
+    // FIXME: fix loadPC and inc discrepancy
+    // with AND gate on line 94, loadPC will always be 0 when it's an A instruction, therefore A-Register will not hold any value ... but inc bit works fine with that gate
+    // on flip side, changing it to an OR gate sets load gate but fails to set inc as well so we need to:
+    // 
     And(a=instruction[15], b=tmpload, out=loadPC);
 
     Mux(a=true, b=false, sel=loadPC, out=inc);
