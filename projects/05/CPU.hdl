@@ -82,13 +82,17 @@ CHIP CPU {
 
     // ############################## Jump Logic ######################################################
     //JUMP DECISION: J = TRUE if ... f(jump bits, ALU control outputs) = 1, else 0
+    And(a=instruction[1], b=zr, out=zeroPin);
+    And(a=instruction[2], b=ng, out=negativePin);
     
+    Not(in=zr, out=nonZero);
+    Not(in=ng, out=nonNeg);
+    And(a=nonZero, b=nonNeg, out=ps);
 
-    //confirm it's a C instruction with MSB
-    // FIXME: fix loadPC and inc discrepancy
-    // with AND gate on line 94, loadPC will always be 0 when it's an A instruction, therefore A-Register will not hold any value ... but inc bit works fine with that gate
-    // on flip side, changing it to an OR gate sets load gate but fails to set inc as well so we need to:
-    And(a=instruction[15], b=tmpload, out=loadPC);
+    And(a=instruction[0], b=ps, out=positivePin);
+
+    Or(a=zeroPin, b=negativePin, out=tmp);
+    Or(a=tmp, b=positivePin, out=loadPC);
 
     // According to 5.3.1, if we have a jump, the PC should be loaded with A's output. Otherwise, the PC should incremented by 1
     Mux(a=true, b=false, sel=loadPC, out=inc);
