@@ -39,6 +39,7 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
+    //FIXME: when inM is set during CPU-external.tst, loadA is not ON thus subsequent A instruction fails!!
     // ###################### LANGUAGE SPECIFICATION ####################################### 
     // Recall: Hack Platform consists of only 2 types of instructions:
     // Address Instruction (MSB opt-code = 0) & Compute Instruction (MSB opt-code = 1)
@@ -75,7 +76,6 @@ CHIP CPU {
 
 
     // ############################# writeM Logic per Diagram #########################################
-    //FIXME: fix addressM and outM
     And(a=instruction[15], b=instruction[3], out=writeM); //write to RAM[A] when address is C-type Instruction
     // ################################################################################################
 
