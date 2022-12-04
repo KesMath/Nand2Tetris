@@ -56,7 +56,7 @@ CHIP CPU {
 
     Not(in=instruction[15], out=NotAIns); // need to negate signal given that AND with 0 operand will always lead to load being off
     And(a=instruction[5], b=NotAIns, out=loadA); 
-    Mux16(a=instruction, b=ALUOutput, sel=loadA, out=ARegisterInput);
+    Mux16(a=ALUOutput, b=instruction, sel=loadA, out=ARegisterInput);
     ARegister(in=ARegisterInput, load=loadA, out=ARegisterOut, out[0..14]=addressM);
 
     Mux16(a=ARegisterOut, b=inM, sel=instruction[12], out=aluInput); //FIGURE 4.3 in nand2tetris ...  when comp bit is true, we load from RAM[A].. else we load from A reg
