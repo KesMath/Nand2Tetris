@@ -39,8 +39,6 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    //FIXME: After running SingletonTestCase.tst, it seems like @14 instruction specifically does not work but @1000 assignment works so it's an issue with bit positioning and how that influences loadA pin...
-
     // ###################### LANGUAGE SPECIFICATION ####################################### 
     // Recall: Hack Platform consists of only 2 types of instructions:
     // Address Instruction (MSB opt-code = 0) & Compute Instruction (MSB opt-code = 1)
