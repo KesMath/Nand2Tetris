@@ -57,7 +57,7 @@ CHIP CPU {
     // if MSB is set, we set instruction into A-reg
 
     Not(in=instruction[15], out=NotAIns); // need to negate signal given that AND with 0 operand will always lead to load being off
-    And(a=instruction[5], b=NotAIns, out=loadA); 
+    Or(a=instruction[5], b=NotAIns, out=loadA); 
     Mux16(a=ALUOutput, b=instruction, sel=loadA, out=ARegisterInput);
     ARegister(in=ARegisterInput, load=loadA, out=ARegisterOut, out[0..14]=addressM);
 
