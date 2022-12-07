@@ -81,14 +81,17 @@ CHIP CPU {
 
     // ############################## Jump Logic ######################################################
     //JUMP DECISION: J = TRUE if ... f(jump bits, ALU control outputs) = 1, else 0
-    And(a=instruction[1], b=zr, out=zeroPin);
-    And(a=instruction[2], b=ng, out=negativePin);
+    And(a=instruction[15], b=instruction[1], out=tmpZero);
+    And(a=tmpZero, b=zr, out=zeroPin);
+    And(a=instruction[15], b=instruction[2], out=tmpNeg);
+    And(a=tmpNeg, b=ng, out=negativePin);
     
     Not(in=zr, out=nonZero);
     Not(in=ng, out=nonNeg);
     And(a=nonZero, b=nonNeg, out=ps);
 
-    And(a=instruction[0], b=ps, out=positivePin);
+    And(a=instruction[15], b=instruction[0], out=tmpPos);
+    And(a=tmpPos, b=ps, out=positivePin);
 
     Or(a=zeroPin, b=negativePin, out=tmp);
     Or(a=tmp, b=positivePin, out=loadPC);
