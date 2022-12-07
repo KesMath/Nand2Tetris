@@ -39,9 +39,8 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    //FIXME: when inM is set during CPU-external.tst, loadA is not ON thus subsequent A instruction fails!!
+    //FIXME: After running SingletonTestCase.tst, it seems like @14 instruction specifically does not work but @1000 assignment works so it's an issue with bit positioning and how that influences loadA pin...
 
-    //FIXME: Initial assumption above seems false! After running SingletonTestCase.tst, it seems like @14 instruction specifically does not work for some odd reason but @1000 assignment works... 
     // ###################### LANGUAGE SPECIFICATION ####################################### 
     // Recall: Hack Platform consists of only 2 types of instructions:
     // Address Instruction (MSB opt-code = 0) & Compute Instruction (MSB opt-code = 1)
