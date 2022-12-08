@@ -65,7 +65,7 @@ CHIP CPU {
 
 
     // ############## ALU output destination logic for DRegister ##############
-    And(a=instruction[15], b=instruction[4], out=loadD);
+    And(a=instruction[15], b=instruction[4], out=loadD); //line 35 was failing as D register was being loaded causing JEQ not to take affect
     DRegister(in=ALUOutput, load=loadD, out=DRegisterOut);
 
     // #########################################################################  
