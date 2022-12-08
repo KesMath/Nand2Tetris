@@ -12,6 +12,3 @@ tick, output, tock, output;
 
 set instruction %B1110110111100000, // A=A+1
 tick, output, tock, output;
-
-set instruction %B1110001100001000, // M=D
-tick, output, tock, output;
