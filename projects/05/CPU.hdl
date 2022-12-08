@@ -65,8 +65,8 @@ CHIP CPU {
 
 
     // ############## ALU output destination logic for DRegister ##############
-
-    DRegister(in=ALUOutput, load=instruction[4], out=DRegisterOut);
+    And(a=instruction[15], b=instruction[4], out=loadD);
+    DRegister(in=ALUOutput, load=loadD, out=DRegisterOut);
 
     // #########################################################################  
 
