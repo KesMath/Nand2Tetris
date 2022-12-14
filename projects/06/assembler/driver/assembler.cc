@@ -7,14 +7,14 @@ int indexOfNewLine(FILE *fstream);
 int main(int argc, char *argv[])
 {
     if(argc != 2){
-        printf("Please provide the filepath to to the assembly source code...");
+        printf("Please provide the filepath to to the assembly source code...\n");
         exit(-1);
     }
 
     FILE *assembly_file = fopen(argv[1], "r");
 
     if(assembly_file == NULL){
-        printf("Unable to open file at path: %s", argv[1]);
+        printf("Unable to open file at path: %s\n", argv[1]);
         exit(-1);
     }
 
@@ -25,10 +25,19 @@ int main(int argc, char *argv[])
     while(char ch = fgetc(assembly_file) != EOF){
         int newlineOffset = indexOfNewLine(assembly_file);
         void* buffer = calloc(1, newlineOffset);
+
         // rewind file position indicator (*newlineOffset times*) so buffer can consume all characters inbetween using fgets()
+        // Reference of negative offsets to move file pointer backwards
+        // https://www.oreilly.com/library/view/c-in-a/0596006977/re96.html
+        fseek(assembly_file, (-1) * newlineOffset, SEEK_CUR);
+
         // as a side effect, fast-forward file position indicator will be done by fgets() so we can proceed to next line without being infinitely stuck reading first line
+        fgets((char*)buffer, newlineOffset, assembly_file);
+        printf("Buffer: %s\n",(char*)buffer);
     }
 
+    fclose(assembly_file);
+    exit(0);
 
     // second pass to create executable
 
