@@ -18,13 +18,19 @@ int main(int argc, char *argv[])
         exit(-1);
     }
 
-    // first pass to populate SymbolTable with programmer-defined labels
+    //##################################################################################
+    // ####### First Pass to populate SymbolTable with programmer-defined labels #######
+    //##################################################################################
 
-    // NOTE: we cannot assume the number of characters (or size of bytes) per line in order to allocate on to a buffer in advance with fgets() approach
+    // NOTE: we cannot assume the number of characters (or size of bytes) per line in order to allocate on to a buffer in advance
     // so we must use fgetc() (supplemented with a counter) for safer approach until NEWLINE is met
     void* buffer = NULL;
     do{
         int newlineOffset = indexOfNewLine(assembly_file) + 1;
+
+        if(newlineOffset == -1){
+            break;
+        }
         void* buffer = calloc(1, newlineOffset);
 
         if(buffer == NULL){
@@ -37,23 +43,31 @@ int main(int argc, char *argv[])
         // https://www.oreilly.com/library/view/c-in-a/0596006977/re96.html
         fseek(assembly_file, (-1) * newlineOffset, SEEK_CUR);
 
-        // as a side effect, fast-forward file position indicator will be done by fgets() so we can proceed to next line without being infinitely stuck reading first line
+        // as a side effect, fast-forwarding file position indicator will be done by fgets() 
+        //so we can proceed to next line without being infinitely stuck reading first line
         fgets((char*)buffer, newlineOffset, assembly_file);
         printf("Buffer: %s\n", (char*)buffer);
-    //FIXME: loop is not breaking!
     } while(fgetc(assembly_file) != EOF);
 
     free(buffer);
     fclose(assembly_file);
     exit(0);
 
-    // second pass to create executable
-
+    //##################################################################################
+    // Second Pass to create executable ################################################
+    //##################################################################################
 }
 
 int indexOfNewLine(FILE *fstream){
     int cout = 0;
-    while(char ch = fgetc(fstream) != '\n'){
+    char ch;
+    while((ch = fgetc(fstream)) != '\n'){
+        // must account for EOF edge case since
+        // this function executes before 'readline' loop in main()  
+        if(ch == EOF){
+            cout = -1;
+            return cout;
+        }
         cout++;
     }
     return cout;
