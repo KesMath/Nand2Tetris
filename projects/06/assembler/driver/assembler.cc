@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 
-int indexOfNewLine(FILE *fstream);
+int offsetOfNewLine(FILE *fstream);
 
 int main(int argc, char *argv[])
 {
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     // so we must use fgetc() (supplemented with a counter) for safer approach until NEWLINE is met
     void* buffer = NULL;
     do{
-        int newlineOffset = indexOfNewLine(assembly_file) + 1;
+        int newlineOffset = offsetOfNewLine(assembly_file) + 1;
 
         if(newlineOffset == -1){
             break;
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     //##################################################################################
 }
 
-int indexOfNewLine(FILE *fstream){
+int offsetOfNewLine(FILE *fstream){
     int cout = 0;
     char ch;
     while((ch = fgetc(fstream)) != '\n'){
