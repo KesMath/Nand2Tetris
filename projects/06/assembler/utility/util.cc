@@ -31,21 +31,21 @@ char* to_string(vector<char> charlist){
     return str;
 }
 
-int main(){
-    //TODO: test below, test linker procedure into driver file
-    vector<char> vec1 = strip_leading_and_trailing_whitespace("     D=D+A      ");
-    vector<char> vec2 = strip_leading_and_trailing_whitespace("   D  =  D  +  A  ");
+// //FOR UNIT TESTING PURPOSES
+// int main(){
+//     vector<char> vec1 = strip_leading_and_trailing_whitespace("     D=D+A      ");
+//     vector<char> vec2 = strip_leading_and_trailing_whitespace("   D  =  D  +  A  ");
 
-    assert(vec1.size() == vec2.size());
+//     assert(vec1.size() == vec2.size());
 
-    char* str1 = to_string(vec1);
-    char* str2 = to_string(vec2);
-    printf("%s\n", str1);
-    printf("%s\n", str2);
-    assert(strlen(str1) == strlen(str2));
-    assert(strcmp(str1, str2) == 0);
+//     char* str1 = to_string(vec1);
+//     char* str2 = to_string(vec2);
+//     printf("%s\n", str1);
+//     printf("%s\n", str2);
+//     assert(strlen(str1) == strlen(str2));
+//     assert(strcmp(str1, str2) == 0);
 
-    free(str1);
-    free(str2);
+//     free(str1);
+//     free(str2);
 
-}
+// }

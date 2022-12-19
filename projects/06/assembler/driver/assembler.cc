@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../utility/util.hh"
 
 
 int offsetOfNewLine(FILE *fstream);
@@ -24,14 +25,14 @@ int main(int argc, char *argv[])
 
     // NOTE: we cannot assume the number of characters (or size of bytes) per line in order to allocate on to a buffer in advance
     // so we must use fgetc() (supplemented with a counter) for safer approach until NEWLINE is met
-    void* buffer = NULL;
+    char* buffer = NULL;
     do{
         int newlineOffset = offsetOfNewLine(assembly_file) + 1;
 
         if(newlineOffset == -1){
             break;
         }
-        void* buffer = calloc(1, newlineOffset);
+        buffer = (char*) calloc(1, newlineOffset);
 
         if(buffer == NULL){
             printf("Unable to allocate memory for program usage...\n");
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
 
         // as a side effect, fast-forwarding file position indicator will be done by fgets() 
         //so we can proceed to next line without being infinitely stuck reading first line
-        fgets((char*)buffer, newlineOffset, assembly_file);
+        fgets(buffer, newlineOffset, assembly_file);
         printf("Buffer: %s\n", (char*)buffer);
     } while(fgetc(assembly_file) != EOF);
 
