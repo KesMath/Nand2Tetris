@@ -18,7 +18,11 @@ vector<char> strip_leading_and_trailing_whitespace(char* command){
 }
 
 char* to_string(vector<char> charlist){
-    char str[charlist.size()];
+    char *str = (char*) malloc(charlist.size() + 1);
+    if(str == NULL){
+        printf("Insufficient heap memory...\n");
+        exit(0);
+    }
     int i = 0;
     for(char c : charlist){
         str[i] = c;
@@ -36,7 +40,12 @@ int main(){
 
     char* str1 = to_string(vec1);
     char* str2 = to_string(vec2);
+    printf("%s\n", str1);
+    printf("%s\n", str2);
     assert(strlen(str1) == strlen(str2));
-    assert(strcmp(str1, str2));
+    assert(strcmp(str1, str2) == 0);
+
+    free(str1);
+    free(str2);
 
 }
