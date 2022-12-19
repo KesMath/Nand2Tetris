@@ -48,6 +48,12 @@ int main(int argc, char *argv[])
         //so we can proceed to next line without being infinitely stuck reading first line
         fgets(buffer, newlineOffset, assembly_file);
         printf("Buffer: %s\n", (char*)buffer);
+
+        //##################################################################################
+        // LINKER SANITY CHECK #############################################################
+        //##################################################################################
+        vector<char> vec1 = strip_leading_and_trailing_whitespace(buffer);
+        printf("Buffer After Trim: %s\n", to_string(vec1));
     } while(fgetc(assembly_file) != EOF);
 
     free(buffer);

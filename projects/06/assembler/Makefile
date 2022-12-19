@@ -7,7 +7,7 @@ asm:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o assembler assembler.o util.o
 
 run:
-	./assembler ../add/Add.asm
+	./assembler ../add/Add_WhiteSpace.asm
 
 clean:
 	rm assembler.o
