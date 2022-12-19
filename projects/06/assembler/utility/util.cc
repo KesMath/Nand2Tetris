@@ -31,6 +31,15 @@ char* to_string(vector<char> charlist){
     return str;
 }
 
+vector<char*> split(char* command, char* delimiter){
+    vector<char*> strList;
+    char* str;
+    while((str = strtok(command, delimiter)) != nullptr){
+        strList.push_back(str);
+    }
+    return strList;
+}
+
 // //FOR UNIT TESTING PURPOSES
 // int main(){
 //     vector<char> vec1 = strip_leading_and_trailing_whitespace("     D=D+A      ");
