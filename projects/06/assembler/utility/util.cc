@@ -34,13 +34,24 @@ char* to_string(vector<char> charlist){
 vector<char*> split(char* command, char* delimiter){
     vector<char*> strList;
     char* str;
-    while((str = strtok(command, delimiter)) != nullptr){
+
+    str = strtok(command, delimiter);
+    strList.push_back(str);
+    do{
+        // According to man pages:
+        // "The first time that strtok() is called, str should be specified;
+        // subsequent calls, wishing to obtain further tokens from the same string, should pass a null pointer instead.
+        // The separator string, sep, must be supplied each time, and may change between calls."
+        str = strtok(NULL, delimiter);
         strList.push_back(str);
+
     }
+    while(str != nullptr);
+    strList.pop_back();
     return strList;
 }
 
-// //FOR UNIT TESTING PURPOSES
+// //FOR UNIT TESTING PURPOSES - uncomment and run 'make util' removing '-Werror' parameter
 // int main(){
 //     vector<char> vec1 = strip_leading_and_trailing_whitespace("     D=D+A      ");
 //     vector<char> vec2 = strip_leading_and_trailing_whitespace("   D  =  D  +  A  ");
@@ -54,7 +65,11 @@ vector<char*> split(char* command, char* delimiter){
 //     assert(strlen(str1) == strlen(str2));
 //     assert(strcmp(str1, str2) == 0);
 
+//     vector<char*> vec3 = split(str1, "=");
+//     for(char* str: vec3){
+//         printf("%s\n", str);
+//     }
+
 //     free(str1);
 //     free(str2);
-
 // }
