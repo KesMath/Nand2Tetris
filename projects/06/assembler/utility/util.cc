@@ -1,8 +1,8 @@
 #include "util.hh"
 #include <cassert>
 #include <string.h>
+#include <bitset>
 
-uint8_t WHITESPACE = 32;
 
 vector<char> strip_leading_and_trailing_whitespace(char* command){
     int i = 0;
@@ -51,6 +51,19 @@ vector<char*> split(char* command, char* delimiter){
     return strList;
 }
 
+// A-instruction / @value will be between: (0 - Maximum signed 16-bit value = 32,767)
+// In base2, A-instruction range is: (0 - 0111111111111111)
+char* decimal_to_binary(int dec){
+    string binStr = bitset<WORD_SIZE>(dec).to_string();
+    char* str = (char*) malloc(binStr.length());
+    if(str == NULL){
+        printf("Insufficient heap memory...\n");
+        exit(0);
+    }
+    strcpy(str, binStr.c_str());
+    return str;
+}
+
 // //FOR UNIT TESTING PURPOSES - uncomment and run 'make util' removing '-Werror' parameter
 // int main(){
 //     vector<char> vec1 = strip_leading_and_trailing_whitespace("     D=D+A      ");
@@ -69,6 +82,8 @@ vector<char*> split(char* command, char* delimiter){
 //     for(char* str: vec3){
 //         printf("%s\n", str);
 //     }
+
+//     printf("%c\n", decimal_to_binary(32767));
 
 //     free(str1);
 //     free(str2);

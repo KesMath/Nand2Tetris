@@ -1,6 +1,11 @@
 #include <vector>
 using namespace std;
 
+uint8_t WHITESPACE = 32;
+
+// All ROM commands within Hack Architecture is 16-bit instruction set
+const uint8_t WORD_SIZE = 16;
+
 // for A-instruction @value commands
 char* decimal_to_binary(int dec);
 
