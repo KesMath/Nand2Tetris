@@ -83,8 +83,10 @@ char* decimal_to_binary(int dec){
 //         printf("%s\n", str);
 //     }
 
-//     printf("%c\n", decimal_to_binary(32767));
+//     char* str3 = decimal_to_binary(32767);
+//     printf("%s\n", str3);
 
 //     free(str1);
 //     free(str2);
+//     free(str3);
 // }
