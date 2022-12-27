@@ -64,7 +64,7 @@ char* decimal_to_binary(int dec){
     return str;
 }
 
-// //FOR UNIT TESTING PURPOSES - uncomment and run 'make util' removing '-Werror' parameter
+// //FOR UNIT TESTING PURPOSES - uncomment and run 'make util' removing '-Werror' parameter in Makefile
 // int main(){
 //     vector<char> vec1 = strip_leading_and_trailing_whitespace("     D=D+A      ");
 //     vector<char> vec2 = strip_leading_and_trailing_whitespace("   D  =  D  +  A  ");

@@ -75,6 +75,7 @@ class Parser {
     }
 };
 
+// //FOR UNIT TESTING PURPOSES - uncomment and run 'make parse' removing '-Werror' parameter in Makefile
 int main(){
     char* aInstruction = "@1234";
     char* labelInstruction = "(memory.alloc$while_end0)";
