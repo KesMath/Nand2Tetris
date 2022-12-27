@@ -1,5 +1,7 @@
 #include <stdint.h>
+
 // ASCII TABLE REF: cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html
+
 uint8_t EQUAL = 61;         // '='
 uint8_t PLUS = 43;          // '+'
 uint8_t MINUS = 45;         // '-'
