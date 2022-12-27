@@ -18,6 +18,7 @@ clean-asm:
 	rm assembler.o
 	rm util.o
 
-clean-parser:
+clean-parse:
 	rm parser.o
 	rm util.o
+	rm parse
