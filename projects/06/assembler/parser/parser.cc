@@ -14,6 +14,9 @@ class Parser {
         else if((strchr(command, SEMICOLON) != NULL) || (strchr(command, EQUAL) != NULL)){
             return C_INSTRUCTION;
         }
+        else{
+            return NULL_INSTRUCT;
+        }
     }
 
     char* parseSymbol(char* command){
@@ -27,6 +30,7 @@ class Parser {
                charlist.push_back(command[i]);
             }
             charlist.push_back('\0');
+            return to_string(charlist);
         }
         else if(parseInstructionType(command) == L_INSTRUCTION){
             int i = 1; // exlcude LEFT_BRACKET
@@ -35,8 +39,9 @@ class Parser {
             }
             charlist.pop_back(); //remove trailing RIGHT_BRACKET
             charlist.push_back('\0');
+            return to_string(charlist);
         }
-        return to_string(charlist);
+        return nullptr;
     }
 
     char* parseDest(char* command){
@@ -45,8 +50,9 @@ class Parser {
         if((parseInstructionType(command) == C_INSTRUCTION) && (strchr(command, EQUAL) != NULL)){ // need to distinguish which C-type instruction ... namely "dest=comp"
             char equal = EQUAL;
             vec = split(command, &equal);
+            return vec.front();
         }
-        return vec.front();
+        return nullptr;
     }
 
     char* parseComp(char* command){
@@ -62,6 +68,7 @@ class Parser {
             vec = split(command, &semicolon);
             return vec.front();
         }
+        return nullptr;
     }
 
     char* parseJump(char* command){
@@ -70,12 +77,13 @@ class Parser {
         if((parseInstructionType(command) == C_INSTRUCTION) && (strchr(command, SEMICOLON) != NULL)){ // need to distinguish which C-type instruction ... namely "comp;jmp"
             char semicolon = SEMICOLON;
             vec = split(command, &semicolon);
+            return vec.back();
         }
-        return vec.back();
+        return nullptr;
     }
 };
 
-// //FOR UNIT TESTING PURPOSES - uncomment and run 'make parse' removing '-Werror' parameter in Makefile
+// //FOR UNIT TESTING PURPOSES - uncomment and run 'make parse'
 int main(){
     char* aInstruction = "@1234";
     char* labelInstruction = "(memory.alloc$while_end0)";

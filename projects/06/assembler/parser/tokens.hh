@@ -12,3 +12,4 @@ int RIGHT_BRACKET = 41; // ')'
 int A_INSTRUCTION = 0;  // in Hack Architecture @XXX
 int L_INSTRUCTION = 1;  // in Hack Architecture (XXX)
 int C_INSTRUCTION = 2;  // in Hack Architecture 'dest=comp;jump'
+int NULL_INSTRUCT = 3;  // uninterpreted instruction

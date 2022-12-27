@@ -3,6 +3,7 @@
 #include <string.h>
 #include <bitset>
 
+uint8_t WHITESPACE = 32;
 
 vector<char> strip_leading_and_trailing_whitespace(char* command){
     int i = 0;
@@ -64,7 +65,7 @@ char* decimal_to_binary(int dec){
     return str;
 }
 
-// //FOR UNIT TESTING PURPOSES - uncomment and run 'make util' removing '-Werror' parameter in Makefile
+// //FOR UNIT TESTING PURPOSES - uncomment and run 'make util'
 // int main(){
 //     vector<char> vec1 = strip_leading_and_trailing_whitespace("     D=D+A      ");
 //     vector<char> vec2 = strip_leading_and_trailing_whitespace("   D  =  D  +  A  ");
