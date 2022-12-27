@@ -4,61 +4,72 @@
 
 class Parser {
   public:
-    uint8_t parseInstructionType(char* buffer){
-        if((buffer[0] == LEFT_BRACKET) && (buffer[strlen(buffer) - 1] == RIGHT_BRACKET)){
+    uint8_t parseInstructionType(char* command){
+        if((command[0] == LEFT_BRACKET) && (command[strlen(command) - 1] == RIGHT_BRACKET)){
             return L_INSTRUCTION;
         }
-        else if(buffer[0] == AT_SIGN){
+        else if(command[0] == AT_SIGN){
             return A_INSTRUCTION;
         }
-        else if((strchr(buffer, SEMICOLON) != NULL) || (strchr(buffer, EQUAL) != NULL)){
+        else if((strchr(command, SEMICOLON) != NULL) || (strchr(command, EQUAL) != NULL)){
             return C_INSTRUCTION;
         }
     }
 
-    char* parseSymbol(char* buffer){
+    char* parseSymbol(char* command){
         // ONLY CALLED FOR A_INSTRUCTION OR L_INSTRUCTIONS
-        // if buffer is (XXX) or 'Label-Type-Instruction', returns symbol XXX
-        // else if buffer is @XXX, returns the symbol or decimal XXX
-        if(parseInstructionType(buffer) == A_INSTRUCTION){
-
+        // if command is (XXX) or 'Label-Type-Instruction', returns symbol XXX
+        // else if command is @XXX, returns the symbol or decimal XXX
+        vector<char> charlist;
+        if(parseInstructionType(command) == A_INSTRUCTION){
+            int i = 1; // exclude AT_SIGN
+            while(command[i] != '\0'){
+               charlist.push_back(command[i]);
+            }
+            charlist.push_back('\0');
         }
-        else if(parseInstructionType(buffer) == L_INSTRUCTION){
-
+        else if(parseInstructionType(command) == L_INSTRUCTION){
+            int i = 1; // exlcude LEFT_BRACKET
+            while(command[i] != '\0'){
+               charlist.push_back(command[i]);
+            }
+            charlist.pop_back(); //remove trailing RIGHT_BRACKET
+            charlist.push_back('\0');
         }
+        return to_string(charlist);
     }
 
-    char* parseDest(char* buffer){
+    char* parseDest(char* command){
         // returns the symbolic 'dest' part of C_INSTRUCTION
         vector<char*> vec;
-        if((parseInstructionType(buffer) == C_INSTRUCTION) && (strchr(buffer, EQUAL) != NULL)){ // need to distinguish which C-type instruction ... namely "dest=comp"
+        if((parseInstructionType(command) == C_INSTRUCTION) && (strchr(command, EQUAL) != NULL)){ // need to distinguish which C-type instruction ... namely "dest=comp"
             char equal = EQUAL;
-            vec = split(buffer, &equal);
+            vec = split(command, &equal);
         }
         return vec.front();
     }
 
-    char* parseComp(char* buffer){
+    char* parseComp(char* command){
         // returns the symbolic 'comp' part of C_INSTRUCTION
         vector<char*> vec;
-        if((parseInstructionType(buffer) == C_INSTRUCTION) && (strchr(buffer, EQUAL) != NULL)){ // need to distinguish which C-type instruction ... namely "dest=comp"
+        if((parseInstructionType(command) == C_INSTRUCTION) && (strchr(command, EQUAL) != NULL)){ // need to distinguish which C-type instruction ... namely "dest=comp"
             char equal = EQUAL;
-            vec = split(buffer, &equal);
+            vec = split(command, &equal);
             return vec.back();
         }
-        else if((parseInstructionType(buffer) == C_INSTRUCTION) && (strchr(buffer, SEMICOLON) != NULL)){ // need to distinguish which C-type instruction ... namely "comp;jmp"
+        else if((parseInstructionType(command) == C_INSTRUCTION) && (strchr(command, SEMICOLON) != NULL)){ // need to distinguish which C-type instruction ... namely "comp;jmp"
             char semicolon = SEMICOLON;
-            vec = split(buffer, &semicolon);
+            vec = split(command, &semicolon);
             return vec.front();
         }
     }
 
-    char* parseJump(char* buffer){
+    char* parseJump(char* command){
         // returns the symbolic 'comp' part of C_INSTRUCTION
         vector<char*> vec;
-        if((parseInstructionType(buffer) == C_INSTRUCTION) && (strchr(buffer, SEMICOLON) != NULL)){ // need to distinguish which C-type instruction ... namely "comp;jmp"
+        if((parseInstructionType(command) == C_INSTRUCTION) && (strchr(command, SEMICOLON) != NULL)){ // need to distinguish which C-type instruction ... namely "comp;jmp"
             char semicolon = SEMICOLON;
-            vec = split(buffer, &semicolon);
+            vec = split(command, &semicolon);
         }
         return vec.back();
     }
