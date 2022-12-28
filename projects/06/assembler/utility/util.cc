@@ -10,7 +10,7 @@ vector<char> strip_leading_and_trailing_whitespace(char* command){
     vector<char> charlist;
     while(command[i] != '\0'){
         if(command[i] != WHITESPACE){
-            charlist.push_back(command[i]);
+           charlist.push_back(command[i]);
         }
         i++;
     }
