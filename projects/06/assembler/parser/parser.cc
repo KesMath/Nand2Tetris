@@ -59,7 +59,9 @@ class Parser {
     vector<char*> parseJumpInstruction(char* command){
         // parses "comp;jmp" expressions
         vector<char*> vec;
-
+        // if(command[0] == '0'){
+        //     vec.push_back("0");
+        // }
         if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){
             char semicolon = SEMICOLON;
             vec = split(command, &semicolon);
