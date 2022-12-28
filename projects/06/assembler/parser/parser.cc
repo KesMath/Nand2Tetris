@@ -45,69 +45,47 @@ class Parser {
         }
         return nullptr;
     }
-
-    char* parseDest(char* command){
-        // returns the symbolic 'dest' part of C_INSTRUCTION
+    vector<char*> parseCInstruction(char* command){
+        // parses "dest=comp" expressions
         vector<char*> vec;
-        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, EQUAL))){ // need to distinguish which C-type instruction ... namely "dest=comp"
+        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, EQUAL))){
             char equal = EQUAL;
-            //FIXME
             vec = split(command, &equal);
-            return vec.front();
         }
-        return nullptr;
+        return vec;
     }
 
-    char* parseComp(char* command){
-        // returns the symbolic 'comp' part of C_INSTRUCTION
+    vector<char*> parseJumpInstruction(char* command){
+        // parses "comp;jmp" expressions
         vector<char*> vec;
-        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, EQUAL))){ // need to distinguish which C-type instruction ... namely "dest=comp"
-            char equal = EQUAL;
-            //FIXME
-            vec = split(command, &equal);
-            return vec.back();
-        }
-        else if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){ // need to distinguish which C-type instruction ... namely "comp;jmp"
+        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){
             char semicolon = SEMICOLON;
             vec = split(command, &semicolon);
-            return vec.front();
         }
-        return nullptr;
-    }
-
-    char* parseJump(char* command){
-        // returns the symbolic 'comp' part of C_INSTRUCTION
-        vector<char*> vec;
-        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){ // need to distinguish which C-type instruction ... namely "comp;jmp"
-            char semicolon = SEMICOLON;
-            //FIXME
-            vec = split(command, &semicolon);
-            return vec.back();
-        }
-        return nullptr;
+        return vec;
     }
 };
 
 // //FOR UNIT TESTING PURPOSES - uncomment and run 'make parse'
 int main(){
-    char* aInstruction = "@1234";
-    char* labelInstruction = "(memory.alloc$while_end0)";
-    char* cInstruction1 = "AM=M-1";
-    char* cInstruction2 = "0;JMP";
+    char aInstruction[] = "@1234";
+    char labelInstruction[] = "(memory.alloc$while_end0)";
+
+    char cInstruction1[] = "AM=M-1";
+
+    char cInstruction2[] = "0;JMP";
     Parser parse;
     // for (LABEL) or @XXX type of instructions
     //printf("%s\n", parse.parseSymbol(aInstruction));
     //printf("%s\n", parse.parseSymbol(labelInstruction));
 
-    // // for "D=D-A" type of instructions
-    printf("%s\n", parse.parseDest(cInstruction1));
-    //printf("%s\n", parse.parseComp(cInstruction1));
-    // // sanity check
-    //printf("%s\n", parse.parseJump(cInstruction1));
+    //for "D=D-A" type of instructions
+    vector<char*> vec0 = parse.parseCInstruction(cInstruction1);
+    printf("%s\n", vec0[0]);
+    printf("%s\n", vec0[1]);
 
-    // // for "D;JGT" type of instructions
-    //printf("%s\n", parse.parseComp(cInstruction2));
-    //printf("%s\n", parse.parseJump(cInstruction2));
-    // // sanity check
-    //printf("%s\n", parse.parseDest(cInstruction2));
+    // for "D;JGT" type of instructions
+    vector<char*> vec1 = parse.parseJumpInstruction(cInstruction2);
+    printf("%s\n", vec1[0]);
+    printf("%s\n", vec1[1]);
 }
