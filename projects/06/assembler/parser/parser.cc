@@ -73,7 +73,7 @@ int main(){
 
     char cInstruction1[] = "AM=M-1";
 
-    char cInstruction2[] = "0;JMP";
+    char cInstruction2[] = "0;JMP"; //FIXME - why is 0 not getting parsed correctly
     Parser parse;
     // for (LABEL) or @XXX type of instructions
     //printf("%s\n", parse.parseSymbol(aInstruction));
