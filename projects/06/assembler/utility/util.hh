@@ -14,3 +14,4 @@ vector<char> strip_leading_and_trailing_whitespace(char* command);
 
 char* to_string(vector<char> charlist);
 vector<char*> split(char* command, char* delimiter);
+bool is_charInStr(char* str, char c);
