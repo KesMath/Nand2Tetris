@@ -74,7 +74,7 @@ bool is_charInStr(char* str, char c){
     return false;
 }
 
-//FOR UNIT TESTING PURPOSES - uncomment and run 'make util'
+// //FOR UNIT TESTING PURPOSES - uncomment and run 'make util'
 // int main(){
 //     vector<char> vec1 = strip_leading_and_trailing_whitespace("     D=D+A      ");
 //     vector<char> vec2 = strip_leading_and_trailing_whitespace("   D  =  D  +  A  ");
@@ -96,7 +96,7 @@ bool is_charInStr(char* str, char c){
 //     char* str3 = decimal_to_binary(32767);
 //     printf("%s\n", str3);
 
-//     printf("%d\n", is_charInStr("A=M-1", '='));
+//     printf("%d\n", is_charInStr("A=M-1", 61));
 //     printf("%d\n", is_charInStr("A=M-1", '?'));
 
 //     free(str1);

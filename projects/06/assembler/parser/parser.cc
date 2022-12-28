@@ -49,7 +49,7 @@ class Parser {
     char* parseDest(char* command){
         // returns the symbolic 'dest' part of C_INSTRUCTION
         vector<char*> vec;
-        if((parseInstructionType(command) == C_INSTRUCTION) && (strchr(command, EQUAL) != NULL)){ // need to distinguish which C-type instruction ... namely "dest=comp"
+        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, EQUAL))){ // need to distinguish which C-type instruction ... namely "dest=comp"
             char equal = EQUAL;
             vec = split(command, &equal);
             return vec.front();
@@ -60,16 +60,12 @@ class Parser {
     char* parseComp(char* command){
         // returns the symbolic 'comp' part of C_INSTRUCTION
         vector<char*> vec;
-        if((parseInstructionType(command) == C_INSTRUCTION) &&
-        // FIXME: strchr is modifying pointer value thereby breaking split() assumptions ... find/create aux call that just checks if a char is in a string!
-           (strchr(command, EQUAL) != NULL)){ // need to distinguish which C-type instruction ... namely "dest=comp"
+        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, EQUAL))){ // need to distinguish which C-type instruction ... namely "dest=comp"
             char equal = EQUAL;
             vec = split(command, &equal);
             return vec.back();
         }
-        else if((parseInstructionType(command) == C_INSTRUCTION) &&
-        // FIXME: strchr is modifying pointer value thereby breaking split() assumptions ... find/create aux call that just checks if a char is in a string!
-                (strchr(command, SEMICOLON) != NULL)){ // need to distinguish which C-type instruction ... namely "comp;jmp"
+        else if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){ // need to distinguish which C-type instruction ... namely "comp;jmp"
             char semicolon = SEMICOLON;
             vec = split(command, &semicolon);
             return vec.front();
@@ -80,7 +76,7 @@ class Parser {
     char* parseJump(char* command){
         // returns the symbolic 'comp' part of C_INSTRUCTION
         vector<char*> vec;
-        if((parseInstructionType(command) == C_INSTRUCTION) && (strchr(command, SEMICOLON) != NULL)){ // need to distinguish which C-type instruction ... namely "comp;jmp"
+        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){ // need to distinguish which C-type instruction ... namely "comp;jmp"
             char semicolon = SEMICOLON;
             vec = split(command, &semicolon);
             return vec.back();
@@ -101,21 +97,14 @@ int main(){
     //printf("%s\n", parse.parseSymbol(labelInstruction));
 
     // // for "D=D-A" type of instructions
-    //printf("%s\n", parse.parseDest(cInstruction1));
+    printf("%s\n", parse.parseDest(cInstruction1));
     //printf("%s\n", parse.parseComp(cInstruction1));
     // // sanity check
-    printf("%s\n", parse.parseJump(cInstruction1));
+    //printf("%s\n", parse.parseJump(cInstruction1));
 
     // // for "D;JGT" type of instructions
-    printf("%s\n", parse.parseComp(cInstruction2));
-    printf("%s\n", parse.parseJump(cInstruction2));
+    //printf("%s\n", parse.parseComp(cInstruction2));
+    //printf("%s\n", parse.parseJump(cInstruction2));
     // // sanity check
-    printf("%s\n", parse.parseDest(cInstruction2));
-
-
-    //sanity check on command identifier function
-    printf("%i\n", parse.parseInstructionType(aInstruction));
-    printf("%i\n", parse.parseInstructionType(labelInstruction));
-    printf("%i\n", parse.parseInstructionType(cInstruction1));
-    printf("%i\n", parse.parseInstructionType(cInstruction2));
+    //printf("%s\n", parse.parseDest(cInstruction2));
 }
