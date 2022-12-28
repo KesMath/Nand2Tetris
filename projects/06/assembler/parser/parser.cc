@@ -55,9 +55,11 @@ class Parser {
         return vec;
     }
 
+    // NOTE: account for '0' unable to be parsed in codegen portion ... unable to patch this fault
     vector<char*> parseJumpInstruction(char* command){
         // parses "comp;jmp" expressions
         vector<char*> vec;
+
         if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){
             char semicolon = SEMICOLON;
             vec = split(command, &semicolon);
@@ -73,7 +75,7 @@ int main(){
 
     char cInstruction1[] = "AM=M-1";
 
-    char cInstruction2[] = "0;JMP"; //FIXME - why is 0 not getting parsed correctly
+    char cInstruction2[] = "0;JMP";
     Parser parse;
     // for (LABEL) or @XXX type of instructions
     //printf("%s\n", parse.parseSymbol(aInstruction));
