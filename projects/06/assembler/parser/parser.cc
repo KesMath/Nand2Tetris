@@ -51,6 +51,7 @@ class Parser {
         vector<char*> vec;
         if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, EQUAL))){ // need to distinguish which C-type instruction ... namely "dest=comp"
             char equal = EQUAL;
+            //FIXME
             vec = split(command, &equal);
             return vec.front();
         }
@@ -62,6 +63,7 @@ class Parser {
         vector<char*> vec;
         if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, EQUAL))){ // need to distinguish which C-type instruction ... namely "dest=comp"
             char equal = EQUAL;
+            //FIXME
             vec = split(command, &equal);
             return vec.back();
         }
@@ -78,6 +80,7 @@ class Parser {
         vector<char*> vec;
         if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){ // need to distinguish which C-type instruction ... namely "comp;jmp"
             char semicolon = SEMICOLON;
+            //FIXME
             vec = split(command, &semicolon);
             return vec.back();
         }
