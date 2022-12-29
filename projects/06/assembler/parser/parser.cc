@@ -28,6 +28,9 @@ class Parser {
         if(parseInstructionType(command) == A_INSTRUCTION){
             int i = 1; // exclude AT_SIGN
             printf("inside A");
+            //##########################################################################################################################################
+            // possibly simpler design would be to copy command to string using strcpy, call it S ... use S.substr(1, S.length() - 2) ... then return &S!
+            //##########################################################################################################################################
             while(command[i] != '\0'){
                charlist.push_back(command[i]);
             }
