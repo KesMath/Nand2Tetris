@@ -10,6 +10,27 @@ class CodeGenerator {
     std::map<char*, char*>::iterator it;
 
   public:
+	CodeGenerator(){
+		// destination mapping
+		destMap["M"]   = "001";
+		destMap["D"]   = "010";
+		destMap["MD"]  = "011";
+		destMap["A"]   = "100";
+		destMap["AM"]  = "101";
+		destMap["AD"]  = "110";
+		destMap["AMD"] = "111";
+
+		// compute mapping
+
+		// jump mapping
+		jmpMap["JGT"] = "001";
+		jmpMap["JEQ"] = "010";
+		jmpMap["JGE"] = "011";
+		jmpMap["JLT"] = "100";
+		jmpMap["JNE"] = "101";
+		jmpMap["JLE"] = "110";
+		jmpMap["JMP"] = "111";
+	}
     char* getDestBinary(char* destCmd){
       char nill[] = "000";
       it = destMap.find(destCmd);
@@ -36,7 +57,6 @@ class CodeGenerator {
       return nill;
 
     }
-
 };
 
 int main(){
@@ -49,13 +69,13 @@ int main(){
 
 	// sunny day
 	printf("%s\n", codeGen.getDestBinary(dest));
-	printf("%s\n", codeGen.getCompBinary(comp));
-	printf("%s\n", codeGen.getCompBinary(comp1));
+	//printf("%s\n", codeGen.getCompBinary(comp));
+	//printf("%s\n", codeGen.getCompBinary(comp1));
 	printf("%s\n", codeGen.getJumpBinary(jmp));
 
 	// edge case
 	printf("%s\n", codeGen.getDestBinary(nil));
-	assert(codeGen.getCompBinary(nil) == nullptr);
+	//assert(codeGen.getCompBinary(nil) == nullptr);
 	printf("%s\n", codeGen.getJumpBinary(nil));
 
 }

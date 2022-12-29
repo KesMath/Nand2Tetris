@@ -72,10 +72,10 @@ class Parser {
 
 // //FOR UNIT TESTING PURPOSES - uncomment and run 'make parse'
 int main(){
-    char aInstruction[] = "@1234";
-    char labelInstruction[] = "(memory.alloc$while_end0)";
+    //char aInstruction[] = "@1234";
+    //char labelInstruction[] = "(memory.alloc$while_end0)";
 
-    char cInstruction1[] = "AM=M-1";
+    char cInstruction1[] = "AMD=M-1";
 
     char cInstruction2[] = "0;JMP";
     Parser parse;

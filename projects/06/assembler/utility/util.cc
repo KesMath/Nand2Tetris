@@ -76,8 +76,10 @@ bool is_charInStr(char* str, char c){
 
 // //FOR UNIT TESTING PURPOSES - uncomment and run 'make util'
 // int main(){
-//     vector<char> vec1 = strip_leading_and_trailing_whitespace("     D=D+A      ");
-//     vector<char> vec2 = strip_leading_and_trailing_whitespace("   D  =  D  +  A  ");
+//     char cInstruction1[] = "     D=D+A      ";
+//     char cInstruction2[] = "   D  =  D  +  A  ";
+//     vector<char> vec1 = strip_leading_and_trailing_whitespace(cInstruction1);
+//     vector<char> vec2 = strip_leading_and_trailing_whitespace(cInstruction2);
 
 //     assert(vec1.size() == vec2.size());
 
@@ -88,7 +90,8 @@ bool is_charInStr(char* str, char c){
 //     assert(strlen(str1) == strlen(str2));
 //     assert(strcmp(str1, str2) == 0);
 
-//     vector<char*> vec3 = split(str1, "=");
+//     char EQUAL[] = "=";
+//     vector<char*> vec3 = split(str1, EQUAL);
 //     for(char* str: vec3){
 //         printf("%s\n", str);
 //     }
@@ -96,8 +99,9 @@ bool is_charInStr(char* str, char c){
 //     char* str3 = decimal_to_binary(32767);
 //     printf("%s\n", str3);
 
-//     printf("%d\n", is_charInStr("A=M-1", 61));
-//     printf("%d\n", is_charInStr("A=M-1", '?'));
+//     char cInstruction3[] = "A=M-1";
+//     printf("%d\n", is_charInStr(cInstruction3, 61));
+//     printf("%d\n", is_charInStr(cInstruction3, '?'));
 
 //     free(str1);
 //     free(str2);
