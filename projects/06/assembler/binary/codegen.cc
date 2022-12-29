@@ -92,23 +92,23 @@ class CodeGenerator {
     }
 };
 
-int main(){
-	CodeGenerator codeGen;
-  	string dest = "AM";
-	string comp = "M-1";
-	string comp1 = "0";
-	string jmp = "JMP";
-	string nil = "dummy";
+// int main(){
+// 	CodeGenerator codeGen;
+//   	string dest = "AM";
+// 	string comp = "M-1";
+// 	string comp1 = "0";
+// 	string jmp = "JMP";
+// 	string nil = "dummy";
 
-	// sunny day
-	printf("%s\n", codeGen.getDestBinary(dest).c_str());
-	printf("%s\n", codeGen.getCompBinary(comp).c_str());
-	printf("%s\n", codeGen.getCompBinary(comp1).c_str());
-	printf("%s\n", codeGen.getJumpBinary(jmp).c_str());
+// 	// sunny day
+// 	printf("%s\n", codeGen.getDestBinary(dest).c_str());
+// 	printf("%s\n", codeGen.getCompBinary(comp).c_str());
+// 	printf("%s\n", codeGen.getCompBinary(comp1).c_str());
+// 	printf("%s\n", codeGen.getJumpBinary(jmp).c_str());
 
-	// edge case
-	printf("%s\n", codeGen.getDestBinary(nil).c_str());
-	printf("%s\n", codeGen.getCompBinary(nil).c_str());
-	printf("%s\n", codeGen.getJumpBinary(nil).c_str());
+// 	// edge case
+// 	printf("%s\n", codeGen.getDestBinary(nil).c_str());
+// 	printf("%s\n", codeGen.getCompBinary(nil).c_str());
+// 	printf("%s\n", codeGen.getJumpBinary(nil).c_str());
 
-}
+// }

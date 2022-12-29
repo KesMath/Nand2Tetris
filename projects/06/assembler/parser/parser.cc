@@ -66,29 +66,29 @@ class Parser {
 };
 
 // //FOR UNIT TESTING PURPOSES - uncomment and run 'make parse'
-int main(){
-    char aInstruction[] = "@1234";
-    char labelInstruction[] = "(memory.alloc$while_end0)";
-    char cInstruction1[] = "AMD=M-1";
-    char cInstruction2[] = "0;JMP";
+// int main(){
+//     char aInstruction[] = "@1234";
+//     char labelInstruction[] = "(memory.alloc$while_end0)";
+//     char cInstruction1[] = "AMD=M-1";
+//     char cInstruction2[] = "0;JMP";
 
-    Parser parse;
-    // for (LABEL) or @XXX type of instructions
-    printf("%s\n", parse.parseSymbol(aInstruction).c_str());
-    printf("%s\n", parse.parseSymbol(labelInstruction).c_str());
+//     Parser parse;
+//     // for (LABEL) or @XXX type of instructions
+//     printf("%s\n", parse.parseSymbol(aInstruction).c_str());
+//     printf("%s\n", parse.parseSymbol(labelInstruction).c_str());
 
-    //for "D=D-A" type of instructions
-    vector<char*> vec0 = parse.parseCInstruction(cInstruction1);
-    printf("Vector0 Size: %lu\n", vec0.size());
-    for(char* str: vec0){
-        printf("%s\n", str);
-    }
-    printf("%s\n", vec0[0]);
+//     //for "D=D-A" type of instructions
+//     vector<char*> vec0 = parse.parseCInstruction(cInstruction1);
+//     printf("Vector0 Size: %lu\n", vec0.size());
+//     for(char* str: vec0){
+//         printf("%s\n", str);
+//     }
+//     printf("%s\n", vec0[0]);
 
-    // for "D;JGT" type of instructions
-    vector<char*> vec1 = parse.parseJumpInstruction(cInstruction2);
-    printf("Vector1 Size: %lu\n", vec1.size());
-    for(char* str: vec1){
-        printf("%s\n", str);
-    }
-}
+//     // for "D;JGT" type of instructions
+//     vector<char*> vec1 = parse.parseJumpInstruction(cInstruction2);
+//     printf("Vector1 Size: %lu\n", vec1.size());
+//     for(char* str: vec1){
+//         printf("%s\n", str);
+//     }
+// }
