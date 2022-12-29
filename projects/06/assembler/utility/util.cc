@@ -1,6 +1,6 @@
 #include "util.hh"
 #include <cassert>
-#include <string.h>
+#include <string>
 #include <bitset>
 
 uint8_t WHITESPACE = 32;
