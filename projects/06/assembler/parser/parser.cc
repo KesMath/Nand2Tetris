@@ -55,7 +55,6 @@ class Parser {
         return vec;
     }
 
-    // FIXME: '0' in '0;JMP' is not able to be parsed oddly enough ... will just have to account for it in driver file for now
     vector<char*> parseJumpInstruction(char* command){
         // parses "comp;jmp" expressions
         vector<char*> vec;
@@ -85,11 +84,19 @@ int main(){
 
     //for "D=D-A" type of instructions
     vector<char*> vec0 = parse.parseCInstruction(cInstruction1);
+    printf("Vector0 Size: %lu\n", vec0.size());
+    for(char* str: vec0){
+        printf("%s\n", str);
+    }
     printf("%s\n", vec0[0]);
     printf("%s\n", vec0[1]);
 
     // for "D;JGT" type of instructions
     vector<char*> vec1 = parse.parseJumpInstruction(cInstruction2);
+    printf("Vector1 Size: %lu\n", vec1.size());
+    for(char* str: vec1){
+        printf("%s\n", str);
+    }
     printf("%s\n", vec1[0]);
     printf("%s\n", vec1[1]);
 }
