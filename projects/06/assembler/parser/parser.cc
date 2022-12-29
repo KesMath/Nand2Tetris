@@ -55,7 +55,7 @@ class Parser {
         return vec;
     }
 
-    // NOTE: account for '0' unable to be parsed in codegen portion ... unable to patch this fault
+    // FIXME: '0' in '0;JMP' is not able to be parsed oddly enough ... will just have to account for it in driver file for now
     vector<char*> parseJumpInstruction(char* command){
         // parses "comp;jmp" expressions
         vector<char*> vec;
