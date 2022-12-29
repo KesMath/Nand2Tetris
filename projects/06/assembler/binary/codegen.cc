@@ -1,13 +1,14 @@
 #include <map>
-#include <cassert>
+#include <string>
+
 using namespace std;
 
 class CodeGenerator {
   private:
-    map<char*, char*>destMap;
-    map<char*, char*>jmpMap;
-    map<char*, char*>compMap;
-    std::map<char*, char*>::iterator it;
+    map<string, string>destMap;
+    map<string, string>jmpMap;
+    map<string, string>compMap;
+    std::map<string, string>::iterator it;
 
   public:
 	CodeGenerator(){
@@ -20,7 +21,39 @@ class CodeGenerator {
 		destMap["AD"]  = "110";
 		destMap["AMD"] = "111";
 
-		// compute mapping
+		// compute mapping: (when a = 0)
+		compMap["0"]    = "101010";
+		compMap["1"]    = "111111";
+		compMap["-1"]   = "111010";
+		compMap["D"]    = "001100";
+		compMap["A"]    = "110000";
+		compMap["!D"]   = "001101";
+		compMap["!A"]   = "110001";
+
+		compMap["-D"]   = "001111";
+		compMap["-A"]   = "110011";
+		compMap["D+1"]  = "011111";
+		compMap["A+1"]  = "110111";
+		compMap["D-1"]  = "001110";
+		compMap["A-1"]  = "110010";
+
+		compMap["D+A"]  = "000010";
+		compMap["D-A"]  = "010011";
+		compMap["A-D"]  = "000111";
+		compMap["D&A"]  = "000000";
+		compMap["D|A"]  = "010101";
+
+		// compute mapping: (when a = 1)
+		compMap["M"]    = "110000";
+		compMap["!M"]   = "110001";
+		compMap["-M"]   = "110011";
+		compMap["M+1"]  = "110111";
+		compMap["M-1"]  = "110010";
+		compMap["D+M"]  = "000010";
+		compMap["D-M"]  = "010011";
+		compMap["M-D"]  = "000111";
+		compMap["D&M"]  = "000000";
+		compMap["D|M"]  = "010101";
 
 		// jump mapping
 		jmpMap["JGT"] = "001";
@@ -31,28 +64,28 @@ class CodeGenerator {
 		jmpMap["JLE"] = "110";
 		jmpMap["JMP"] = "111";
 	}
-    char* getDestBinary(char* destCmd){
+    string getDestBinary(string destCmd){
       char nill[] = "000";
       it = destMap.find(destCmd);
       if(it != destMap.end()){
-        return it->first;
+        return it->second;
       }
       return nill;
     }
 
-    char* getCompBinary(char* compCmd){
+    string getCompBinary(string compCmd){
       it = compMap.find(compCmd);
       if(it != compMap.end()){
-        return it->first;
+        return it->second;
       }
-      return nullptr;
+      return "";
     }
 
-    char* getJumpBinary(char* jmpCmd){
+    string getJumpBinary(string jmpCmd){
       char nill[] = "000";
       it = jmpMap.find(jmpCmd);
       if(it != jmpMap.end()){
-        return it->first;
+        return it->second;
       }
       return nill;
 
@@ -61,21 +94,21 @@ class CodeGenerator {
 
 int main(){
 	CodeGenerator codeGen;
-  	char dest[] = "AM";
-	char comp[] = "M-1";
-	char comp1[] = "0";
-	char jmp[] = "JMP";
-	char nil[] = "dummy";
+  	string dest = "AM";
+	string comp = "M-1";
+	string comp1 = "0";
+	string jmp = "JMP";
+	string nil = "dummy";
 
 	// sunny day
-	printf("%s\n", codeGen.getDestBinary(dest));
-	//printf("%s\n", codeGen.getCompBinary(comp));
-	//printf("%s\n", codeGen.getCompBinary(comp1));
-	printf("%s\n", codeGen.getJumpBinary(jmp));
+	printf("%s\n", codeGen.getDestBinary(dest).c_str());
+	printf("%s\n", codeGen.getCompBinary(comp).c_str());
+	printf("%s\n", codeGen.getCompBinary(comp1).c_str());
+	printf("%s\n", codeGen.getJumpBinary(jmp).c_str());
 
 	// edge case
-	printf("%s\n", codeGen.getDestBinary(nil));
-	//assert(codeGen.getCompBinary(nil) == nullptr);
-	printf("%s\n", codeGen.getJumpBinary(nil));
+	printf("%s\n", codeGen.getDestBinary(nil).c_str());
+	printf("%s\n", codeGen.getCompBinary(nil).c_str());
+	printf("%s\n", codeGen.getJumpBinary(nil).c_str());
 
 }
