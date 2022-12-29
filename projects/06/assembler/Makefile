@@ -7,7 +7,7 @@ parse:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parse parser.o util.o
 
 code:
-	c++ -std=gnu++2a -Wall -Wshadow -g -O3 binary/codegen.cc -o codegen
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 binary/codegen.cc -o codegen
 
 asm:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o util.o -c utility/util.cc
