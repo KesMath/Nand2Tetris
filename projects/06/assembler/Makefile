@@ -11,8 +11,10 @@ code:
 
 asm:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o util.o -c utility/util.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o codegen.o -c binary/codegen.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o assembler.o -c driver/assembler.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o assembler assembler.o util.o
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o assembler assembler.o util.o codegen.o parser.o
 
 run:
 	./assembler ../add/Add_WhiteSpace.asm
@@ -20,6 +22,7 @@ run:
 clean-asm:
 	rm assembler.o
 	rm util.o
+	rm parser.o
 
 clean-parse:
 	rm parser.o
