@@ -54,11 +54,22 @@ int main(int argc, char *argv[])
         printf("Buffer: %s\n", (char*)buffer);
 
         //##################################################################################
-        // LINKER SANITY CHECK #############################################################
+        // LINKER SANITY CHECK FOR UTIL MODULE #############################################
         //##################################################################################
         vector<char> vec1 = strip_leading_and_trailing_whitespace(buffer);
         printf("Buffer After Trim: %s\n", to_string(vec1));
     } while(fgetc(assembly_file) != EOF);
+
+    //##################################################################################
+    // LINKER SANITY CHECK FOR PARSER MODULE ###########################################
+    //##################################################################################
+    Parser parse;
+    char cInstruction1[] = "AMD=M-1";
+    vector<char*> vec0 = parse.parseCInstruction(cInstruction1);
+    printf("Vector0 Size: %lu\n", vec0.size());
+    for(char* str: vec0){
+        printf("%s\n", str);
+    }
 
     free(buffer);
     fclose(assembly_file);

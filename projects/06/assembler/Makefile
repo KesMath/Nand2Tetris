@@ -15,6 +15,7 @@ asm:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o codegen.o -c binary/codegen.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o assembler.o -c driver/assembler.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o assembler assembler.o util.o codegen.o parser.o
+	make clean-asm
 
 run:
 	./assembler ../add/Add_WhiteSpace.asm
@@ -23,6 +24,7 @@ clean-asm:
 	rm assembler.o
 	rm util.o
 	rm parser.o
+	rm codegen.o
 
 clean-parse:
 	rm parser.o
