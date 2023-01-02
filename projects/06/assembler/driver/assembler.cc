@@ -3,10 +3,6 @@
 #include "../binary/codegen.cc"
 #include "../parser/parser.cc"
 
-// assembler logic will ignore lines starting with this
-//const char NEWLINE = '\n';
-//const string COMMENT = "//";
-
 int offsetOfNewLine(FILE *fstream);
 
 int main(int argc, char *argv[])

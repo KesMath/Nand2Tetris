@@ -3,7 +3,17 @@
 #include <string>
 #include <bitset>
 
-uint8_t WHITESPACE = 32;
+const uint8_t WHITESPACE = 32;
+const uint8_t NEWLINE = 10;
+const uint8_t COMMENT = 47;
+
+// assembler logic will ignore lines starting with this
+bool ignoreLine(char* line){
+    if(line[0] == NEWLINE || (line[0] == COMMENT && line[1] == COMMENT)){
+        return true;
+    }
+    return false;
+}
 
 vector<char> strip_leading_and_trailing_whitespace(char* command){
     int i = 0;
@@ -100,10 +110,19 @@ bool is_charInStr(char* str, char c){
 //     printf("%s\n", str3);
 
 //     char cInstruction3[] = "A=M-1";
-//     printf("%d\n", is_charInStr(cInstruction3, 61));
-//     printf("%d\n", is_charInStr(cInstruction3, '?'));
+//     printf("Char in Str: %d\n", is_charInStr(cInstruction3, 61));
+//     printf("Char in Str: %d\n", is_charInStr(cInstruction3, '?'));
+
+//     char cInstruction4[] = "\n    ";
+//     char cInstruction5[] = "// This file is part of www.nand2tetris.org";
+//     char cInstruction6[] = "M=D";
+//     char cInstruction7[] = "(OUTPUT_FIRST)";
+//     printf("Ignore Line: %d\n", ignoreLine(cInstruction4));
+//     printf("Ignore Line: %d\n", ignoreLine(cInstruction5));
+//     printf("Ignore Line: %d\n", ignoreLine(cInstruction6));
+//     printf("Ignore Line: %d\n", ignoreLine(cInstruction7));
 
 //     free(str1);
 //     free(str2);
 //     free(str3);
-// }
+//}
