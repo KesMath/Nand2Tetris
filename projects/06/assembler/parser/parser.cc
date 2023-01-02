@@ -41,7 +41,7 @@ class Parser {
     vector<char*> parseCInstruction(char* command){
         // parses "dest=comp" expressions
         vector<char*> vec;
-        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, EQUAL))){
+        if(isAssignmentInstruction(command)){
             char equal = EQUAL;
             vec = split(command, &equal);
         }
@@ -51,11 +51,27 @@ class Parser {
     vector<char*> parseJumpInstruction(char* command){
         // parses "comp;jmp" expressions
         vector<char*> vec;
-        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){
+        if(isJumpInstruction(command)){
             char semicolon = SEMICOLON;
             vec = split(command, &semicolon);
         }
         return vec;
+    }
+
+    bool isAssignmentInstruction(char* command){
+        // returns true for "dest=comp" expressions
+        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, EQUAL))){
+            return true;
+        }
+        return false;
+    }
+
+    bool isJumpInstruction(char* command){
+        // returns true for "comp;jmp" expressions
+        if((parseInstructionType(command) == C_INSTRUCTION) && (is_charInStr(command, SEMICOLON))){
+            return true;
+        }
+        return false;
     }
 };
 

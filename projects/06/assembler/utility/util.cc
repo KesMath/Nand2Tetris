@@ -69,35 +69,34 @@ bool is_charInStr(char* str, char c){
 }
 
 // //FOR UNIT TESTING PURPOSES - uncomment and run 'make util'
-int main(){
-    char cInstruction1[] = "     D=D+A      ";
-    char cInstruction2[] = "   D  =  D  +  A  ";
-    vector<char> vec1 = strip_leading_and_trailing_whitespace(cInstruction1);
-    vector<char> vec2 = strip_leading_and_trailing_whitespace(cInstruction2);
+// int main(){
+//     char cInstruction1[] = "     D=D+A      ";
+//     char cInstruction2[] = "   D  =  D  +  A  ";
+//     vector<char> vec1 = strip_leading_and_trailing_whitespace(cInstruction1);
+//     vector<char> vec2 = strip_leading_and_trailing_whitespace(cInstruction2);
 
-    assert(vec1.size() == vec2.size());
+//     assert(vec1.size() == vec2.size());
 
-    char* str1 = to_string(vec1);
-    char* str2 = to_string(vec2);
-    printf("%s\n", str1);
-    printf("%s\n", str2);
-    assert(strlen(str1) == strlen(str2));
-    assert(strcmp(str1, str2) == 0);
+//     char* str1 = to_string(vec1);
+//     char* str2 = to_string(vec2);
+//     printf("%s\n", str1);
+//     printf("%s\n", str2);
+//     assert(strlen(str1) == strlen(str2));
+//     assert(strcmp(str1, str2) == 0);
 
-    char EQUAL[] = "=";
-    vector<char*> vec3 = split(str1, EQUAL);
-    for(char* str: vec3){
-        printf("%s\n", str);
-    }
+//     char EQUAL[] = "=";
+//     vector<char*> vec3 = split(str1, EQUAL);
+//     for(char* str: vec3){
+//         printf("%s\n", str);
+//     }
 
-    string str3 = decimal_to_binary(32767);
-    printf("%s\n", str3.c_str());
+//     string str3 = decimal_to_binary(32767);
+//     printf("%s\n", str3.c_str());
 
-    char cInstruction3[] = "A=M-1";
-    printf("Char in Str: %d\n", is_charInStr(cInstruction3, 61));
-    printf("Char in Str: %d\n", is_charInStr(cInstruction3, '?'));
+//     char cInstruction3[] = "A=M-1";
+//     printf("Char in Str: %d\n", is_charInStr(cInstruction3, 61));
+//     printf("Char in Str: %d\n", is_charInStr(cInstruction3, '?'));
 
-    free(str1);
-    free(str2);
-    //free(str3);
-}
+//     free(str1);
+//     free(str2);
+// }
