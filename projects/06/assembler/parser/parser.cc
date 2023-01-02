@@ -15,7 +15,7 @@ class Parser {
             return C_INSTRUCTION;
         }
         else{
-            return NULL_INSTRUCT;
+            return NULL_INSTRUCTION;
         }
     }
 

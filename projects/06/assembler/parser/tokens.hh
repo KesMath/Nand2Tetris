@@ -12,4 +12,4 @@ const int RIGHT_BRACKET = 41; // ')'
 const int A_INSTRUCTION = 0;  // in Hack Architecture @XXX
 const int L_INSTRUCTION = 1;  // in Hack Architecture (XXX)
 const int C_INSTRUCTION = 2;  // in Hack Architecture 'dest=comp;jump'
-const int NULL_INSTRUCT = 3;  // uninterpreted instruction
+const int NULL_INSTRUCTION = 3;  // uninterpreted instruction

@@ -3,6 +3,17 @@
 #include "../binary/codegen.cc"
 #include "../parser/parser.cc"
 
+const uint8_t NEWLINE = 10;
+const uint8_t COMMENT = 47;
+
+// assembler logic will ignore lines starting with this
+bool ignoreLine(char* line){
+    if(line[0] == NEWLINE || (line[0] == COMMENT && line[1] == COMMENT)){
+        return true;
+    }
+    return false;
+}
+
 int offsetOfNewLine(FILE *fstream);
 
 int main(int argc, char *argv[])
@@ -53,12 +64,33 @@ int main(int argc, char *argv[])
         fgets(buffer, newlineOffset, assembly_file);
         printf("Buffer: %s\n", (char*)buffer);
         
-        // determinne if line is to be ignored
-        // process line if valid: (1) strip whitespace, (2) determine instruction type, (3) parse and get codegen mapping
-        // write binary output to new file  
+        // determine if line is to be ignored
+        if(!ignoreLine(buffer)){
+            vector<char> instructionChars = strip_leading_and_trailing_whitespace(buffer);
+            string command = to_string(instructionChars);
 
-        vector<char> vec1 = strip_leading_and_trailing_whitespace(buffer);
-        printf("Buffer After Trim: %s\n", to_string(vec1));
+            // determine instruction type
+            Parser parse;
+            string binOut;
+            uint8_t instructionType = parse.parseInstructionType(command);
+
+            switch(instructionType){
+                case A_INSTRUCTION:
+                    parse.parseSymbol(command);
+                    break;
+                
+                case C_INSTRUCTION:
+                    break;
+
+                case L_INSTRUCTION:
+                    break;
+            }
+            
+            // parse and get codegen mapping
+            CodeGenerator codeGen;
+
+            // write binary output to new file 
+        } 
     } while(fgetc(assembly_file) != EOF);
 
     free(buffer);
