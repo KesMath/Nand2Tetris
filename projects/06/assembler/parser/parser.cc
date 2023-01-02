@@ -25,9 +25,6 @@ class Parser {
         // else if command is @XXX, returns the symbol or decimal XXX
         string str;
         if(parseInstructionType(command) == A_INSTRUCTION){
-            //##########################################################################################################################################
-            // possibly simpler design would be to copy command to string using strcpy, call it S ... use S.substr(1, S.length() - 2) ... then return &S!
-            //##########################################################################################################################################
             char s [strlen(command)];
             strcpy(s, command);
             str = s;

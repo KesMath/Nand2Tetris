@@ -27,6 +27,10 @@ int main(int argc, char *argv[])
     // ####### First Pass to populate SymbolTable with programmer-defined labels #######
     //##################################################################################
 
+    //##################################################################################
+    // Second Pass to create executable ################################################
+    //##################################################################################
+
     // NOTE: we cannot assume the number of characters (or size of bytes) per line in order to allocate on to a buffer in advance
     // so we must use fgetc() (supplemented with a counter) for safer approach until NEWLINE is met
     char* buffer = NULL;
@@ -52,32 +56,18 @@ int main(int argc, char *argv[])
         //so we can proceed to next line without being infinitely stuck reading first line
         fgets(buffer, newlineOffset, assembly_file);
         printf("Buffer: %s\n", (char*)buffer);
+        
+        // determinne if line is to be ignored
+        // process line if valid: (1) strip whitespace, (2) determine instruction type, (3) parse and get codegen mapping
+        // write binary output to new file  
 
-        //##################################################################################
-        // LINKER SANITY CHECK FOR UTIL MODULE #############################################
-        //##################################################################################
         vector<char> vec1 = strip_leading_and_trailing_whitespace(buffer);
         printf("Buffer After Trim: %s\n", to_string(vec1));
     } while(fgetc(assembly_file) != EOF);
 
-    //##################################################################################
-    // LINKER SANITY CHECK FOR PARSER MODULE ###########################################
-    //##################################################################################
-    Parser parse;
-    char cInstruction1[] = "AMD=M-1";
-    vector<char*> vec0 = parse.parseCInstruction(cInstruction1);
-    printf("Vector0 Size: %lu\n", vec0.size());
-    for(char* str: vec0){
-        printf("%s\n", str);
-    }
-
     free(buffer);
     fclose(assembly_file);
     exit(0);
-
-    //##################################################################################
-    // Second Pass to create executable ################################################
-    //##################################################################################
 }
 
 int offsetOfNewLine(FILE *fstream){
