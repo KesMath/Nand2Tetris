@@ -5,6 +5,7 @@
 
 const uint8_t NEWLINE = 10;
 const uint8_t COMMENT = 47;
+const string HACK_BINARY_EXTENSION = ".hack";
 
 // assembler logic will ignore lines starting with this
 bool ignoreLine(char* line){
@@ -24,9 +25,16 @@ int main(int argc, char *argv[])
     }
 
     FILE *assembly_file = fopen(argv[1], "r");
-
     if(assembly_file == NULL){
         printf("Unable to open file at path: %s\n", argv[1]);
+        exit(-1);
+    }
+
+    string exeName = argv[1];
+    exeName += HACK_BINARY_EXTENSION;
+    FILE *executable_file = fopen(exeName.c_str(), "w");
+    if(executable_file == NULL){
+        printf("Unable to create executable file");
         exit(-1);
     }
 
@@ -41,6 +49,8 @@ int main(int argc, char *argv[])
     // NOTE: we cannot assume the number of characters (or size of bytes) per line in order to allocate on to a buffer in advance
     // so we must use fgetc() (supplemented with a counter) for safer approach until NEWLINE is met
     char* buffer = NULL;
+    Parser parse;
+    CodeGenerator codeGen;
     do{
         int newlineOffset = offsetOfNewLine(assembly_file) + 1;
 
@@ -64,37 +74,40 @@ int main(int argc, char *argv[])
         fgets(buffer, newlineOffset, assembly_file);
         printf("Buffer: %s\n", (char*)buffer);
         
-        // determine if line is to be ignored
+        // only processing lines with instructions
         if(!ignoreLine(buffer)){
             vector<char> instructionChars = strip_leading_and_trailing_whitespace(buffer);
             string command = to_string(instructionChars);
 
             // determine instruction type
-            Parser parse;
+            // IMPROVEMENT POINTS FOR EFFICIENCY: leverage pointers (which will mutate contents at that address)
+            // instead of having to pass-by-value which creates a number of disposable global variables
+            // REFERENCE: https://blog.penjee.com/passing-by-value-vs-by-reference-java-graphical/ 
+            string parsedCmd;
             string binOut;
-            uint8_t instructionType = parse.parseInstructionType(command);
+            uint8_t instructionType = parse.parseInstructionType(&command[0]);
 
-            switch(instructionType){
-                case A_INSTRUCTION:
-                    parse.parseSymbol(command);
-                    break;
-                
-                case C_INSTRUCTION:
-                    break;
-
-                case L_INSTRUCTION:
-                    break;
+            if(instructionType == A_INSTRUCTION){
+                parsedCmd = parse.parseSymbol(&command[0]);
+                binOut = decimal_to_binary(atoi(parsedCmd.c_str()));
+                binOut += NEWLINE;
             }
-            
-            // parse and get codegen mapping
-            CodeGenerator codeGen;
+            else if(instructionType == L_INSTRUCTION){
+                // handled by symbol table
 
-            // write binary output to new file 
+            }
+            else if(instructionType == C_INSTRUCTION){
+                // parse and get codegen mapping
+            }
+        
+            // write binary output to new file
+            fwrite(&binOut, binOut.size(), 1, executable_file); 
         } 
     } while(fgetc(assembly_file) != EOF);
 
     free(buffer);
     fclose(assembly_file);
+    fclose(executable_file);
     exit(0);
 }
 
