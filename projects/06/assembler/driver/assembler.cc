@@ -99,8 +99,8 @@ int main(int argc, char *argv[])
                 // parse and get codegen mapping
                 if(parse.isAssignmentInstruction(&command[0])){
                     vector<char*> parseCmds = parse.parseAssignmentInstruction(&command[0]);
-                    string destBin = codeGen.getDestBinary(parseCmds[0]);
-                    string compBin = codeGen.getCompBinary(parseCmds[1]);
+                    string destBin = codeGen.getDestBinary(string(parseCmds[0]));
+                    string compBin = codeGen.getCompBinary(string(parseCmds[1]));
                     string jmpBin = "000";
                     string startBits = "111";
                     char aBit = codeGen.getABit(parseCmds[0]);
@@ -109,8 +109,8 @@ int main(int argc, char *argv[])
                 }
                 else if(parse.isJumpInstruction(&command[0])){
                     vector<char*> parseCmds = parse.parseJumpInstruction(&command[0]);
-                    string compBin = codeGen.getCompBinary(parseCmds[0]);
-                    string jmpBin = codeGen.getJumpBinary(parseCmds[1]);
+                    string compBin = codeGen.getCompBinary(string(parseCmds[0]));
+                    string jmpBin = codeGen.getJumpBinary(string(parseCmds[1]));
                     string destBin = "000";
                     string startBits = "111";
                     char aBit = codeGen.getABit(parseCmds[0]);
