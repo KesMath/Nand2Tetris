@@ -5,6 +5,8 @@
 
 const uint8_t NEWLINE = 10;
 const uint8_t COMMENT = 47;
+const uint8_t CARRIAGE_RETURN = 13;
+
 const uint8_t ZERO = 48;
 const uint8_t ONE = ZERO + 1;
 const string HACK_BINARY_EXTENSION = ".hack";
@@ -12,7 +14,7 @@ const string HACK_ASM_EXTENSION = ".asm";
 
 // assembler logic will ignore lines starting with this
 bool ignoreLine(char* line){
-    if(line[0] == NEWLINE || (line[0] == COMMENT && line[1] == COMMENT)){
+    if(line[0] == CARRIAGE_RETURN || (line[0] == COMMENT && line[1] == COMMENT)){
         return true;
     }
     return false;
@@ -81,8 +83,7 @@ int main(int argc, char *argv[])
         // only processing lines with instructions
         if(!ignoreLine(buffer)){
             printf("Buffer: %s\n", (char*)buffer);
-            printf("Size of buffer: %lu\n", string(buffer).size());
-            printf("Buff Comp: %i\n", strcmp(buffer, "\n"));
+            //printf("Size of buffer: %lu\n", string(buffer).size());
             vector<char> instructionChars = strip_leading_and_trailing_whitespace(buffer);
             string command = to_string(instructionChars);
 
