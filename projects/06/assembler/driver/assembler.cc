@@ -98,6 +98,13 @@ int main(int argc, char *argv[])
             else if(instructionType == C_INSTRUCTION){
                 // parse and get codegen mapping
                 if(parse.isAssignmentInstruction(&command[0])){
+                    vector<char*> parseCmds = parse.parseAssignmentInstruction(&command[0]);
+                    string destBin = codeGen.getDestBinary(parseCmds[0]);
+                    string compBin = codeGen.getCompBinary(parseCmds[1]);
+                    string jmpBin = "000";
+                    string startBits = "111";
+                    char aBit = codeGen.getABit(parseCmds[0]);
+                    binOut = startBits + aBit + compBin + destBin + jmpBin;  
                     
                 }
                 else if(parse.isJumpInstruction(&command[0])){

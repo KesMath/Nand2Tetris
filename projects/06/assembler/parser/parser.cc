@@ -38,7 +38,7 @@ class Parser {
         }
         return str;
     }
-    vector<char*> parseCInstruction(char* command){
+    vector<char*> parseAssignmentInstruction(char* command){
         // parses "dest=comp" expressions
         vector<char*> vec;
         if(isAssignmentInstruction(command)){
@@ -88,7 +88,7 @@ class Parser {
 //     printf("%s\n", parse.parseSymbol(labelInstruction).c_str());
 
 //     //for "D=D-A" type of instructions
-//     vector<char*> vec0 = parse.parseCInstruction(cInstruction1);
+//     vector<char*> vec0 = parse.parseAssignmentInstruction(cInstruction1);
 //     printf("Vector0 Size: %lu\n", vec0.size());
 //     for(char* str: vec0){
 //         printf("%s\n", str);
