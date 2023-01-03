@@ -90,6 +90,20 @@ class CodeGenerator {
       return nill;
 
     }
+	
+	char getABit(string compCmd){
+		// According to Figure 4.3, 
+		// all comp mnemonics that contain 'M' will return a = 1 else, a = 0;
+		// This soln can base this 'quick-and-dirty' approach rather than an elegant one
+		// (i.e. map<char, map<string, string>> => '0', map<"A-1", "110010">, '1', map<"M-1", "110010">)
+		uint8_t bitIdentifier = 77; 
+		for(int i = 0; i < compCmd.length(); i++){
+			if(compCmd[i] == bitIdentifier){
+				return '1';
+			}
+		}
+		return '0';
+	}
 };
 
 // int main(){
@@ -111,4 +125,7 @@ class CodeGenerator {
 // 	printf("%s\n", codeGen.getCompBinary(nil).c_str());
 // 	printf("%s\n", codeGen.getJumpBinary(nil).c_str());
 
+// 	// bitIdentifier
+// 	printf("%c\n", codeGen.getABit(comp));
+// 	printf("%c\n", codeGen.getABit(comp1));
 // }

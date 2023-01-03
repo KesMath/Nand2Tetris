@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
                     string jmpBin = codeGen.getJumpBinary(parseCmds[1]);
                     string destBin = "000";
                     string startBits = "111";
-                    char aBit = '0'; //FIXME
+                    char aBit = codeGen.getABit(parseCmds[0]);
                     binOut = startBits + aBit + compBin + destBin + jmpBin;    
                 }
             }
