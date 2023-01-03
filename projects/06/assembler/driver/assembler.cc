@@ -77,10 +77,12 @@ int main(int argc, char *argv[])
         // as a side effect, fast-forwarding file position indicator will be done by fgets() 
         //so we can proceed to next line without being infinitely stuck reading first line
         fgets(buffer, newlineOffset, assembly_file);
-        printf("Buffer: %s\n", (char*)buffer);
         
         // only processing lines with instructions
         if(!ignoreLine(buffer)){
+            printf("Buffer: %s\n", (char*)buffer);
+            printf("Size of buffer: %lu\n", string(buffer).size());
+            printf("Buff Comp: %i\n", strcmp(buffer, "\n"));
             vector<char> instructionChars = strip_leading_and_trailing_whitespace(buffer);
             string command = to_string(instructionChars);
 
@@ -129,10 +131,11 @@ int main(int argc, char *argv[])
             assert(isCharSetBinary(binOut));
             binOut += NEWLINE;
             fwrite(&binOut, binOut.size(), 1, executable_file); 
-        } 
+        }
+        free(buffer); 
     } while(fgetc(assembly_file) != EOF);
 
-    free(buffer);
+
     fclose(assembly_file);
     fclose(executable_file);
     exit(0);
