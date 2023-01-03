@@ -17,6 +17,7 @@ bool ignoreLine(char* line){
     return false;
 }
 
+bool isCharSetBinary(string bin);
 int offsetOfNewLine(FILE *fstream);
 
 int main(int argc, char *argv[])
