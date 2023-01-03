@@ -8,6 +8,7 @@ const uint8_t COMMENT = 47;
 const uint8_t ZERO = 48;
 const uint8_t ONE = ZERO + 1;
 const string HACK_BINARY_EXTENSION = ".hack";
+const string HACK_ASM_EXTENSION = ".asm";
 
 // assembler logic will ignore lines starting with this
 bool ignoreLine(char* line){
@@ -34,6 +35,7 @@ int main(int argc, char *argv[])
     }
 
     string exeName = argv[1];
+    exeName.erase(exeName.find(HACK_ASM_EXTENSION), exeName.rfind(HACK_ASM_EXTENSION)); // removing '.asm' name
     exeName += HACK_BINARY_EXTENSION;
     FILE *executable_file = fopen(exeName.c_str(), "w");
     if(executable_file == NULL){

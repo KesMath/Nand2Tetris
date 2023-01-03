@@ -18,7 +18,7 @@ asm:
 	make clean-asm
 
 run:
-	./assembler ../add/Add_WhiteSpace.asm
+	./assembler ../add/Add.asm
 
 clean-asm:
 	rm assembler.o
