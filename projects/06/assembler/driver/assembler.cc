@@ -128,6 +128,8 @@ int main(int argc, char *argv[])
             }
         
             // write binary output to new file
+            printf("BinOut: %s\n", binOut.c_str());
+            printf("BinOut Size: %lu\n", binOut.size());
             assert(binOut.size() == WORD_SIZE);
             assert(isCharSetBinary(binOut));
             binOut += NEWLINE;
@@ -159,7 +161,7 @@ int offsetOfNewLine(FILE *fstream){
 
 bool isCharSetBinary(string bin){
     for(int i = 0; i < bin.size(); i++){
-        if(bin[i] != ZERO && bin[1] != ONE){
+        if((bin[i] != ZERO) && (bin[i] != ONE)){
             return false;
         }
     }
