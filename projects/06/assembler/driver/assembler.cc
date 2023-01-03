@@ -5,6 +5,8 @@
 
 const uint8_t NEWLINE = 10;
 const uint8_t COMMENT = 47;
+const uint8_t ZERO = 48;
+const uint8_t ONE = ZERO + 1;
 const string HACK_BINARY_EXTENSION = ".hack";
 
 // assembler logic will ignore lines starting with this
@@ -90,6 +92,7 @@ int main(int argc, char *argv[])
             if(instructionType == A_INSTRUCTION){
                 parsedCmd = parse.parseSymbol(&command[0]);
                 binOut = decimal_to_binary(atoi(parsedCmd.c_str()));
+                assert(binOut[0] == ZERO);
             }
             else if(instructionType == L_INSTRUCTION){
                 // handled by symbol table
@@ -120,6 +123,7 @@ int main(int argc, char *argv[])
         
             // write binary output to new file
             assert(binOut.size() == WORD_SIZE);
+            assert(isCharSetBinary(binOut));
             binOut += NEWLINE;
             fwrite(&binOut, binOut.size(), 1, executable_file); 
         } 
@@ -144,4 +148,13 @@ int offsetOfNewLine(FILE *fstream){
         cout++;
     }
     return cout;
+}
+
+bool isCharSetBinary(string bin){
+    for(int i = 0; i < bin.size(); i++){
+        if(bin[i] != ZERO && bin[1] != ONE){
+            return false;
+        }
+    }
+    return true;
 }
