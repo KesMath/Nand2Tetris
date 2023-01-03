@@ -90,7 +90,6 @@ int main(int argc, char *argv[])
             if(instructionType == A_INSTRUCTION){
                 parsedCmd = parse.parseSymbol(&command[0]);
                 binOut = decimal_to_binary(atoi(parsedCmd.c_str()));
-                binOut += NEWLINE;
             }
             else if(instructionType == L_INSTRUCTION){
                 // handled by symbol table
@@ -98,9 +97,23 @@ int main(int argc, char *argv[])
             }
             else if(instructionType == C_INSTRUCTION){
                 // parse and get codegen mapping
+                if(parse.isAssignmentInstruction(&command[0])){
+                    
+                }
+                else if(parse.isJumpInstruction(&command[0])){
+                    vector<char*> parseCmds = parse.parseJumpInstruction(&command[0]);
+                    string compBin = codeGen.getCompBinary(parseCmds[0]);
+                    string jmpBin = codeGen.getJumpBinary(parseCmds[1]);
+                    string destBin = "000";
+                    string startBits = "111";
+                    char aBit = '0'; //FIXME
+                    binOut = startBits + aBit + compBin + destBin + jmpBin;    
+                }
             }
         
             // write binary output to new file
+            assert(binOut.size() == WORD_SIZE);
+            binOut += NEWLINE;
             fwrite(&binOut, binOut.size(), 1, executable_file); 
         } 
     } while(fgetc(assembly_file) != EOF);
