@@ -130,14 +130,13 @@ int main(int argc, char *argv[])
                     jmpBin = codeGen.getJumpBinary(parseCmds[1]);
                     destBin = "000";
                 }
-                char aBit = codeGen.getABit(parseCmds[0]);
+                char aBit = codeGen.getABit(parseCmds[1]);
                 binOut = startBits + aBit + compBin + destBin + jmpBin;
             }
         
             // write binary output to new file
             //FIXME: 
             // fix 15 bit fwrite discrepancy,
-            // aBit for M=D cmd is off,
             // EOF (or whatever that character is) needs to be ignored 
             printf("BinOut: %s\n", binOut.c_str());
             printf("BinOut Size: %lu\n", binOut.size());
