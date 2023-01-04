@@ -105,32 +105,31 @@ int main(int argc, char *argv[])
             }
             else if(instructionType == C_INSTRUCTION){
                 // parse and get codegen mapping
+                string compBin;
+                string destBin;
+                string jmpBin;
+                string startBits = "111";
+                vector<string> parseCmds;
                 if(parse.isAssignmentInstruction(&command[0])){
-                    vector<string> parseCmds = parse.parseAssignmentInstruction(command);
+                    parseCmds = parse.parseAssignmentInstruction(command);
                     printf("parseCmds Size: %lu\n", parseCmds.size());
                     printf("parseCmds[0]: %s\n", parseCmds[0].c_str());
                     printf("parseCmds[1]: %s\n", parseCmds[1].c_str());
 
-                    string destBin = codeGen.getDestBinary(parseCmds[0]);
+                    destBin = codeGen.getDestBinary(parseCmds[0]);
                     printf("destBin: %s\n", destBin.c_str());
-                    string compBin = codeGen.getCompBinary(parseCmds[1]);
+                    compBin = codeGen.getCompBinary(parseCmds[1]);
                     printf("compBin: %s\n", compBin.c_str());
-                    string jmpBin = "000";
-                    string startBits = "111";
-                    char aBit = codeGen.getABit(parseCmds[0]);
-                    printf("ABit: %c\n", aBit);
-                    binOut = startBits + aBit + compBin + destBin + jmpBin;  
-                    
+                    jmpBin = "000";                    
                 }
                 else if(parse.isJumpInstruction(&command[0])){
-                    vector<string> parseCmds = parse.parseJumpInstruction(command);
-                    string compBin = codeGen.getCompBinary(parseCmds[0]);
-                    string jmpBin = codeGen.getJumpBinary(parseCmds[1]);
-                    string destBin = "000";
-                    string startBits = "111";
-                    char aBit = codeGen.getABit(parseCmds[0]);
-                    binOut = startBits + aBit + compBin + destBin + jmpBin;    
+                    parseCmds = parse.parseJumpInstruction(command);
+                    compBin = codeGen.getCompBinary(parseCmds[0]);
+                    jmpBin = codeGen.getJumpBinary(parseCmds[1]);
+                    destBin = "000";
                 }
+                char aBit = codeGen.getABit(parseCmds[0]);
+                binOut = startBits + aBit + compBin + destBin + jmpBin;
             }
         
             // write binary output to new file
