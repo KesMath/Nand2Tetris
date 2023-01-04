@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
                     
                 }
                 else if(parse.isJumpInstruction(&command[0])){
-                    vector<string> parseCmds = parse.parseJumpInstruction(&command[0]);
+                    vector<string> parseCmds = parse.parseJumpInstruction(command);
                     string compBin = codeGen.getCompBinary(parseCmds[0]);
                     string jmpBin = codeGen.getJumpBinary(parseCmds[1]);
                     string destBin = "000";
