@@ -8,6 +8,8 @@ const uint8_t COMMENT = 47;
 
 const uint8_t ZERO = 48;
 const uint8_t ONE = ZERO + 1;
+
+const uint8_t NUL_BYTE = 0; // '\0'
 const string HACK_BINARY_EXTENSION = ".hack";
 const string HACK_ASM_EXTENSION = ".asm";
 
@@ -15,7 +17,7 @@ const string HACK_ASM_EXTENSION = ".asm";
 bool ignoreLine(char* line){
     if((line[0] == CARRIAGE_RETURN)
     || (line[0] == COMMENT && line[1] == COMMENT)
-    || (line[0] == NEWLINE)){ //FIXME: some EOF character has to be blacklisted as well
+    || (line[0] == NUL_BYTE)){
         return true;
     }
     return false;
@@ -84,6 +86,7 @@ int main(int argc, char *argv[])
         // only processing lines with instructions
         if(!ignoreLine(buffer)){
             printf("Buffer: %s\n", (char*)buffer);
+            printf("Buffer Ascii of 1st Char: %i\n", buffer[0]);
             //printf("Size of buffer: %lu\n", string(buffer).size());
             vector<char> instructionChars = strip_leading_and_trailing_whitespace(buffer);
             string command = to_string(instructionChars);
@@ -136,8 +139,7 @@ int main(int argc, char *argv[])
         
             // write binary output to new file
             //FIXME: 
-            // leading whitespace on binOut,
-            // EOF (or whatever that character is) needs to be ignored 
+            // leading whitespace on binOut
             printf("BinOut: %s\n", binOut.c_str());
             printf("BinOut Size: %lu\n", binOut.size());
             assert(binOut.size() == WORD_SIZE);
