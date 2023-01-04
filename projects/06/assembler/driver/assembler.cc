@@ -86,7 +86,6 @@ int main(int argc, char *argv[])
         // only processing lines with instructions
         if(!ignoreLine(buffer)){
             printf("Buffer: %s\n", (char*)buffer);
-            printf("Buffer Ascii of 1st Char: %i\n", buffer[0]);
             //printf("Size of buffer: %lu\n", string(buffer).size());
             vector<char> instructionChars = strip_leading_and_trailing_whitespace(buffer);
             string command = to_string(instructionChars);
