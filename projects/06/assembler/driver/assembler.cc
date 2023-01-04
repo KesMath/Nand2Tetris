@@ -107,19 +107,24 @@ int main(int argc, char *argv[])
             else if(instructionType == C_INSTRUCTION){
                 // parse and get codegen mapping
                 if(parse.isAssignmentInstruction(&command[0])){
-                    vector<char*> parseCmds = parse.parseAssignmentInstruction(&command[0]);
-                    string destBin = codeGen.getDestBinary(string(parseCmds[0]));
-                    string compBin = codeGen.getCompBinary(string(parseCmds[1]));
+                    vector<string> parseCmds = parse.parseAssignmentInstruction(&command[0]);
+                    printf("parseCmds Size: %lu\n", parseCmds.size());
+                    printf("parseCmds[0]: %s\n", parseCmds[0].c_str());
+                    printf("parseCmds[1]: %s\n", parseCmds[1].c_str());
+
+                    string destBin = codeGen.getDestBinary(parseCmds[0]);
+                    string compBin = codeGen.getCompBinary(parseCmds[1]);
                     string jmpBin = "000";
                     string startBits = "111";
                     char aBit = codeGen.getABit(parseCmds[0]);
+                    printf("ABit: %c\n", aBit);
                     binOut = startBits + aBit + compBin + destBin + jmpBin;  
                     
                 }
                 else if(parse.isJumpInstruction(&command[0])){
-                    vector<char*> parseCmds = parse.parseJumpInstruction(&command[0]);
-                    string compBin = codeGen.getCompBinary(string(parseCmds[0]));
-                    string jmpBin = codeGen.getJumpBinary(string(parseCmds[1]));
+                    vector<string> parseCmds = parse.parseJumpInstruction(&command[0]);
+                    string compBin = codeGen.getCompBinary(parseCmds[0]);
+                    string jmpBin = codeGen.getJumpBinary(parseCmds[1]);
                     string destBin = "000";
                     string startBits = "111";
                     char aBit = codeGen.getABit(parseCmds[0]);

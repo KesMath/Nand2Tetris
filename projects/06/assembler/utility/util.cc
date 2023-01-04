@@ -33,23 +33,20 @@ char* to_string(vector<char> charlist){
     return str;
 }
 
-vector<char*> split(char* command, char* delimiter){
-    vector<char*> strList;
+// NOTE: No requirement to iterate for this use case given that Hack Instruction set
+// is simple enough and will always yield vector of size = 2 
+vector<string> split(string command, string delimiter){
+    vector<string> strList;
     char* str;
 
-    str = strtok(command, delimiter);
+    str = strtok(command.data(), delimiter.c_str());
     strList.push_back(str);
-    do{
-        // According to man pages:
-        // "The first time that strtok() is called, str should be specified;
-        // subsequent calls, wishing to obtain further tokens from the same string, should pass a null pointer instead.
-        // The separator string, sep, must be supplied each time, and may change between calls."
-        str = strtok(NULL, delimiter);
-        strList.push_back(str);
-
-    }
-    while(str != nullptr);
-    strList.pop_back();
+    // According to man pages:
+    // "The first time that strtok() is called, str should be specified;
+    // subsequent calls, wishing to obtain further tokens from the same string, should pass a null pointer instead.
+    // The separator string, sep, must be supplied each time, and may change between calls."
+    str = strtok(NULL, delimiter.c_str());
+    strList.push_back(str);
     return strList;
 }
 
@@ -85,9 +82,9 @@ bool is_charInStr(char* str, char c){
 //     assert(strcmp(str1, str2) == 0);
 
 //     char EQUAL[] = "=";
-//     vector<char*> vec3 = split(str1, EQUAL);
-//     for(char* str: vec3){
-//         printf("%s\n", str);
+//     vector<string> vec3 = split(str1, EQUAL);
+//     for(string str: vec3){
+//         printf("%s\n", str.c_str());
 //     }
 
 //     string str3 = decimal_to_binary(32767);

@@ -38,22 +38,22 @@ class Parser {
         }
         return str;
     }
-    vector<char*> parseAssignmentInstruction(char* command){
+    vector<string> parseAssignmentInstruction(string command){
         // parses "dest=comp" expressions
-        vector<char*> vec;
-        if(isAssignmentInstruction(command)){
+        vector<string> vec;
+        if(isAssignmentInstruction(command.data())){
             char equal = EQUAL;
-            vec = split(command, &equal);
+            vec = split(command.data(), &equal);
         }
         return vec;
     }
 
-    vector<char*> parseJumpInstruction(char* command){
+    vector<string> parseJumpInstruction(string command){
         // parses "comp;jmp" expressions
-        vector<char*> vec;
-        if(isJumpInstruction(command)){
+        vector<string> vec;
+        if(isJumpInstruction(command.data())){
             char semicolon = SEMICOLON;
-            vec = split(command, &semicolon);
+            vec = split(command.data(), &semicolon);
         }
         return vec;
     }
@@ -79,8 +79,8 @@ class Parser {
 // int main(){
 //     char aInstruction[] = "@1234";
 //     char labelInstruction[] = "(memory.alloc$while_end0)";
-//     char cInstruction1[] = "AMD=M-1";
-//     char cInstruction2[] = "0;JMP";
+//     string cInstruction1 = "AMD=M-1";
+//     string cInstruction2 = "0;JMP";
 
 //     Parser parse;
 //     // for (LABEL) or @XXX type of instructions
@@ -88,17 +88,16 @@ class Parser {
 //     printf("%s\n", parse.parseSymbol(labelInstruction).c_str());
 
 //     //for "D=D-A" type of instructions
-//     vector<char*> vec0 = parse.parseAssignmentInstruction(cInstruction1);
+//     vector<string> vec0 = parse.parseAssignmentInstruction(cInstruction1);
 //     printf("Vector0 Size: %lu\n", vec0.size());
-//     for(char* str: vec0){
-//         printf("%s\n", str);
+//     for(string str: vec0){
+//         printf("%s\n", str.c_str());
 //     }
-//     printf("%s\n", vec0[0]);
 
 //     // for "D;JGT" type of instructions
-//     vector<char*> vec1 = parse.parseJumpInstruction(cInstruction2);
+//     vector<string> vec1 = parse.parseJumpInstruction(cInstruction2);
 //     printf("Vector1 Size: %lu\n", vec1.size());
-//     for(char* str: vec1){
-//         printf("%s\n", str);
+//     for(string str: vec1){
+//         printf("%s\n", str.c_str());
 //     }
 // }

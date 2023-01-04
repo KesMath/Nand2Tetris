@@ -13,5 +13,5 @@ string decimal_to_binary(int dec);
 vector<char> strip_leading_and_trailing_whitespace(char* command);
 
 char* to_string(vector<char> charlist);
-vector<char*> split(char* command, char* delimiter);
+vector<string> split(string command, string delimiter);
 bool is_charInStr(char* str, char c);
