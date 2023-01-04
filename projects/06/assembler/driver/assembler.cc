@@ -136,13 +136,13 @@ int main(int argc, char *argv[])
         
             // write binary output to new file
             //FIXME: 
-            // fix 15 bit fwrite discrepancy,
+            // leading whitespace on binOut,
             // EOF (or whatever that character is) needs to be ignored 
             printf("BinOut: %s\n", binOut.c_str());
             printf("BinOut Size: %lu\n", binOut.size());
             assert(binOut.size() == WORD_SIZE);
             assert(isCharSetBinary(binOut));
-            fwrite(&binOut, binOut.size(), 1, executable_file);
+            fwrite(&binOut, binOut.size() + 1, 1, executable_file);
             fwrite(&NEWLINE, sizeof(NEWLINE), 1, executable_file);  
         }
         free(buffer); 
