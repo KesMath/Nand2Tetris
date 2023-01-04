@@ -107,13 +107,15 @@ int main(int argc, char *argv[])
             else if(instructionType == C_INSTRUCTION){
                 // parse and get codegen mapping
                 if(parse.isAssignmentInstruction(&command[0])){
-                    vector<string> parseCmds = parse.parseAssignmentInstruction(&command[0]);
+                    vector<string> parseCmds = parse.parseAssignmentInstruction(command);
                     printf("parseCmds Size: %lu\n", parseCmds.size());
                     printf("parseCmds[0]: %s\n", parseCmds[0].c_str());
                     printf("parseCmds[1]: %s\n", parseCmds[1].c_str());
 
                     string destBin = codeGen.getDestBinary(parseCmds[0]);
+                    printf("destBin: %s\n", destBin.c_str());
                     string compBin = codeGen.getCompBinary(parseCmds[1]);
+                    printf("compBin: %s\n", compBin.c_str());
                     string jmpBin = "000";
                     string startBits = "111";
                     char aBit = codeGen.getABit(parseCmds[0]);
