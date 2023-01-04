@@ -16,8 +16,17 @@ asm:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O0 -o assembler.o -c driver/assembler.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O0 -o assembler assembler.o util.o codegen.o parser.o
 
-run:
+run-add:
 	./assembler ../add/Add.asm
+
+run-max:
+	./assembler ../max/Max.asm
+
+run-pong:
+	./assembler ../pong/Pong.asm
+
+run-rect:
+	./assembler ../rect/Rect.asm
 
 clean-asm:
 	rm assembler.o
