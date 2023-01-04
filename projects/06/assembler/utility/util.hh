@@ -3,6 +3,7 @@ using namespace std;
 
 // All ROM commands within Hack Architecture is 16-bit instruction set
 const uint8_t WORD_SIZE = 16;
+const uint8_t CARRIAGE_RETURN = 13;
 
 // for A-instruction @value commands
 string decimal_to_binary(int dec);

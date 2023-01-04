@@ -5,12 +5,11 @@
 
 const uint8_t WHITESPACE = 32;
 
-
 vector<char> strip_leading_and_trailing_whitespace(char* command){
     int i = 0;
     vector<char> charlist;
     while(command[i] != '\0'){
-        if(command[i] != WHITESPACE){
+        if((command[i] != WHITESPACE) && (command[i] != CARRIAGE_RETURN)){
             charlist.push_back(command[i]);
         }
         i++;
