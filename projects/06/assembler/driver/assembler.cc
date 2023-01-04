@@ -13,7 +13,9 @@ const string HACK_ASM_EXTENSION = ".asm";
 
 // assembler logic will ignore lines starting with this
 bool ignoreLine(char* line){
-    if((line[0] == CARRIAGE_RETURN) || (line[0] == COMMENT && line[1] == COMMENT)){
+    if((line[0] == CARRIAGE_RETURN)
+    || (line[0] == COMMENT && line[1] == COMMENT)
+    || (line[0] == NEWLINE)){ //FIXME: some EOF character has to be blacklisted as well
         return true;
     }
     return false;
@@ -133,6 +135,10 @@ int main(int argc, char *argv[])
             }
         
             // write binary output to new file
+            //FIXME: 
+            // fix 15 bit fwrite discrepancy,
+            // aBit for M=D cmd is off,
+            // EOF (or whatever that character is) needs to be ignored 
             printf("BinOut: %s\n", binOut.c_str());
             printf("BinOut Size: %lu\n", binOut.size());
             assert(binOut.size() == WORD_SIZE);
