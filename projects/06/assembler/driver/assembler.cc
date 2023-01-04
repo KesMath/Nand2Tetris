@@ -138,8 +138,8 @@ int main(int argc, char *argv[])
             printf("BinOut Size: %lu\n", binOut.size());
             assert(binOut.size() == WORD_SIZE);
             assert(isCharSetBinary(binOut));
-            binOut += NEWLINE;
-            fwrite(&binOut, binOut.size(), 1, executable_file); 
+            fwrite(&binOut, binOut.size(), 1, executable_file);
+            fwrite(&NEWLINE, sizeof(NEWLINE), 1, executable_file);  
         }
         free(buffer); 
     } while(fgetc(assembly_file) != EOF);

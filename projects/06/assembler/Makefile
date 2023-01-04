@@ -10,11 +10,11 @@ code:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 binary/codegen.cc -o codegen
 
 asm:
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o util.o -c utility/util.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o codegen.o -c binary/codegen.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o assembler.o -c driver/assembler.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o assembler assembler.o util.o codegen.o parser.o
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O0 -o util.o -c utility/util.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O0 -o parser.o -c parser/parser.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O0 -o codegen.o -c binary/codegen.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O0 -o assembler.o -c driver/assembler.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O0 -o assembler assembler.o util.o codegen.o parser.o
 
 run:
 	./assembler ../add/Add.asm
