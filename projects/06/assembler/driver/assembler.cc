@@ -108,12 +108,14 @@ int main(int argc, char *argv[])
             }
             else if(instructionType == C_INSTRUCTION){
                 // parse and get codegen mapping
+                char aBit = '\0';
                 string compBin;
                 string destBin;
                 string jmpBin;
                 string startBits = "111";
                 vector<string> parseCmds;
                 if(parse.isAssignmentInstruction(&command[0])){
+                    // for "dest=comp" expressions
                     parseCmds = parse.parseAssignmentInstruction(command);
                     printf("parseCmds Size: %lu\n", parseCmds.size());
                     printf("parseCmds[0]: %s\n", parseCmds[0].c_str());
@@ -123,26 +125,30 @@ int main(int argc, char *argv[])
                     printf("destBin: %s\n", destBin.c_str());
                     compBin = codeGen.getCompBinary(parseCmds[1]);
                     printf("compBin: %s\n", compBin.c_str());
-                    jmpBin = "000";                    
+                    jmpBin = "000";
+                    aBit = codeGen.getABit(parseCmds[1]);                    
                 }
                 else if(parse.isJumpInstruction(&command[0])){
+                    // for "comp;jmp" expressions
                     parseCmds = parse.parseJumpInstruction(command);
+                    printf("parseCmds Size: %lu\n", parseCmds.size());
+                    printf("parseCmds[0]: %s\n", parseCmds[0].c_str());
+                    printf("parseCmds[1]: %s\n", parseCmds[1].c_str());
                     compBin = codeGen.getCompBinary(parseCmds[0]);
                     jmpBin = codeGen.getJumpBinary(parseCmds[1]);
                     destBin = "000";
+                    aBit = codeGen.getABit(parseCmds[0]);
                 }
-                char aBit = codeGen.getABit(parseCmds[1]);
+
                 binOut = startBits + aBit + compBin + destBin + jmpBin;
             }
         
             // write binary output to new file
-            //FIXME: 
-            // leading whitespace on binOut
             printf("BinOut: %s\n", binOut.c_str());
             printf("BinOut Size: %lu\n", binOut.size());
             assert(binOut.size() == WORD_SIZE);
             assert(isCharSetBinary(binOut));
-            
+
             fprintf(executable_file, "%s\n", binOut.c_str());
         }
         free(buffer); 
