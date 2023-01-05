@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
             }
             else if(instructionType == C_INSTRUCTION){
                 // parse and get codegen mapping
-                char aBit = '\0';
+                char aBit = '0';
                 string compBin;
                 string destBin;
                 string jmpBin;
