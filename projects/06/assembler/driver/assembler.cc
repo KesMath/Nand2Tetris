@@ -3,7 +3,6 @@
 #include "../binary/codegen.cc"
 #include "../parser/parser.cc"
 
-const uint8_t NEWLINE = 10;
 const uint8_t COMMENT = 47;
 
 const uint8_t ZERO = 48;
@@ -143,8 +142,8 @@ int main(int argc, char *argv[])
             printf("BinOut Size: %lu\n", binOut.size());
             assert(binOut.size() == WORD_SIZE);
             assert(isCharSetBinary(binOut));
-            fwrite(&binOut, binOut.size() + 1, 1, executable_file);
-            fwrite(&NEWLINE, sizeof(NEWLINE), 1, executable_file);  
+            
+            fprintf(executable_file, "%s\n", binOut.c_str());
         }
         free(buffer); 
     } while(fgetc(assembly_file) != EOF);
