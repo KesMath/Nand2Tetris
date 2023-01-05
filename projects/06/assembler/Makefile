@@ -20,13 +20,13 @@ run-add:
 	./assembler ../add/Add.asm
 
 run-max:
-	./assembler ../max/Max.asm
+	./assembler ../max/MaxL.asm
 
 run-pong:
-	./assembler ../pong/Pong.asm
+	./assembler ../pong/PongL.asm
 
 run-rect:
-	./assembler ../rect/Rect.asm
+	./assembler ../rect/RectL.asm
 
 clean-asm:
 	rm assembler.o
