@@ -104,6 +104,9 @@ int main(int argc, char *argv[])
             }
             else if(instructionType == L_INSTRUCTION){
                 // handled by symbol table
+                // NEXT STEPS: 
+                // (1) - create helper function that strips inline comments
+                // (2) - create symbol table module and add logic here
 
             }
             else if(instructionType == C_INSTRUCTION){
