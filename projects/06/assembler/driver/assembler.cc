@@ -3,7 +3,6 @@
 #include "../binary/codegen.cc"
 #include "../parser/parser.cc"
 
-const uint8_t COMMENT = 47;
 
 const uint8_t ZERO = 48;
 const uint8_t ONE = ZERO + 1;
