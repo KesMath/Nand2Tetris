@@ -28,6 +28,12 @@ run-pong:
 run-rect:
 	./assembler ../rect/RectL.asm
 
+run-all:
+	make run-add
+	make run-max
+	make run-pong
+	make run-rect
+
 clean-asm:
 	rm assembler.o
 	rm util.o
