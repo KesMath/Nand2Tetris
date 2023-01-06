@@ -83,9 +83,11 @@ int main(int argc, char *argv[])
         
         // only processing lines with instructions
         if(!ignoreLine(buffer)){
-            printf("Buffer: %s\n", (char*)buffer);
+            printf("Original Buffer: %s\n", (char*)buffer);
             //printf("Size of buffer: %lu\n", string(buffer).size());
-            vector<char> instructionChars = strip_leading_and_trailing_whitespace(buffer);
+            char* strippedBuff = strip_inline_comment(buffer);
+            printf("Stripped Buffer: %s\n", (char*)strippedBuff);
+            vector<char> instructionChars = strip_leading_and_trailing_whitespace(strippedBuff);
             string command = to_string(instructionChars);
 
             // determine instruction type
@@ -104,8 +106,7 @@ int main(int argc, char *argv[])
             else if(instructionType == L_INSTRUCTION){
                 // handled by symbol table
                 // NEXT STEPS: 
-                // (1) - create helper function that strips inline comments
-                // (2) - create symbol table module and add logic here
+                // (1) - create symbol table module and add logic here
 
             }
             else if(instructionType == C_INSTRUCTION){
