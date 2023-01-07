@@ -1,13 +1,22 @@
 #include <map>
 #include <string>
+#include "../parser/parser.cc"
 
 using namespace std;
 
+// (LABELS) in assembly language is basically the equivalent of method headers
+// where we can optionally section out / modularize our code for readability and reusability
+
+// Hence why we need to initially pass through the entire *.asm file (before parsing and running codegen module)
+// and map the labels to their respective line numbers so when a jump statement is executed,
+// the program counter gets assigned to that line number and the CPU executes that targeted command!
 
 class SymbolTable{
 
     private:
         map<string, int> table;
+        std::map<string, int>::iterator it;
+        Parser parse;
 
     public:
         SymbolTable(){
@@ -35,7 +44,35 @@ class SymbolTable{
 		    table["SCREEN"] = 16384;
 		    table["KBD"]    = 24576;
 
-        }
-    
 
+        }
+        void addEntry(string label, int line_pos){
+            it = table.find(label);
+            if(it == table.end()){ //iterator returns null when it cannot find the key in question
+                table[parse.parseSymbol(label.data())] = line_pos;
+            }
+        }
+        int getAddress(string label){
+            it = table.find(label);
+            if(it != table.end()){
+                return it->second;
+            }
+        }
 };
+
+// FOR UNIT TESTING PURPOSES - uncomment and run 'make table'
+int main(){
+    SymbolTable symbolTable;
+
+    string str1 = "(memory.alloc$while_end0)";
+    string str2 = "(OUTPUT_FIRST)";
+    string str3 = "(INFINITE_LOOP)";
+
+    symbolTable.addEntry(str1, 16);
+    symbolTable.addEntry(str2, 17);
+    symbolTable.addEntry(str3, 18);
+
+    printf("%i\n", symbolTable.getAddress(str1));
+    printf("%i\n", symbolTable.getAddress(str2));
+    printf("%i\n", symbolTable.getAddress(str3));
+}

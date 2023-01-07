@@ -106,7 +106,8 @@ int main(int argc, char *argv[])
             else if(instructionType == L_INSTRUCTION){
                 // handled by symbol table
                 // NEXT STEPS: 
-                // (1) - create symbol table module and add logic here
+                // (1) - create symbol table module and add logic here:
+                // where we check if @XXX is in symbol table, if not then we assume it's a regular A_Instruction
 
             }
             else if(instructionType == C_INSTRUCTION){

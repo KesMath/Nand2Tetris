@@ -9,6 +9,12 @@ parse:
 code:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 binary/codegen.cc -o codegen
 
+table:
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o symbol_table.o -c symbol_table/symbol_table.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o symbol_table parser.o symbol_table.o
+
+
 asm:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o util.o -c utility/util.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc
@@ -44,3 +50,7 @@ clean-parse:
 	rm parser.o
 	rm util.o
 	rm parse
+
+clean-table:
+	rm parser.o
+	rm symbol_table.o
