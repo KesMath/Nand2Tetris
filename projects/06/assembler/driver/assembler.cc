@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
 
             if(instructionType == L_INSTRUCTION){
                 symbolTable.addEntry(command, ++cout);
+                printf("SYMBOL TABLE LABEL: %s at address: %i\n", command.c_str(), symbolTable.getAddress("@" + command));
             }
         }
         free(buffer);

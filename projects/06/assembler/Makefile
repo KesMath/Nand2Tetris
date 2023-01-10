@@ -31,7 +31,8 @@ run-add:
 	./assembler ../add/Add.asm
 
 run-max:
-	./assembler ../max/MaxL.asm
+	./assembler ../max/Max.asm
+	# ./assembler ../max/MaxL.asm
 
 run-pong:
 	./assembler ../pong/PongL.asm
