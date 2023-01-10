@@ -62,22 +62,22 @@ class SymbolTable{
 };
 
 // FOR UNIT TESTING PURPOSES - uncomment and run 'make table'
-int main(){
-    SymbolTable symbolTable;
+// int main(){
+//     SymbolTable symbolTable;
 
-    string str1 = "(memory.alloc$while_end0)";
-    string str2 = "(OUTPUT_FIRST)";
-    string str3 = "(INFINITE_LOOP)";
+//     string str1 = "(memory.alloc$while_end0)";
+//     string str2 = "(OUTPUT_FIRST)";
+//     string str3 = "(INFINITE_LOOP)";
 
-    string newKey1 = "@memory.alloc$while_end0";
-    string newKey2 = "@OUTPUT_FIRST";
-    string newKey3 = "@INFINITE_LOOP";
+//     string newKey1 = "@memory.alloc$while_end0";
+//     string newKey2 = "@OUTPUT_FIRST";
+//     string newKey3 = "@INFINITE_LOOP";
 
-    symbolTable.addEntry(str1, 16);
-    symbolTable.addEntry(str2, 17);
-    symbolTable.addEntry(str3, 18);
+//     symbolTable.addEntry(str1, 16);
+//     symbolTable.addEntry(str2, 17);
+//     symbolTable.addEntry(str3, 18);
 
-    printf("%i\n", symbolTable.getAddress(newKey1));
-    printf("%i\n", symbolTable.getAddress(newKey2));
-    printf("%i\n", symbolTable.getAddress(newKey3));
-}
+//     printf("%i\n", symbolTable.getAddress(newKey1));
+//     printf("%i\n", symbolTable.getAddress(newKey2));
+//     printf("%i\n", symbolTable.getAddress(newKey3));
+// }

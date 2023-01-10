@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../binary/codegen.cc"
-#include "../parser/parser.cc"
 #include "../symbol_table/symboltable.cc"
 
 
@@ -99,8 +98,6 @@ int main(int argc, char *argv[])
     //##################################################################################
     // Second Pass to create executable ################################################
     //##################################################################################
-
-    char* buffer = NULL;
     CodeGenerator codeGen;
     do{
         int newlineOffset = offsetOfNewLine(assembly_file) + 1;
