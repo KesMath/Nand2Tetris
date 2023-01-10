@@ -11,8 +11,8 @@ code:
 
 table:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o symbol_table.o -c symbol_table/symbol_table.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o symbol_table parser.o symbol_table.o
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o symboltable.o -c symbol_table/symboltable.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o symboltable parser.o symboltable.o
 
 
 asm:
@@ -53,4 +53,4 @@ clean-parse:
 
 clean-table:
 	rm parser.o
-	rm symbol_table.o
+	rm symboltable.o

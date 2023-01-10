@@ -57,6 +57,7 @@ class SymbolTable{
             if(it != table.end()){
                 return it->second;
             }
+            return -1;
         }
 };
 
@@ -68,11 +69,15 @@ int main(){
     string str2 = "(OUTPUT_FIRST)";
     string str3 = "(INFINITE_LOOP)";
 
+    string parsedStr1 = "memory.alloc$while_end0";
+    string parsedStr2 = "OUTPUT_FIRST";
+    string parsedStr3 = "INFINITE_LOOP";
+
     symbolTable.addEntry(str1, 16);
     symbolTable.addEntry(str2, 17);
     symbolTable.addEntry(str3, 18);
 
-    printf("%i\n", symbolTable.getAddress(str1));
-    printf("%i\n", symbolTable.getAddress(str2));
-    printf("%i\n", symbolTable.getAddress(str3));
+    printf("%i\n", symbolTable.getAddress(parsedStr1));
+    printf("%i\n", symbolTable.getAddress(parsedStr2));
+    printf("%i\n", symbolTable.getAddress(parsedStr3));
 }
