@@ -49,7 +49,7 @@ class SymbolTable{
         void addEntry(string label, int line_pos){
             it = table.find(label);
             if(it == table.end()){ //iterator returns null when it cannot find the key in question
-                table[parse.parseSymbol(label.data())] = line_pos;
+                table["@" + parse.parseSymbol(label.data())] = line_pos;
             }
         }
         int getAddress(string label){
@@ -69,15 +69,15 @@ int main(){
     string str2 = "(OUTPUT_FIRST)";
     string str3 = "(INFINITE_LOOP)";
 
-    string parsedStr1 = "memory.alloc$while_end0";
-    string parsedStr2 = "OUTPUT_FIRST";
-    string parsedStr3 = "INFINITE_LOOP";
+    string newKey1 = "@memory.alloc$while_end0";
+    string newKey2 = "@OUTPUT_FIRST";
+    string newKey3 = "@INFINITE_LOOP";
 
     symbolTable.addEntry(str1, 16);
     symbolTable.addEntry(str2, 17);
     symbolTable.addEntry(str3, 18);
 
-    printf("%i\n", symbolTable.getAddress(parsedStr1));
-    printf("%i\n", symbolTable.getAddress(parsedStr2));
-    printf("%i\n", symbolTable.getAddress(parsedStr3));
+    printf("%i\n", symbolTable.getAddress(newKey1));
+    printf("%i\n", symbolTable.getAddress(newKey2));
+    printf("%i\n", symbolTable.getAddress(newKey3));
 }
