@@ -142,16 +142,16 @@ int main(int argc, char *argv[])
             uint8_t instructionType = parse.parseInstructionType(&command[0]);
 
             if(instructionType == A_INSTRUCTION){
-                parsedCmd = parse.parseSymbol(&command[0]);
-                binOut = decimal_to_binary(atoi(parsedCmd.c_str()));
-                assert(binOut[0] == ZERO);
-            }
-            else if(instructionType == L_INSTRUCTION){
-                // handled by symbol table
-                // NEXT STEPS: 
-                // (1) - create symbol table module and add logic here:
-                // where we check if @XXX is in symbol table, if not then we assume it's a regular A_Instruction
-
+                int line_pos = symbolTable.getAddress(command);
+                if(line_pos != -1){ // implication that @LABEL exists within symbol table
+                    binOut = decimal_to_binary(line_pos);
+                    assert(binOut[0] == ZERO);
+                }
+                else{
+                    parsedCmd = parse.parseSymbol(&command[0]);
+                    binOut = decimal_to_binary(atoi(parsedCmd.c_str()));
+                    assert(binOut[0] == ZERO);
+                }
             }
             else if(instructionType == C_INSTRUCTION){
                 // parse and get codegen mapping
