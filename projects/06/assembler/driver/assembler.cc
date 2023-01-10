@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "../binary/codegen.cc"
 #include "../parser/parser.cc"
+#include "../symbol_table/symboltable.cc"
 
 
 const uint8_t ZERO = 48;
@@ -49,15 +50,57 @@ int main(int argc, char *argv[])
     //##################################################################################
     // ####### First Pass to populate SymbolTable with programmer-defined labels #######
     //##################################################################################
+    SymbolTable symbolTable;
+    Parser parse;
+    char* buffer = NULL;
+    int cout = 16;
+    do{
+        int newlineOffset = offsetOfNewLine(assembly_file) + 1;
+
+        if(newlineOffset == -1){
+            break;
+        }
+        buffer = (char*) calloc(1, newlineOffset);
+
+        if(buffer == NULL){
+            printf("Unable to allocate memory for program usage...\n");
+            exit(0);
+        }
+
+        // rewind file position indicator (*newlineOffset times*) so buffer can consume all characters inbetween using fgets()
+        // Reference of negative offsets to move file pointer backwards
+        // https://www.oreilly.com/library/view/c-in-a/0596006977/re96.html
+        fseek(assembly_file, (-1) * newlineOffset, SEEK_CUR);
+
+        // as a side effect, fast-forwarding file position indicator will be done by fgets() 
+        //so we can proceed to next line without being infinitely stuck reading first line
+        fgets(buffer, newlineOffset, assembly_file);
+
+        // only processing lines with instructions
+        if(!ignoreLine(buffer)){
+            char* strippedBuff = strip_inline_comment(buffer);
+            vector<char> instructionChars = strip_leading_and_trailing_whitespace(strippedBuff);
+            string command = to_string(instructionChars);
+
+            uint8_t instructionType = parse.parseInstructionType(&command[0]);
+
+            if(instructionType == L_INSTRUCTION){
+                symbolTable.addEntry(command, ++cout);
+            }
+        }
+        free(buffer);
+    } while(fgetc(assembly_file) != EOF);
+
+    //##################################################################################
+    // ####### Rewind File Position Indicator back to beginning of file ################
+    //##################################################################################
+    rewind(assembly_file);
 
     //##################################################################################
     // Second Pass to create executable ################################################
     //##################################################################################
 
-    // NOTE: we cannot assume the number of characters (or size of bytes) per line in order to allocate on to a buffer in advance
-    // so we must use fgetc() (supplemented with a counter) for safer approach until NEWLINE is met
     char* buffer = NULL;
-    Parser parse;
     CodeGenerator codeGen;
     do{
         int newlineOffset = offsetOfNewLine(assembly_file) + 1;
@@ -164,6 +207,8 @@ int main(int argc, char *argv[])
     exit(0);
 }
 
+// NOTE: we cannot assume the number of characters (or size of bytes) per line in order to allocate on to a buffer in advance
+// so we must use fgetc() (supplemented with a counter) for safer approach until NEWLINE is met
 int offsetOfNewLine(FILE *fstream){
     int cout = 0;
     char ch;
