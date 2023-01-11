@@ -103,7 +103,8 @@ int main(int argc, char *argv[])
     // Second Pass to create executable ################################################
     //##################################################################################
     CodeGenerator codeGen;
-    int varAddr = 16; 
+    int varAddr = 16;
+    int lineCout = -1; 
     do{
         int newlineOffset = offsetOfNewLine(assembly_file) + 1;
 
@@ -128,6 +129,8 @@ int main(int argc, char *argv[])
         
         // only processing lines with instructions
         if(!ignoreLine(buffer)){
+            ++lineCout;
+            printf("LINE COUT: %i\n", lineCout);
             printf("Original Buffer: %s\n", (char*)buffer);
             //printf("Size of buffer: %lu\n", string(buffer).size());
             char* strippedBuff = strip_inline_comment(buffer);

@@ -31,7 +31,7 @@ run-max:
 	./assembler ../max/MaxL.asm
 
 run-pong:
-	# ./assembler ../pong/Pong.asm
+	./assembler ../pong/Pong.asm
 	./assembler ../pong/PongL.asm
 
 run-rect:
@@ -41,7 +41,7 @@ run-rect:
 run-all:
 	make run-add
 	make run-max
-	# make run-pong
+	make run-pong
 	make run-rect
 
 clean-asm:
