@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 
             if(instructionType == L_INSTRUCTION){
                 symbolTable.addEntry(command, ++cout);
-                printf("SYMBOL TABLE LABEL: %s at address: %i\n", command.c_str(), symbolTable.getAddress("@" + command));
+                printf("SYMBOL TABLE LABEL: %s at address: %i\n", command.c_str(), symbolTable.getAddress("@" + command.substr(1, command.size()-2)));
             }
         }
         free(buffer);
@@ -191,10 +191,13 @@ int main(int argc, char *argv[])
             // write binary output to new file
             printf("BinOut: %s\n", binOut.c_str());
             printf("BinOut Size: %lu\n", binOut.size());
-            assert(binOut.size() == WORD_SIZE);
-            assert(isCharSetBinary(binOut));
-
-            fprintf(executable_file, "%s\n", binOut.c_str());
+            if(instructionType != L_INSTRUCTION){
+                assert(binOut.size() == WORD_SIZE);
+                assert(isCharSetBinary(binOut));
+            }
+            if(binOut.size() != 0){
+                fprintf(executable_file, "%s\n", binOut.c_str());
+            }
         }
         free(buffer); 
     } while(fgetc(assembly_file) != EOF);
