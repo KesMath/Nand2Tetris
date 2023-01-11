@@ -103,6 +103,7 @@ int main(int argc, char *argv[])
     // Second Pass to create executable ################################################
     //##################################################################################
     CodeGenerator codeGen;
+    int varAddr = 16; 
     do{
         int newlineOffset = offsetOfNewLine(assembly_file) + 1;
 
@@ -146,6 +147,12 @@ int main(int argc, char *argv[])
                 int line_pos = symbolTable.getAddress(command);
                 if(line_pos != -1){ // implication that @LABEL exists within symbol table
                     binOut = decimal_to_binary(line_pos);
+                    assert(binOut[0] == ZERO);
+                }
+                else if(line_pos == -1 && atoi(&command[1]) == 0 && command[1] != '0'){ // implies user-defined variable
+                    symbolTable.addEntry(command, varAddr);
+                    binOut = decimal_to_binary(varAddr);
+                    ++varAddr;
                     assert(binOut[0] == ZERO);
                 }
                 else{

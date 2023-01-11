@@ -15,11 +15,7 @@ table:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o symboltable parser.o symboltable.o
 
 
-asm:
-	# how is compiler able to resolve object file build dependencies and automatically include it, without to explicit syntax?
-	# my assumption is that based on import declaratives, it may descent down a path of dependencies recursively until a terminal object file is found
-	# then compile it and traverse upwards, performing linking operation until root node/ file has all dependencies satisfied.
- 
+asm: 
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o util.o -c utility/util.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o codegen.o -c binary/codegen.cc
@@ -32,18 +28,20 @@ run-add:
 
 run-max:
 	./assembler ../max/Max.asm
-	# ./assembler ../max/MaxL.asm
+	./assembler ../max/MaxL.asm
 
 run-pong:
+	# ./assembler ../pong/Pong.asm
 	./assembler ../pong/PongL.asm
 
 run-rect:
+	./assembler ../rect/Rect.asm
 	./assembler ../rect/RectL.asm
 
 run-all:
 	make run-add
 	make run-max
-	make run-pong
+	# make run-pong
 	make run-rect
 
 clean-asm:
