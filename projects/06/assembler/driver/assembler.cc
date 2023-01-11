@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     SymbolTable symbolTable;
     Parser parse;
     char* buffer = NULL;
-    int cout = 16;
+    int cout = -1;
     do{
         int newlineOffset = offsetOfNewLine(assembly_file) + 1;
 
@@ -84,9 +84,12 @@ int main(int argc, char *argv[])
             uint8_t instructionType = parse.parseInstructionType(&command[0]);
 
             if(instructionType == L_INSTRUCTION){
-                symbolTable.addEntry(command, ++cout);
+                symbolTable.addEntry(command, cout + 1);
                 printf("SYMBOL TABLE LABEL: %s at address: %i\n", command.c_str(), symbolTable.getAddress("@" + command.substr(1, command.size()-2)));
+                cout--; //used to account for deletion of (LABEL) from output file
             }
+            cout++;
+            printf("Command: %s Cout: %i\n", command.c_str(), cout);
         }
         free(buffer);
     } while(fgetc(assembly_file) != EOF);
