@@ -1,4 +1,3 @@
-*.hdl linguist-detectable=true
 *.html linguist-detectable=false
 *.java linguist-detectable=false
 *.tst linguist-detectable=false
