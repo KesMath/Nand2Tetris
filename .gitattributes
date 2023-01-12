@@ -1,3 +1,4 @@
+*.hdl linguist-detectable=true
 *.html linguist-detectable=false
 *.java linguist-detectable=false
 *.tst linguist-detectable=false
@@ -5,4 +6,3 @@
 *.bat linguist-detectable=false
 *.asm linguist-detectable=false
 *.sh linguist-detectable=false
-*.hdl linguist-detectable=true
