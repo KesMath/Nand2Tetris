@@ -74,7 +74,6 @@ class CodeGenerator {
     }
 
     string getCompBinary(string compCmd){
-      printf("Comp Cmd: %s\n", compCmd.c_str());	
       it = compMap.find(compCmd);
       if(it != compMap.end()){
         return it->second;

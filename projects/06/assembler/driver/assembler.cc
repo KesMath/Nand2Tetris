@@ -85,11 +85,9 @@ int main(int argc, char *argv[])
 
             if(instructionType == L_INSTRUCTION){
                 symbolTable.addEntry(command, cout + 1);
-                printf("SYMBOL TABLE LABEL: %s at address: %i\n", command.c_str(), symbolTable.getAddress("@" + command.substr(1, command.size()-2)));
                 cout--; //used to account for deletion of (LABEL) from output file
             }
             cout++;
-            printf("Command: %s Cout: %i\n", command.c_str(), cout);
         }
         free(buffer);
     } while(fgetc(assembly_file) != EOF);
@@ -130,11 +128,7 @@ int main(int argc, char *argv[])
         // only processing lines with instructions
         if(!ignoreLine(buffer)){
             ++lineCout;
-            printf("LINE COUT: %i\n", lineCout);
-            printf("Original Buffer: %s\n", (char*)buffer);
-            //printf("Size of buffer: %lu\n", string(buffer).size());
             char* strippedBuff = strip_inline_comment(buffer);
-            printf("Stripped Buffer: %s\n", (char*)strippedBuff);
             vector<char> instructionChars = strip_leading_and_trailing_whitespace(strippedBuff);
             string command = to_string(instructionChars);
 
@@ -175,23 +169,14 @@ int main(int argc, char *argv[])
                 if(parse.isAssignmentInstruction(&command[0])){
                     // for "dest=comp" expressions
                     parseCmds = parse.parseAssignmentInstruction(command);
-                    printf("parseCmds Size: %lu\n", parseCmds.size());
-                    printf("parseCmds[0]: %s\n", parseCmds[0].c_str());
-                    printf("parseCmds[1]: %s\n", parseCmds[1].c_str());
-
                     destBin = codeGen.getDestBinary(parseCmds[0]);
-                    printf("destBin: %s\n", destBin.c_str());
                     compBin = codeGen.getCompBinary(parseCmds[1]);
-                    printf("compBin: %s\n", compBin.c_str());
                     jmpBin = "000";
                     aBit = codeGen.getABit(parseCmds[1]);                    
                 }
                 else if(parse.isJumpInstruction(&command[0])){
                     // for "comp;jmp" expressions
                     parseCmds = parse.parseJumpInstruction(command);
-                    printf("parseCmds Size: %lu\n", parseCmds.size());
-                    printf("parseCmds[0]: %s\n", parseCmds[0].c_str());
-                    printf("parseCmds[1]: %s\n", parseCmds[1].c_str());
                     compBin = codeGen.getCompBinary(parseCmds[0]);
                     jmpBin = codeGen.getJumpBinary(parseCmds[1]);
                     destBin = "000";
@@ -202,8 +187,6 @@ int main(int argc, char *argv[])
             }
         
             // write binary output to new file
-            printf("BinOut: %s\n", binOut.c_str());
-            printf("BinOut Size: %lu\n", binOut.size());
             if(instructionType != L_INSTRUCTION){
                 assert(binOut.size() == WORD_SIZE);
                 assert(isCharSetBinary(binOut));
