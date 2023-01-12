@@ -1,3 +1,4 @@
 *.html linguist-detectable=false
 *.java linguist-detectable=false
-*.scilab linguist-detectable=false
+*.tst linguist-detectable=false
+*.hack linguist-detectable=false
