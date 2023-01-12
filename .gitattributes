@@ -3,3 +3,4 @@
 *.tst linguist-detectable=false
 *.hack linguist-detectable=false
 *.bat linguist-detectable=false
+*.asm linguist-detectable=false
