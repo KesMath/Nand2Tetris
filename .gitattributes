@@ -4,5 +4,5 @@
 *.tst linguist-detectable=false
 *.hack linguist-detectable=false
 *.bat linguist-detectable=false
-*.asm linguist-detectable=true
+*.asm linguist-detectable=false
 *.sh linguist-detectable=false
