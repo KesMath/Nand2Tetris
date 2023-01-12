@@ -5,3 +5,4 @@
 *.bat linguist-detectable=false
 *.asm linguist-detectable=false
 *.sh linguist-detectable=false
+*.hdl linguist-detectable=true
