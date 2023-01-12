@@ -2,3 +2,4 @@
 *.java linguist-detectable=false
 *.tst linguist-detectable=false
 *.hack linguist-detectable=false
+*.bat linguist-detectable=false
