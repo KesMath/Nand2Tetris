@@ -4,10 +4,11 @@
 SANITIZER_FLAGS = -fsanitize=undefined -fsanitize=bounds -fsanitize=address
 
 util:
-	# FIXME
+# FIXME - resolve sanitizer errors!!
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 utility/util.cc -o util
 
 parse:
+# FIXME - resolve sanitizer errors!!
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o util.o -c utility/util.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parse parser.o util.o
