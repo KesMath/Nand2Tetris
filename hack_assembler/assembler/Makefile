@@ -1,4 +1,10 @@
+# LIST OF Sanitizers: https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
+# NOTE: '-fsanitize=leak' is not natively supported on my dev machine='x86_64-apple-darwin20.2.0'
+
+SANITIZER_FLAGS = -fsanitize=undefined -fsanitize=bounds -fsanitize=address -fsanitize=bounds
+
 util:
+	# FIXME
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 utility/util.cc -o util
 
 parse:
@@ -7,7 +13,7 @@ parse:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parse parser.o util.o
 
 code:
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 binary/codegen.cc -o codegen
+	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 binary/codegen.cc -o codegen
 
 table:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc

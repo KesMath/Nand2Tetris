@@ -78,7 +78,6 @@ class CodeGenerator {
       if(it != compMap.end()){
         return it->second;
       }
-	  printf("%s not found\n", compCmd.c_str());
       return "";
     }
 
