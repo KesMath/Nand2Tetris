@@ -1,7 +1,7 @@
 # LIST OF Sanitizers: https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
 # NOTE: '-fsanitize=leak' is not natively supported on my dev machine='x86_64-apple-darwin20.2.0'
 
-SANITIZER_FLAGS = -fsanitize=undefined -fsanitize=bounds -fsanitize=address -fsanitize=bounds
+SANITIZER_FLAGS = -fsanitize=undefined -fsanitize=bounds -fsanitize=address
 
 util:
 	# FIXME
