@@ -7,7 +7,6 @@ util:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 utility/util.cc -o util
 
 parse:
-# FIXME - resolve sanitizer errors!!
 	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 -o util.o -c utility/util.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 -o parser.o -c parser/parser.cc
 	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 -o parse parser.o util.o
@@ -60,7 +59,6 @@ clean-asm:
 clean-parse:
 	rm parser.o
 	rm util.o
-	rm parse
 
 clean-table:
 	rm parser.o

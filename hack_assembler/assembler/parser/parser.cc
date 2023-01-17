@@ -25,13 +25,13 @@ class Parser {
         // else if command is @XXX, returns the symbol or decimal XXX
         string str;
         if(parseInstructionType(command) == A_INSTRUCTION){
-            char s [strlen(command)];
+            char s [strlen(command) + 1];
             strcpy(s, command);
             str = s;
             str = str.substr(1, str.length() - 1);
         }
         else if(parseInstructionType(command) == L_INSTRUCTION){
-            char s [strlen(command)];
+            char s [strlen(command) + 1];
             strcpy(s, command);
             str = s;
             str = str.substr(1, str.length() - 2);
@@ -43,7 +43,8 @@ class Parser {
         vector<string> vec;
         if(isAssignmentInstruction(command.data())){
             char equal = EQUAL;
-            vec = split(command.data(), &equal);
+            string equalStr(1, equal);
+            vec = split(command, equalStr);
         }
         return vec;
     }
@@ -53,7 +54,8 @@ class Parser {
         vector<string> vec;
         if(isJumpInstruction(command.data())){
             char semicolon = SEMICOLON;
-            vec = split(command.data(), &semicolon);
+            string semicolStr(1, semicolon);
+            vec = split(command, semicolStr);
         }
         return vec;
     }
@@ -76,28 +78,28 @@ class Parser {
 };
 
 // //FOR UNIT TESTING PURPOSES - uncomment and run 'make parse'
-// int main(){
-//     char aInstruction[] = "@1234";
-//     char labelInstruction[] = "(memory.alloc$while_end0)";
-//     string cInstruction1 = "AMD=M-1";
-//     string cInstruction2 = "0;JMP";
+int main(){
+    char aInstruction[] = "@1234";
+    char labelInstruction[] = "(memory.alloc$while_end0)";
+    string cInstruction1 = "AMD=M-1";
+    string cInstruction2 = "0;JMP";
 
-//     Parser parse;
-//     // for (LABEL) or @XXX type of instructions
-//     printf("%s\n", parse.parseSymbol(aInstruction).c_str());
-//     printf("%s\n", parse.parseSymbol(labelInstruction).c_str());
+    Parser parse;
+    // for (LABEL) or @XXX type of instructions
+    printf("%s\n", parse.parseSymbol(aInstruction).c_str());
+    printf("%s\n", parse.parseSymbol(labelInstruction).c_str());
 
-//     //for "D=D-A" type of instructions
-//     vector<string> vec0 = parse.parseAssignmentInstruction(cInstruction1);
-//     printf("Vector0 Size: %lu\n", vec0.size());
-//     for(string str: vec0){
-//         printf("%s\n", str.c_str());
-//     }
+    //for "D=D-A" type of instructions
+    vector<string> vec0 = parse.parseAssignmentInstruction(cInstruction1);
+    printf("Vector0 Size: %lu\n", vec0.size());
+    for(string str: vec0){
+        printf("%s\n", str.c_str());
+    }
 
-//     // for "D;JGT" type of instructions
-//     vector<string> vec1 = parse.parseJumpInstruction(cInstruction2);
-//     printf("Vector1 Size: %lu\n", vec1.size());
-//     for(string str: vec1){
-//         printf("%s\n", str.c_str());
-//     }
-// }
+    // for "D;JGT" type of instructions
+    vector<string> vec1 = parse.parseJumpInstruction(cInstruction2);
+    printf("Vector1 Size: %lu\n", vec1.size());
+    for(string str: vec1){
+        printf("%s\n", str.c_str());
+    }
+}
