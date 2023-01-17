@@ -4,14 +4,13 @@
 SANITIZER_FLAGS = -fsanitize=undefined -fsanitize=bounds -fsanitize=address
 
 util:
-# FIXME - resolve heap-buffer-overflow error!!
-	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O0 utility/util.cc -o util
+	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 utility/util.cc -o util
 
 parse:
 # FIXME - resolve sanitizer errors!!
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o util.o -c utility/util.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parse parser.o util.o
+	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 -o util.o -c utility/util.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 -o parser.o -c parser/parser.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 -o parse parser.o util.o
 
 code:
 	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 binary/codegen.cc -o codegen
