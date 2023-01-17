@@ -19,9 +19,9 @@ code:
 
 table:
 # uncomment 'main' in 'symbol_table/symboltable.cc' prior to running this cmd!
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o parser.o -c parser/parser.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o symboltable.o -c symbol_table/symboltable.cc
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 -o symboltable parser.o symboltable.o
+	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 -o parser.o -c parser/parser.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 -o symboltable.o -c symbol_table/symboltable.cc
+	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O3 -o symboltable parser.o symboltable.o
 
 
 asm: 
