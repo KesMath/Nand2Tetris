@@ -4,8 +4,8 @@
 SANITIZER_FLAGS = -fsanitize=undefined -fsanitize=bounds -fsanitize=address
 
 util:
-# FIXME - resolve sanitizer errors!!
-	c++ -std=gnu++2a -Wall -Werror -Wshadow -g -O3 utility/util.cc -o util
+# FIXME - resolve heap-buffer-overflow error!!
+	c++ -std=gnu++2a -Wall -Werror -Wshadow ${SANITIZER_FLAGS} -g -O0 utility/util.cc -o util
 
 parse:
 # FIXME - resolve sanitizer errors!!

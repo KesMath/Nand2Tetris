@@ -31,16 +31,14 @@ char* strip_inline_comment(char* buffer){
         return buffer;
     }
     else{
-        char* shrinkedBuff = (char*) malloc(commentIndex);
-        if(shrinkedBuff == NULL){
-            printf("No heap memory available for program use");
-            exit(-1);
+        char* truncatedBuff = (char*) realloc(buffer, commentIndex + 1); // chopping off bytes after index of first comment token is found
+        if(truncatedBuff == NULL){
+            printf("Unable to re-allocate memory for program usage...\n");
+            free(buffer);
+            exit(1);
         }
-        for(int i = 0; i < commentIndex; i++){
-            shrinkedBuff[i] = buffer[i];
-        }
-        shrinkedBuff[commentIndex] = '\0';
-        return shrinkedBuff;
+        truncatedBuff[commentIndex] = '\0';
+        return truncatedBuff;
     }
 }
 
@@ -90,7 +88,7 @@ bool is_charInStr(char* str, char c){
     return false;
 }
 
-// //FOR UNIT TESTING PURPOSES - uncomment and run 'make util'
+//FOR UNIT TESTING PURPOSES - uncomment and run 'make util'
 // int main(){
 //     char cInstruction1[] = "     D=D+A      ";
 //     char cInstruction2[] = "   D  =  D  +  A  ";
@@ -125,8 +123,13 @@ bool is_charInStr(char* str, char c){
 //     // ###########################
 
 //     // ###########################
-//     char* buffer = (char*) malloc(47);
-//     strcpy(buffer, "   D=D-M  // D = first number - second number");
+//     char s[] = "   D=D-M  // D = first number - second number";
+//     char* buffer = (char*) malloc(strlen(s) + 1);
+//     if(buffer == NULL){
+//         printf("unable to allocate buffer...");
+//         exit(-1);
+//     }
+//     strcpy(buffer, s);
 //     printf("%s\n", buffer);
 //     char* stripped = strip_inline_comment(buffer);
 //     printf("%s\n", stripped);
@@ -134,5 +137,5 @@ bool is_charInStr(char* str, char c){
 //     // ###########################
 //     free(str1);
 //     free(str2);
-//     free(buffer);
+//     free(stripped);
 // }
