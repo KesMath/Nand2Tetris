@@ -40,7 +40,6 @@ run-max:
 	./assembler ../max/MaxL.asm
 
 run-pong:
-# FIXME: bit flip occuring on 10th bit of PongL.asm
 	./assembler ../pong/Pong.asm
 	./assembler ../pong/PongL.asm
 
