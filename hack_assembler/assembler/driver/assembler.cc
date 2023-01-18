@@ -88,8 +88,8 @@ int main(int argc, char *argv[])
                 cout--; //used to account for deletion of (LABEL) from output file
             }
             cout++;
+            free(strippedBuff);
         }
-        free(buffer);
     } while(fgetc(assembly_file) != EOF);
 
     //##################################################################################
@@ -194,8 +194,8 @@ int main(int argc, char *argv[])
             if(binOut.size() != 0){
                 fprintf(executable_file, "%s\n", binOut.c_str());
             }
-        }
-        free(buffer); 
+            free(strippedBuff);
+        } 
     } while(fgetc(assembly_file) != EOF);
 
 
