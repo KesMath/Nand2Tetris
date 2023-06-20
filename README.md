@@ -9,14 +9,14 @@ The Hack Assembler is part of the Nand2Tetris course, which provides a hands-on 
 The Hack Assembler specifically focuses on the assembly language used by the Hack computer architecture. It takes assembly code written in the Hack assembly language and translates it into binary machine code. The resulting binary code can be executed directly on the Hack hardware or on the Hack software simulator.
 
 ## Directory Description
-```hack_assembler/assembler/binary/codegen.cc```:  <br>
-```hack_assembler/assembler/driver/assembler.cc```: <br>    
-```hack_assembler/assembler/parser/parsers.cc```:  <br>
-```hack_assembler/assembler/parser/tokens.hh```:   <br>
-```hack_assembler/assembler/symbol_table/symboltable.cc```: <br> 
-```hack_assembler/assembler/utility/util.cc```: <br>
-```hack_assembler/assembler/utility/util.hh```:<br>
-```hack_assembler/assembler/Makefile```: <br>    
+```hack_assembler/assembler/binary/codegen.cc```: mapping of assembly operators to binary representation <br>
+```hack_assembler/assembler/driver/assembler.cc```: main driver file that ingests *.asm and outputs corresponding *.hack <br>    
+```hack_assembler/assembler/parser/parsers.cc```: module responsible for parsing assembly instructions<br>
+```hack_assembler/assembler/parser/tokens.hh```: header file containing ASCII definitions used to signal assembly instruction types to parser<br>
+```hack_assembler/assembler/symbol_table/symboltable.cc```: module containing in-memory storage for user-defined labels<br> 
+```hack_assembler/assembler/utility/util.cc```: utilities module<br>
+```hack_assembler/assembler/utility/util.hh```: corresponding header file <br>
+```hack_assembler/assembler/Makefile```: build commands to compile modules individually as well as perform directory cleanup on intermediary object files<br>    
 
 ## Usage
 
