@@ -10,7 +10,7 @@ The Hack Assembler specifically focuses on the assembly language used by the Hac
 
 ## Directory Description
 ```hack_assembler/assembler/binary/codegen.cc```: mapping of assembly operators to binary representation <br>
-```hack_assembler/assembler/driver/assembler.cc```: main driver file that ingests *.asm and outputs corresponding *.hack <br>    
+```hack_assembler/assembler/driver/assembler.cc```: main driver file that ingests *.asm and outputs *.hack to be ran as an executable on [CPU_Emulator](https://github.com/KesMath/Nand2Tetris/blob/master/tools/CPUEmulator.sh) <br>    
 ```hack_assembler/assembler/parser/parsers.cc```: module responsible for parsing assembly instructions<br>
 ```hack_assembler/assembler/parser/tokens.hh```: header file containing ASCII definitions used to signal assembly instruction types to parser<br>
 ```hack_assembler/assembler/symbol_table/symboltable.cc```: module containing in-memory storage for user-defined labels<br> 
