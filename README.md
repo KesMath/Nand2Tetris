@@ -1,4 +1,4 @@
-## :computer::floppy_disk:Nand2Tetris 2-Pass Hack Assembler (Project-Centered Course):floppy_disk::computer:
+## :floppy_disk:Nand2Tetris 2-Pass Hack Assembler (Project-Centered Course):floppy_disk:
 
 This repository contains the Hack Assembler project from the Nand2Tetris course. The Hack Assembler is a tool used to convert assembly language code written in the Hack assembly language into binary machine code that can be executed by the Hack computer.
 
