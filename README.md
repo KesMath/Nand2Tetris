@@ -38,7 +38,7 @@ To use the Hack Assembler, follow these steps:
     make run-all 
 
 
-The Hack Assembler will output the resulting binary code that's to be run on Hack's CPU Emulator:
+The Hack Assembler will output the resulting binary code that's to be run on Hack's CPU Emulator: <br>
 ```Add.hack```: Adds the constants 2 and 3, and puts the result in R0. <br>
 ```Max.hack```: Computes max(R0, R1) and puts the result in R2. <br>
 ```MaxL.hack```: Same as above without user-defined symbols <br>
