@@ -27,7 +27,7 @@ To get started with the Hack Assembler, follow these steps:
 Navigate to the Hack Assembler directory:
 
 
-    cd Nand2Tetris/hack_assembler
+    cd Nand2Tetris/hack_assembler/assembler
 
 
 To use the Hack Assembler, follow these steps:
