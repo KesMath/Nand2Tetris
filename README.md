@@ -9,8 +9,8 @@ The Hack Assembler is part of the Nand2Tetris course, which provides a hands-on 
 The Hack Assembler specifically focuses on the assembly language used by the Hack computer architecture. It takes assembly code written in the Hack assembly language and translates it into binary machine code. The resulting binary code can be executed directly on the Hack hardware or on the Hack software simulator.
 
 ## Directory Description
-```hack_assembler/assembler/binary/codegen.cc```: 
-```hack_assembler/assembler/driver/assembler.cc```:    
+```hack_assembler/assembler/binary/codegen.cc```: test
+```hack_assembler/assembler/driver/assembler.cc```: test    
 ```hack_assembler/assembler/parser/parsers.cc```:  
 ```hack_assembler/assembler/parser/tokens.hh```:   
 ```hack_assembler/assembler/symbol_table/symboltable.cc```: 
