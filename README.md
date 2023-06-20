@@ -9,32 +9,26 @@ The Hack Assembler is part of the Nand2Tetris course, which provides a hands-on 
 The Hack Assembler specifically focuses on the assembly language used by the Hack computer architecture. It takes assembly code written in the Hack assembly language and translates it into binary machine code. The resulting binary code can be executed directly on the Hack hardware or on the Hack software simulator.
 Getting Started
 
+
+
+## Usage
+
 To get started with the Hack Assembler, follow these steps:
 
-    Clone the repository:
-
-    sh
-
-```git clone https://github.com/KesMath/Nand2Tetris.git```
 
 Navigate to the Hack Assembler directory:
 
 
-    ```cd Nand2Tetris/hack_assembler```
+    cd Nand2Tetris/hack_assembler
 
-    Follow the instructions provided in the project's directory to complete the Hack Assembler implementation.
-
-## Usage
 
 To use the Hack Assembler, follow these steps:
 
-    Ensure that you have completed the Hack Assembler implementation as per the instructions in the project's directory.
 
     Run the Hack Assembler using the following command:
 
-    sh
+    ./assembler <input-file.asm>
 
-```./assembler <input-file.asm>```
 
 Replace <input-file.asm> with the path to your Hack assembly file. The Hack Assembler will generate a corresponding binary file with the .hack extension.
 
