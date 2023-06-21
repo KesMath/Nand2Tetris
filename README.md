@@ -49,4 +49,5 @@ and R0 pixels high. Before running this program, put a non-negative value in R0.
 The player attempts to hit the ball with a paddle, by pressing the left and right arrow keys.<br>
 ```PongL.hack```: Same as above without user-defined symbols <br>
 
-## Demo
+## Demo of Pong.hack on CPU Emulator
+<img src="assembler/assembler_out.gif">
