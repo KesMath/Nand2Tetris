@@ -50,4 +50,4 @@ The player attempts to hit the ball with a paddle, by pressing the left and righ
 ```PongL.hack```: Same as above without user-defined symbols <br>
 
 ## Demo of Pong.hack on CPU Emulator
-<img src="assembler/assembler_out.gif">
+<img src="hack_assembler/assembler/assembler_out.gif">
