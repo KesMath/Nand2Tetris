@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
         if(!ignoreLine(buffer)){
             char* strippedBuff = strip_inline_comment(buffer);
             vector<char> instructionChars = strip_leading_and_trailing_whitespace(strippedBuff);
-            string command = to_string(instructionChars);
+            char* command = to_string(instructionChars);
 
             uint8_t instructionType = parse.parseInstructionType(&command[0]);
 
@@ -95,6 +95,7 @@ int main(int argc, char *argv[])
             }
             cout++;
             free(strippedBuff);
+            free(command);
         }
     } while(fgetc(assembly_file) != EOF);
 
@@ -141,7 +142,7 @@ int main(int argc, char *argv[])
             ++lineCout;
             char* strippedBuff = strip_inline_comment(buffer);
             vector<char> instructionChars = strip_leading_and_trailing_whitespace(strippedBuff);
-            string command = to_string(instructionChars);
+            char* command = to_string(instructionChars);
 
             // determine instruction type
             // IMPROVEMENT POINTS FOR EFFICIENCY: leverage pointers (which will mutate contents at that address)
@@ -206,6 +207,7 @@ int main(int argc, char *argv[])
                 fprintf(executable_file, "%s\n", binOut.c_str());
             }
             free(strippedBuff);
+            free(command);
         } 
     } while(fgetc(assembly_file) != EOF);
 

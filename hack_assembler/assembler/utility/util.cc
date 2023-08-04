@@ -42,7 +42,6 @@ char* strip_inline_comment(char* buffer){
 }
 
 char* to_string(vector<char> charlist){
-    // FIXME: mem leak occurring here!
     char *str = (char*) malloc(charlist.size() + 1);
     if(str == NULL){
         printf("Insufficient heap memory...\n");
