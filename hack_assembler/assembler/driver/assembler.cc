@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
         if(newlineOffset == 0){
             break;
         }
+        // FIXME: mem leak occurring here!
         buffer = (char*) calloc(1, newlineOffset);
 
         if(buffer == NULL){
@@ -114,6 +115,7 @@ int main(int argc, char *argv[])
         if(newlineOffset == 0){
             break;
         }
+        // FIXME: mem leak occurring here!
         buffer = (char*) calloc(1, newlineOffset);
 
         if(buffer == NULL){
