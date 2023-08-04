@@ -32,9 +32,9 @@ Navigate to the Hack Assembler directory:
 To use the Hack Assembler, follow these steps:
 
 
-    Run the Hack Assembler using the following command:
+    Run the Hack Assembler using the following command (COMPILED ON: x86_64 GNU/Linux):
 
-    make asm #COMPILED ON: x86_64 GNU/Linux
+    make asm
     make run-all 
 
 
