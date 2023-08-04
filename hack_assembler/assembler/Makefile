@@ -1,4 +1,5 @@
 # LIST OF Sanitizers: https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
+# COMPILED ON: x86_64 GNU/Linux
 
 SANITIZER_FLAGS = -fsanitize=undefined -fsanitize=bounds -fsanitize=address -fsanitize=leak
 
