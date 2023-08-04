@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <cassert>
 #include "../binary/codegen.cc"
 #include "../symbol_table/symboltable.cc"
 
@@ -56,14 +57,14 @@ int main(int argc, char *argv[])
     do{
         int newlineOffset = offsetOfNewLine(assembly_file) + 1;
 
-        if(newlineOffset == -1){
+        if(newlineOffset == 0){
             break;
         }
         buffer = (char*) calloc(1, newlineOffset);
 
         if(buffer == NULL){
             printf("Unable to allocate memory for program usage...\n");
-            exit(0);
+            exit(-1);
         }
 
         // rewind file position indicator (*newlineOffset times*) so buffer can consume all characters inbetween using fgets()
@@ -73,7 +74,11 @@ int main(int argc, char *argv[])
 
         // as a side effect, fast-forwarding file position indicator will be done by fgets() 
         //so we can proceed to next line without being infinitely stuck reading first line
-        fgets(buffer, newlineOffset, assembly_file);
+        if (fgets(buffer, newlineOffset, assembly_file) == NULL){
+            printf("Unable to read line from file...\n");
+            free(buffer);
+            exit(-1);
+        }
 
         // only processing lines with instructions
         if(!ignoreLine(buffer)){
@@ -113,7 +118,7 @@ int main(int argc, char *argv[])
 
         if(buffer == NULL){
             printf("Unable to allocate memory for program usage...\n");
-            exit(0);
+            exit(-1);
         }
 
         // rewind file position indicator (*newlineOffset times*) so buffer can consume all characters inbetween using fgets()
@@ -123,7 +128,11 @@ int main(int argc, char *argv[])
 
         // as a side effect, fast-forwarding file position indicator will be done by fgets() 
         //so we can proceed to next line without being infinitely stuck reading first line
-        fgets(buffer, newlineOffset, assembly_file);
+        if (fgets(buffer, newlineOffset, assembly_file) == NULL){
+            printf("Unable to read line from file...\n");
+            free(buffer);
+            exit(-1);
+        }
         
         // only processing lines with instructions
         if(!ignoreLine(buffer)){
@@ -222,7 +231,7 @@ int offsetOfNewLine(FILE *fstream){
 }
 
 bool isCharSetBinary(string bin){
-    for(int i = 0; i < bin.size(); i++){
+    for(long unsigned int i = 0; i < bin.size(); i++){
         if((bin[i] != ZERO) && (bin[i] != ONE)){
             return false;
         }

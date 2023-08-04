@@ -1,6 +1,5 @@
 #include "util.hh"
 #include <cassert>
-#include <string>
 #include <bitset>
 
 const uint8_t WHITESPACE = 32;
@@ -21,7 +20,7 @@ vector<char> strip_leading_and_trailing_whitespace(char* command){
 char* strip_inline_comment(char* buffer){
     //NOTE: a comment in this case is just '/' not accurately '//'
     int commentIndex = 0;
-    for(int i = 0; i < strlen(buffer); i++){
+    for(long unsigned int i = 0; i < strlen(buffer); i++){
         if(buffer[i] == COMMENT){
             commentIndex = i;
             break;
@@ -80,7 +79,7 @@ string decimal_to_binary(int dec){
 }
 
 bool is_charInStr(char* str, char c){
-    for(int i = 0; i < strlen(str); i++){
+    for(long unsigned int i = 0; i < strlen(str); i++){
         if(str[i] == c){
             return true;
         }

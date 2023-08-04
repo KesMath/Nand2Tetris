@@ -98,7 +98,7 @@ class CodeGenerator {
 		// (i.e. map<char, map<string, string>> => '0', map<"A-1", "110010">, '1', map<"M-1", "110010">)
 		
 		uint8_t bitIdentifier = 77; // 'M'
-		for(int i = 0; i < compCmd.size(); i++){
+		for(long unsigned int i = 0; i < compCmd.size(); i++){
 			if(compCmd[i] == bitIdentifier){
 				return '1';
 			}

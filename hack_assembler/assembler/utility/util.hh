@@ -1,5 +1,8 @@
 #include <vector>
 using namespace std;
+#include <cstdint>
+#include <string>
+#include <string.h>
 
 // All ROM commands within Hack Architecture is 16-bit instruction set
 const uint8_t COMMENT = 47;
