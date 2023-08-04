@@ -97,6 +97,9 @@ int main(int argc, char *argv[])
             free(strippedBuff);
             free(command);
         }
+        else{
+            free(buffer);
+        }
     } while(fgetc(assembly_file) != EOF);
 
     //##################################################################################
@@ -208,7 +211,10 @@ int main(int argc, char *argv[])
             }
             free(strippedBuff);
             free(command);
-        } 
+        }
+        else{
+            free(buffer); 
+        }
     } while(fgetc(assembly_file) != EOF);
 
 
