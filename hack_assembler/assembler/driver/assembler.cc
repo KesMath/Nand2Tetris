@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
     do{
         int newlineOffset = offsetOfNewLine(assembly_file) + 1;
 
-        if(newlineOffset == -1){
+        if(newlineOffset == 0){
             break;
         }
         buffer = (char*) calloc(1, newlineOffset);
